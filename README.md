@@ -90,3 +90,13 @@ Set it to `true` to enable Turbo everywhere, or you can use `data-turbo="true"` 
 - aliariff.vscode-erb-beautify
 - eamodio.gitlens
 - setobiralo.erb-commenter
+
+# NOTES
+
+## A. Getting Started
+1. Clone a new repo from https://github.com/new?template_name=rails-7-template&template_owner=appdev-projects 
+
+# Appendix:
+
+## A. References
+1. Video on MVP: https://www.youtube.com/watch?v=QRZ_l7cVzzU
