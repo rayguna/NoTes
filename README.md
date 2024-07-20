@@ -95,6 +95,12 @@ Set it to `true` to enable Turbo everywhere, or you can use `data-turbo="true"` 
 
 ## A. Getting Started
 1. Clone a new repo from https://github.com/new?template_name=rails-7-template&template_owner=appdev-projects 
+2. Immediately create a branch: `git checkout -b rg_begin`
+
+```
+rg_begin % git status
+On branch rg_begin
+```
 
 # Appendix:
 
