@@ -1,6 +1,6 @@
 class PagesController < ApplicationController
   def home
-    our_input_text = " heart"
-    @heart = `python lib/assets/python/heart.py "#{our_input_text}"`
+    user_input = "10"
+    @heart = `python3 lib/assets/python/heart.py #{user_input}`
   end
 end
