@@ -168,13 +168,13 @@ rails generate model Note title: text content:text user:references topic:referen
 rails generate model Favorite note:references user:references
 ```
 
-Run the migration:
+Run the migration (optional):
 
 ```
 rails db:migrate
 ```
 
-Define the associations:
+2. Define the associations:
 
 ```
 #app/models/user.rb
@@ -204,7 +204,7 @@ class Favorite < ApplicationRecord
 end
 ```
 
-Migrate the database once more to keep it up to date:
+3. Migrate the database once more (if you did previously) to keep it up to date:
 
 ```
 rails db:migrate
