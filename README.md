@@ -134,7 +134,7 @@ Find me in app/views/pages/home.html.erb
 class PagesController < ApplicationController
   def home
     our_input_text = "heart"
-    @heart = `python lib/assets/python/heart.py #{our_input_text}`
+    @heart = `python3 lib/assets/python/heart.py #{our_input_text}`
   end
 end
 ```
@@ -146,6 +146,15 @@ import sys
 
 input = sys.argv[1]
 print input + " is"
+```
+
+8. Try running numpy. First, install numpy:
+
+```
+sudo apt update
+sudo apt install -y python3 python3-pip
+pip3 --version
+pip3 install numpy
 ```
 
 # Appendix:
