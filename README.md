@@ -102,7 +102,54 @@ rg_begin % git status
 On branch rg_begin
 ```
 
+## B. Adding Python to Rails
+
+1. Let's do a quick test to incorporate python to rails.
+2. First, automate the RCAV pattern by typing into the terminal: `rails g controller pages home`. In this case, the controller is named pages and the action is named home.
+3. Add the following to config/routes/rb.
+```
+Rails.application.routes.draw do
+  # This is a blank app! Pick your first screen, build out the RCAV, and go from there. E.g.:
+
+  # get "/your_first_screen" => "pages#first"
+  root "pages#home"
+  get 'pages/home'
+end
+```
+4. run bin/dev to see the following message:
+```
+Pages#home
+Find me in app/views/pages/home.html.erb
+```
+5. Modify the views/pages/home.html.erb file as follows (2 min):
+
+```
+<h1>Home</h1>
+<p>It's where the <%= @heart %></p>
+````
+
+6. Modify `controllers/pages_controller.rb` as follows (3:20 min):
+
+```
+class PagesController < ApplicationController
+  def home
+    our_input_text = "heart"
+    @heart = `python lib/assets/python/heart.py #{our_input_text}`
+  end
+end
+```
+
+7. Ceeate a pyton file within a new folder called python: `lib/assets/python/heart.py` (4 min):
+
+```
+import sys
+
+input = sys.argv[1]
+print input + " is"
+```
+
 # Appendix:
 
 ## A. References
 1. Video on MVP: https://www.youtube.com/watch?v=QRZ_l7cVzzU
+2. Adding python: https://www.youtube.com/watch?v=3xBhwZpMo_Y&t=3s (1:10 min)
