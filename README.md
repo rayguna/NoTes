@@ -157,6 +157,59 @@ pip3 --version
 pip3 install numpy
 ```
 
+### C. Create Tables:
+
+1. Create the four tables using the commands:
+
+```
+rails generate model User email:string password:string username:string  
+rails generate model Topic name:string
+rails generate model Note title: text content:text user:references topic:references
+rails generate model Favorite note:references user:references
+```
+
+Run the migration:
+
+```
+rails db:migrate
+```
+
+Define the associations:
+
+```
+#app/models/user.rb
+class User < ApplicationRecord
+  has_many :notes
+  has_many :favorites
+  has_many :favorite_notes, through: :favorites, source: :note
+end
+
+#app/models/topic.rb
+class Topic < ApplicationRecord
+  has_many :notes
+end
+
+#app/models/note.rb
+class Note < ApplicationRecord
+  belongs_to :user
+  belongs_to :topic
+  has_many :favorites
+  has_many :favorited_by, through: :favorites, source: :user
+end
+
+#app/models/favorite.rb
+class Favorite < ApplicationRecord
+  belongs_to :user
+  belongs_to :note
+end
+```
+
+Migrate the database once more to keep it up to date:
+
+```
+rails db:migrate
+```
+
 # Appendix:
 
 ## A. References
