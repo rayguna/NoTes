@@ -7,22 +7,23 @@
     </button>
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav mr-auto">
         <% if user_signed_in? %>
-          <li class="nav-item">
-            <a class="nav-link" href="/alice/feed">
-              <i class="fas fa-users fa-fw"></i>
-              Feed
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/alice/discover">
-              <i class="fas fa-compass fa-fw"></i>
-              Discover
-            </a>
-          </li>
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="/alice/feed">
+                <i class="fas fa-users fa-fw"></i>
+                Feed
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/alice/discover">
+                <i class="fas fa-compass fa-fw"></i>
+                Discover
+              </a>
+            </li>
           </ul>
-          <ul class="navbar-nav ms-auto">
+        
+        <ul class="navbar-nav ms-auto">
           <li class="nav-item">
             <a class="nav-link" href="/photos/new">
               <i class="fas fa-plus-circle"></i>
@@ -44,15 +45,17 @@
               <%= link_to 'Logout', destroy_user_session_path, method: :delete, class: "dropdown-item" %>
             </div>
           </li>
+        </ul>
         <% else %>
+        <ul class="navbar-nav ms-auto">
           <li class="nav-item">
             <%= link_to 'Sign up', new_user_registration_path, class: "nav-link" %>
           </li>
           <li class="nav-item">
             <%= link_to 'Login', new_user_session_path, class: "nav-link" %>
           </li>
+        </ul>
         <% end %>
-      </ul>
     </div>
   </div>
 </nav>
