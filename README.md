@@ -164,6 +164,7 @@ pip3 install numpy
 ```
 
 ## <a id="C"> C. Create Devise </a>
+ref.: bulletin-board-2
 
 1. Make sure you add to your Gemfile: `gem 'devise'`.
 2. Type in terminal: `bundle install`. Review the output. Make sure that devise is included.
@@ -201,6 +202,21 @@ app/views/layouts/application.html.erb
   <%= yield %>
 </body>
 </html>
+```
+
+9. Display the sign-in page if user has not signed in.
+controllers/pages_controller.rb
+
+```
+class PagesController < ApplicationController
+  before_action :authenticate_user!
+  
+  def home
+    user_input = "10"
+    @heart = `python3 lib/assets/python/heart.py #{user_input}`
+  end
+end
+
 ```
 
 # Appendix:
