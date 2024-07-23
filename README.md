@@ -157,6 +157,14 @@ pip3 --version
 pip3 install numpy
 ```
 
+9. Install openai with `pip3 install openai`. Test the installation by typing in the terminal:
+
+```
+python3
+
+import openai
+```
+
 ### C. Create Tables:
 
 1. Create the four tables using the commands:
