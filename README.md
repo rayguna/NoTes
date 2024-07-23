@@ -96,6 +96,7 @@ Set it to `true` to enable Turbo everywhere, or you can use `data-turbo="true"` 
 [A. Getting Started](#A)
 [B. Adding Python to Rails](#B)
 [C. Create Devise](#C)
+[D. Create Tables](#D)
 
 ***
 
@@ -217,6 +218,58 @@ class PagesController < ApplicationController
   end
 end
 
+```
+
+## <a id="D"> D. Create Tables</a>
+
+1. Create the following tables. User table has been created when creating devise.
+- topic: `rails generate model Topic name:string`. Type: `rails db:migrate`.
+- note: `rails generate model Note title:string content:text user:references topic:references`. Type: `rails db:migrate`.
+- favorite: `rails generate model Favorite user:references note:references`. Type: `rails db:migrate`.
+
+2. Make sure the table relations look correct. If not, please correct it:
+
+- app/models/topic.rb:
+```
+class Topic < ApplicationRecord
+  has_many :notes, dependent: :destroy
+
+  validates :name, presence: true
+end
+```
+
+- app/models/note.rb:
+```
+class Note < ApplicationRecord
+  belongs_to :user
+  belongs_to :topic
+  has_many :favorites, dependent: :destroy
+
+  validates :title, :content, presence: true
+end
+```
+
+- app/models/favorite.rb:
+```
+class Favorite < ApplicationRecord
+  belongs_to :user
+  belongs_to :note
+
+  validates :user_id, :note_id, presence: true
+end
+```
+
+- app/models/user.rb:
+```
+class User < ApplicationRecord
+  has_many :notes, dependent: :destroy
+  has_many :favorites, dependent: :destroy
+
+  devise :database_authenticatable, :registerable,
+         :recoverable, :rememberable, :validatable
+
+  validates :email, presence: true, uniqueness: true
+end
 ```
 
 # Appendix:
