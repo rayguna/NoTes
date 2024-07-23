@@ -302,6 +302,57 @@ end
 
 - Run: `rails db:migrate`.
 
+3. Add a new field in user table called username: `rails generate migration AddUsernameToUsers username:string`. Edit migration file:
+
+```
+class AddUsernameToUsers < ActiveRecord::Migration[6.1]
+  def change
+    add_column :users, :username, :string
+
+    User.reset_column_information
+    User.find_each do |user|
+      user.update_columns(username: "user_#{user.id}")
+    end
+
+    change_column_null :users, :username, false
+    add_index :users, :username, unique: true
+  end
+end
+```
+
+- Run: `rails db:migrate`.
+
+- Update user model:
+
+```
+class User < ApplicationRecord
+  # Other existing associations and validations
+
+  validates :username, presence: true, uniqueness: true
+
+  # Additional model logic
+end
+```
+
+- Update strong parameters for using devise:
+
+app/controllers/application_controller.rb
+
+```
+class ApplicationController < ActionController::Base
+  before_action :configure_permitted_parameters, if: :devise_controller?
+
+  protected
+
+  def configure_permitted_parameters
+    devise_parameter_sanitizer.permit(:sign_up, keys: [:username])
+    devise_parameter_sanitizer.permit(:account_update, keys: [:username])
+  end
+end
+```
+
+4. Add to the sign up form this new field called username. Make it required. To do so, edit the file `views/devise/registrations/new.html.erb`. For the sign_in page, the file is `views/devise/sessions/new.html.erb`.
+
 # Appendix:
 
 ## A. References
