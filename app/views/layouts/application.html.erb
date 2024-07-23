@@ -1,29 +1,33 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Rails Template</title>
+    <title>Industrial Auth 1</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
+    <%= render partial: "shared/cdn_assets" %>
+
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
-    
   </head>
 
   <body>
-    <p class="notice"><%= notice %></p>
-    <p class="alert"><%= alert %></p>
+    <%= render partial: "shared/navbar" %>
 
-    <% if user_signed_in? %>
-      <p>Welcome, <%= current_user.email %>!</p>
-      <%= link_to 'Edit profile', edit_user_registration_path %> |
-      <%= link_to 'Logout', destroy_user_session_path, method: :delete %>
-    <% else %>
-      <%= link_to 'Sign up', new_user_registration_path %> |
-      <%= link_to 'Login', new_user_session_path %>
-    <% end %>
+    <div class="container">
+      
+          <% if notice.present? %>
+            <%= render partial: "shared/flash", locals: { message: notice, css_class: "success" } %>
+          <% end %>
 
-    <%= yield %>
+          <% if alert.present? %>
+            <%= render partial: "shared/flash", locals: { message: alert, css_class: "danger" } %>
+          <% end %>
+
+          <%= yield %>
+
+      
+    </div>
   </body>
 </html>
