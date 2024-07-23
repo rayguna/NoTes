@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light mb-4">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
   <div class="container">
     <%= link_to "noTes", root_path, class: "navbar-brand" %>
 
@@ -7,13 +7,42 @@
     </button>
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav ms-auto">
+      <ul class="navbar-nav mr-auto">
         <% if user_signed_in? %>
           <li class="nav-item">
-            <%= link_to 'Edit profile', edit_user_registration_path, class: "nav-link" %>
+            <a class="nav-link" href="/alice/feed">
+              <i class="fas fa-users fa-fw"></i>
+              Feed
+            </a>
           </li>
           <li class="nav-item">
-            <%= link_to 'Logout', destroy_user_session_path, method: :delete, class: "nav-link" %>
+            <a class="nav-link" href="/alice/discover">
+              <i class="fas fa-compass fa-fw"></i>
+              Discover
+            </a>
+          </li>
+          </ul>
+          <ul class="navbar-nav ms-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="/photos/new">
+              <i class="fas fa-plus-circle"></i>
+              Add post
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/alice">
+              <i class="fas fa-home fa-fw"></i>
+              Your profile
+            </a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              alice
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <%= link_to 'Edit profile', edit_user_registration_path, class: "dropdown-item" %>
+              <%= link_to 'Logout', destroy_user_session_path, method: :delete, class: "dropdown-item" %>
+            </div>
           </li>
         <% else %>
           <li class="nav-item">
