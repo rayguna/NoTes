@@ -270,6 +270,9 @@ This is possibly due to user table being created previously.
 
 - Return to the initial version where tables have not been created. Create devise first, followed by the remaining tables.
 
+- To return to the previous version, type: `git checkout 1d3e212`.
+- Start a new branch: `git switch -b rg_devise_first`.
+
 # Appendix:
 
 ## A. References
