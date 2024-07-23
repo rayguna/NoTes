@@ -91,9 +91,15 @@ Set it to `true` to enable Turbo everywhere, or you can use `data-turbo="true"` 
 - eamodio.gitlens
 - setobiralo.erb-commenter
 
-# NOTES
+# NOTES - TOC
 
-## A. Getting Started
+[A. Getting Started](#A)
+[B. Adding Python to Rails](#B)
+[C. Create Devise](#C)
+
+***
+
+## <a id="A"> A. Getting Started </a>
 1. Clone a new repo from https://github.com/new?template_name=rails-7-template&template_owner=appdev-projects 
 2. Immediately create a branch: `git checkout -b rg_begin`
 
@@ -102,7 +108,7 @@ rg_begin % git status
 On branch rg_begin
 ```
 
-## B. Adding Python to Rails
+## <a id="B"> B. Adding Python to Rails </a>
 
 1. Let's do a quick test to incorporate python to rails.
 2. First, automate the RCAV pattern by typing into the terminal: `rails g controller pages home`. In this case, the controller is named pages and the action is named home.
@@ -155,6 +161,46 @@ sudo apt update
 sudo apt install -y python3 python3-pip
 pip3 --version
 pip3 install numpy
+```
+
+## <a id="C"> C. Create Devise </a>
+
+1. Make sure you add to your Gemfile: `gem 'devise'`.
+2. Type in terminal: `bundle install`. Review the output. Make sure that devise is included.
+3. Run: `rails generate devise:install`.
+4. Follow the instructions in the output.
+5. Generate user model: `rails generate devise User`.
+6. Type: `rails db:migrate`.
+7. If the installation is successful, you will seee in config/routes.rb the line: `devise_for :users`.
+8. Add sign-in/sign-out links:
+
+app/views/layouts/application.html.erb
+
+```
+<!DOCTYPE html>
+<html>
+<head>
+  <title>MyApp</title>
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
+
+  <%= stylesheet_link_tag 'application', media: 'all' %>
+  <%= javascript_pack_tag 'application' %>
+</head>
+
+<body>
+  <% if user_signed_in? %>
+    <p>Welcome, <%= current_user.email %>!</p>
+    <%= link_to 'Edit profile', edit_user_registration_path %> |
+    <%= link_to 'Logout', destroy_user_session_path, method: :delete %>
+  <% else %>
+    <%= link_to 'Sign up', new_user_registration_path %> |
+    <%= link_to 'Login', new_user_session_path %>
+  <% end %>
+  
+  <%= yield %>
+</body>
+</html>
 ```
 
 # Appendix:
