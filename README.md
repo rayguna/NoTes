@@ -97,6 +97,7 @@ Set it to `true` to enable Turbo everywhere, or you can use `data-turbo="true"` 
 [B. Adding Python to Rails](#B)
 [C. Create Devise](#C)
 [D. Create Tables](#D)
+[E. Create a Notes Route](#E)
 
 ***
 
@@ -352,6 +353,23 @@ end
 ```
 
 4. Add to the sign up form this new field called username. Make it required. To do so, edit the file `views/devise/registrations/new.html.erb`. For the sign_in page, the file is `views/devise/sessions/new.html.erb`.
+
+## <a id="E"> E. Create a Notes Route </a>
+
+1. Execute the RCAV pattern to create the scaffold command. In this case, we already have the notes table in existence, so the command is `scaffold_controller` rather than just `scaffold`. `rails generate scaffold_controller Note title:string content:text user:references`.
+
+2. Update routes, so it becoes accessible:
+
+```
+Rails.application.routes.draw do
+  resources :notes
+  # other routes
+end
+```
+
+3. You should see a new file called `controllers/notes_controller.rb` being created. In addition, a new folder views/notes is created.
+
+4. The newly generated elements will be linked automatically to the existing table and its fields. 
 
 # Appendix:
 
