@@ -272,6 +272,36 @@ class User < ApplicationRecord
 end
 ```
 
+- add a new column called username in the user table:
+
+```
+rails generate migration AddUsernameToUsers username:string
+```
+
+- Edit the Migration File:
+
+```
+class AddUsernameToUsers < ActiveRecord::Migration[6.1]
+  def change
+    add_column :users, :username, :string, null: false, unique: true
+  end
+end
+```
+
+- Update user model:
+
+```
+class User < ApplicationRecord
+  # Other existing associations and validations
+
+  validates :username, presence: true, uniqueness: true
+
+  # Additional model logic
+end
+```
+
+- Run: `rails db:migrate`.
+
 # Appendix:
 
 ## A. References
