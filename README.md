@@ -354,11 +354,11 @@ end
 
 4. Add to the sign up form this new field called username. Make it required. To do so, edit the file `views/devise/registrations/new.html.erb`. For the sign_in page, the file is `views/devise/sessions/new.html.erb`.
 
-## <a id="E"> E. Create a Notes Route </a>
+## <a id="E"> E. Create Note Routes </a>
 
 1. Execute the RCAV pattern to create the scaffold command. In this case, we already have the notes table in existence, so the command is `scaffold_controller` rather than just `scaffold`. `rails generate scaffold_controller Note title:string content:text user:references`.
 
-2. Update routes, so it becoes accessible:
+2. Update routes, so it becomes accessible:
 
 ```
 Rails.application.routes.draw do
@@ -370,6 +370,14 @@ end
 3. You should see a new file called `controllers/notes_controller.rb` being created. In addition, a new folder views/notes is created.
 
 4. The newly generated elements will be linked automatically to the existing table and its fields. 
+
+## <a id="E"> E. Create a User Routes </a>
+
+## To dos:
+
+- Create scaffold_controller for each table.
+- You may want to force user to create subjects first.
+- you may need to create a new table called subjects. 
 
 # Appendix:
 
