@@ -91,9 +91,19 @@ Set it to `true` to enable Turbo everywhere, or you can use `data-turbo="true"` 
 - eamodio.gitlens
 - setobiralo.erb-commenter
 
-# NOTES
+# NOTES - TOC
 
-## A. Getting Started
+[A. Getting Started](#A) 
+
+[B. Adding Python to Rails](#B)
+
+[C. Create Tables](#C)
+
+[D. Create Sign-in and Sign-out Page](#D)
+
+***
+
+## <a id="A"> A. Getting Started </a>
 1. Clone a new repo from https://github.com/new?template_name=rails-7-template&template_owner=appdev-projects 
 2. Immediately create a branch: `git checkout -b rg_begin`
 
@@ -102,7 +112,7 @@ rg_begin % git status
 On branch rg_begin
 ```
 
-## B. Adding Python to Rails
+## <a id = "B"> B. Adding Python to Rails </a>
 
 1. Let's do a quick test to incorporate python to rails.
 2. First, automate the RCAV pattern by typing into the terminal: `rails g controller pages home`. In this case, the controller is named pages and the action is named home.
@@ -165,7 +175,7 @@ python3
 import openai
 ```
 
-### C. Create Tables:
+## <a id="C"> C. Create Tables<a>
 
 1. Create the four tables using the commands:
 
@@ -217,6 +227,48 @@ end
 ```
 rails db:migrate
 ```
+
+## <a id = "D"> D. Create Sign-in and Sign-out Page </a>
+
+1. Add the following to the Gemfile: `gem 'devise`.
+2. Navigate into Gemfile with `cd Gemfile` and run: `bundle install`.
+3. Type `cd..` to return to the upper directory. Run devise install generator: `rails generate devise:install`.
+4. IMPORTANT! Follow the instructions provided in the output. You might need to configure the default URL options in your config/environments/development.rb file:
+`config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }`.
+5. Generate user model: `rails generate devise User`. Followed by: `rails db:migrate`. 
+6. Set up views to customize the sign-in/sign-out page: `rails generate devise:views`.
+7. Check to make sure the routes for user sign-in and sign-out is added automatically in `config/routes.rb`. You should see `devise_for :users`.
+8. Add the following links within `app/views/layouts/application.html.erb`:
+  ```
+  <% if user_signed_in? %>
+    <%= link_to 'Sign Out', destroy_user_session_path, method: :delete %>
+  <% else %>
+    <%= link_to 'Sign In', new_user_session_path %>
+    <%= link_to 'Sign Up', new_user_registration_path %>
+  <% end %>
+  ```
+9. Add restrictions to access certain pages for signed-in users using `before-action` filter in the controller. Here is the syntax for restricting the `home` controller:
+
+  ```
+  class HomeController < ApplicationController
+    before_action :authenticate_user!
+    
+    def index
+      # Your code here
+    end
+  end
+  ```
+
+10. Get an error message:
+
+```
+Migrations are pending. To resolve this issue, run:
+        bin/rails db:migrate
+```
+
+This is possibly due to user table being created previously.
+
+- Return to the initial version where tables have not been created. Create devise first, followed by the remaining tables.
 
 # Appendix:
 
