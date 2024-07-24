@@ -15,20 +15,7 @@
 <!-- Notes Section -->
 <% notes = Note.where(topic_id: @topic.id) %>
 
-<div id="notes" class="container">
-  <div class="row">
-    <% notes.each do |note| %>
-      <div class="col-md-4 mb-4">
-        <div class="card">
-          <div class="card-body">
-            <h5 class="card-title"><%= note.title %></h5>
-            <p class="card-text"><%= note.content %></p>
-          </div>
-        </div>
-      </div>
-    <% end %>
-  </div>
-</div>
+<%= render partial: 'notes/note', collection: notes %>
 
 <!-- Link to create a new topic -->
 <%= link_to "New note", new_note_path, class: "btn btn-success mt-4" %>
