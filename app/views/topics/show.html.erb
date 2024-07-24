@@ -7,15 +7,29 @@
 
 <!-- Action Buttons -->
 <div class="d-flex justify-content-between align-items-center mb-4">
-  <%= link_to "Edit this topic", edit_topic_path(@topic), class: "btn btn-primary me-2" %>
-  <%= link_to "Back to topics", topics_path, class: "btn btn-secondary me-2" %>
-  <%= button_to "Destroy this topic", @topic, method: :delete, class: "btn btn-danger" %>
+  <%= link_to "Edit this topic", edit_topic_path(@topic), class: "btn btn-primary rounded-pill me-2" %>
+  <%= link_to "Back to topics", topics_path, class: "btn btn-secondary rounded-pill me-2" %>
+  <%= button_to "Destroy this topic", @topic, method: :delete, class: "btn btn-danger rounded-pill" %>
 </div>
 
 <!-- Notes Section -->
 <% notes = Note.where(topic_id: @topic.id) %>
+<div class="row">
+  <% notes.each do |note| %>
+    <div class="col-md-4 mb-3">
+      <div class="card h-100">
+        <div class="card-body">
+          <%= render partial: 'notes/note', locals: { note: note } %>
 
-<%= render partial: 'notes/note', collection: notes %>
+          <div class="d-flex justify-content-between mt-3">
+            <%= button_to "Edit this note", edit_note_path(note), method: :get %>
+            <%= button_to "Destroy this note", note, method: :delete %>
+          </div>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>
 
 <!-- Link to create a new topic -->
-<%= link_to "New note", new_note_path, class: "btn btn-success mt-4" %>
+<%= link_to "New note", new_note_path, class: "btn btn-success rounded-pill mt-4" %>
