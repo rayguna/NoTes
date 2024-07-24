@@ -1,14 +1,23 @@
-<p style="color: green"><%= notice %></p>
+<p class="text-success"><%= notice %></p>
 
 <h1>Topics</h1>
 
-<div id="topics">
-  <% @topics.each do |topic| %>
-    <%= render topic %>
-    <p>
-      <%= link_to "Show this topic", topic %>
-    </p>
-  <% end %>
+<div id="topics" class="container">
+  <div class="row">
+    <% @topics.each do |topic| %>
+      <div class="col-md-4 mb-4">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title"><%= topic.name %></h5>
+            <%= render topic %>
+            <p>
+              <%= link_to "Show this topic", topic, class: "btn btn-primary" %>
+            </p>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
 </div>
 
-<%= link_to "New topic", new_topic_path %>
+<%= link_to "New topic", new_topic_path, class: "btn btn-success mt-4" %>
