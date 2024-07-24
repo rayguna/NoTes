@@ -97,7 +97,10 @@ Set it to `true` to enable Turbo everywhere, or you can use `data-turbo="true"` 
 [B. Adding Python to Rails](#B)
 [C. Create Devise](#C)
 [D. Create Tables](#D)
-[E. Create a Notes Route](#E)
+[E. Create New Routes](#E)
+[F. Create a Carousel](#F)
+[G. Edit form fields](#G)
+[H. Add the Remaining Routes with Scaffolds](#H)
 
 ***
 
@@ -218,7 +221,6 @@ class PagesController < ApplicationController
     @heart = `python3 lib/assets/python/heart.py #{user_input}`
   end
 end
-
 ```
 
 ## <a id="D"> D. Create Tables</a>
@@ -356,9 +358,9 @@ end
 
 ## <a id="E"> E. Create Note Routes </a>
 
-1. Execute the RCAV pattern to create the scaffold command. In this case, we already have the notes table in existence, so the command is `scaffold_controller` rather than just `scaffold`. `rails generate scaffold_controller Note title:string content:text user:references`.
+1. Execute the scaffold command to create the RCAV pattern. In this case, we already have the notes table in existence, so the command is `scaffold_controller` rather than just `scaffold`. `rails generate scaffold_controller Note title:string content:text user:references`.
 
-2. Update routes, so it becomes accessible:
+2. Update routes, so it becomes accessible; It should be updated automatically.
 
 ```
 Rails.application.routes.draw do
@@ -371,7 +373,46 @@ end
 
 4. The newly generated elements will be linked automatically to the existing table and its fields. 
 
-## <a id="E"> E. Create a User Routes </a>
+## <a id="F"> F. Create a Carousel </a>
+
+Added carousel to the log in page using bootstrap.
+
+## <a id="G"> G. Edit form fields </a>
+
+Remember to edit the permit method input to include the new field anytime you introduce a new parameter within the controller:
+
+```
+params.require(:note).permit(:title, :content, :user_id, :topic_id)
+```
+
+## <a id="H"> H. Add the Remaining Routes with Scaffolds </a> 
+
+1. Execute the scaffold command to create the RCAV pattern. In this case, we already have the topics table in existence, so the command is `scaffold_controller` rather than just `scaffold`. 
+
+- For Topics table : `rails generate scaffold_controller Topic name:string`.
+- For User table: `rails generate scaffold_controller User email:string encrypted_password:string remember_created_at:datetime reset_password_sent_at:datetime reset_password_token:string username:string`.
+- For Favorite table: `rails generate scaffold_controller Favorite note_id:integer user_id:integer`.
+
+2. Update routes, so it becomes accessible; It should be updated automatically.
+
+```
+Rails.application.routes.draw do
+  resources :favorites
+  resources :users
+  resources :topics
+  resources :notes
+  devise_for :users
+  # This is a blank app! Pick your first screen, build out the RCAV, and go from there. E.g.:
+
+  # get "/your_first_screen" => "pages#first"
+  root "pages#home"
+  #get 'pages/home'
+end
+```
+
+3. You should see a new file called, e.g., `controllers/notes_controller.rb` being created. In addition, a new folder views/notes is created.
+
+4. The newly generated elements will be linked automatically to the existing table and its fields. 
 
 ## To dos:
 
