@@ -2,11 +2,11 @@
 #
 # Table name: favorites
 #
-#  id         :integer          not null, primary key
+#  id         :bigint           not null, primary key
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
-#  note_id    :integer          not null
-#  user_id    :integer          not null
+#  note_id    :bigint           not null
+#  user_id    :bigint           not null
 #
 # Indexes
 #
@@ -15,8 +15,8 @@
 #
 # Foreign Keys
 #
-#  note_id  (note_id => notes.id)
-#  user_id  (user_id => users.id)
+#  fk_rails_...  (note_id => notes.id)
+#  fk_rails_...  (user_id => users.id)
 #
 class Favorite < ApplicationRecord
   belongs_to :user

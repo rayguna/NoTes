@@ -496,6 +496,13 @@ end
   validates :title, uniqueness: { scope: [:user_id, :topic_id], message: "has already been taken for this topic and user" }
   ```
 
+## K. Change Database Default from sqlite to Postgres
+
+1. This is to prevent constant updates during testing.
+2. To do so, modify the `config/database.yml` file.
+3. Then, type rails `db:drop`, `rails db:create`, `rails db:migrate`.
+
+
 # Appendix:
 
 ## A. References

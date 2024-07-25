@@ -2,7 +2,7 @@
 #
 # Table name: topics
 #
-#  id         :integer          not null, primary key
+#  id         :bigint           not null, primary key
 #  name       :string
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
@@ -11,6 +11,7 @@
 # Indexes
 #
 #  index_topics_on_name_and_user_id  (name,user_id) UNIQUE
+#  index_topics_on_user_id           (user_id)
 #
 class Topic < ApplicationRecord
   has_many :notes, dependent: :destroy
