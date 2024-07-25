@@ -9,4 +9,10 @@ Rails.application.routes.draw do
   # get "/your_first_screen" => "pages#first"
   root "pages#home"
   #get 'pages/home'
+  # config/routes.rb
+
+  resources :topics do
+    resources :notes
+  end
+
 end

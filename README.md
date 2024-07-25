@@ -414,12 +414,6 @@ end
 
 4. The newly generated elements will be linked automatically to the existing table and its fields. 
 
-## To dos:
-
-- Create scaffold_controller for each table.
-- You may want to force user to create subjects first.
-- you may need to create a new table called subjects. 
-
 # Appendix:
 
 ## A. References
