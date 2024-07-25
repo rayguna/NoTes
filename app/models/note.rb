@@ -25,5 +25,6 @@ class Note < ApplicationRecord
   belongs_to :topic
   has_many :favorites, dependent: :destroy
 
-  validates :title, :content, presence: true
+  validates :title, presence: { message: "can't be blank. Please provide a title." }
+  validates :content, presence: { message: "can't be blank. Please provide a content." }
 end
