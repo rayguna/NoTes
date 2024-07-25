@@ -490,7 +490,11 @@ end
 
 4. Run: `rails db:migrate`.
 
-Do the same with notes model.
+5. Do the same with notes model. You just have to add into the models/note.rb
+
+  ```
+  validates :title, uniqueness: { scope: [:user_id, :topic_id], message: "has already been taken for this topic and user" }
+  ```
 
 # Appendix:
 
