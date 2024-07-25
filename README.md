@@ -464,6 +464,33 @@ end
       <%= form.hidden_field :topic_id, value: note.topic_id %>
     ```
 
+## J. Prevent user from creating duplicated topics or notes title
+
+1. Go to app/models/topic.rb and modify it to:
+
+```
+class Topic < ApplicationRecord
+  belongs_to :user
+
+  validates :name, uniqueness: { scope: :user_id, message: "has already been taken for this user" }
+end
+```
+
+2. In the terminal, type: `rails generate migration add_unique_index_to_topics_name_and_user_id`.
+
+3. Edit the generated migration file to add the unique index:
+
+```
+class AddUniqueIndexToTopicsNameAndUserId < ActiveRecord::Migration[6.1]
+  def change
+    add_index :topics, [:name, :user_id], unique: true
+  end
+end
+```
+
+4. Run: `rails db:migrate`.
+
+Do the same with notes model.
 
 # Appendix:
 
