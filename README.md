@@ -502,6 +502,24 @@ end
 2. To do so, modify the `config/database.yml` file.
 3. Then, type rails `db:drop`, `rails db:create`, `rails db:migrate`.
 
+## L. Generate sample data
+
+1. Follow the tutorial in photogram-industrial.
+, section O.
+
+2. Write the commands within:
+
+  ```
+  #lib/tasks/dev.rake
+
+  task sample_data: :environment do
+    p "Creating sample data"
+  end
+  ```
+
+3. Test using the command `rake sample data` in the terminal.
+
+4. At the start of the file, make sure to destroy existing tables and reset the indices. Pick 5 random topics for each user from a list without replacement to make sure each user has exactly 5 topics and not less due to duplication.
 
 # Appendix:
 
