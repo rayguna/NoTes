@@ -3,7 +3,7 @@ class TopicsController < ApplicationController
 
   # GET /topics or /topics.json
   def index
-    @topics = Topic.all
+    @topics = Topic.where(user_id: current_user.id)
   end
 
   # GET /topics/1 or /topics/1.json
@@ -22,10 +22,9 @@ class TopicsController < ApplicationController
   # POST /topics or /topics.json
   def create
     @topic = Topic.new(topic_params)
-
+    @topic.user_id = current_user.id
+  
     respond_to do |format|
-      @topic = Topic.new(topic_params)
-
       if @topic.save
         format.html { redirect_to topics_path, notice: "Topic was successfully created." }
         format.json { render :show, status: :created, location: @topic }
@@ -67,6 +66,6 @@ class TopicsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def topic_params
-      params.require(:topic).permit(:name)
+      params.require(:topic).permit(:name, :user_id)
     end
 end
