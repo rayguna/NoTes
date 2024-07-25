@@ -24,13 +24,13 @@
   </div>
 
   <div>
-    <%= form.label :user_id, style: "display: block" %>
-    <%= form.text_field :user_id %>
+    <!-- Hidden field for user_id -->
+    <%= form.hidden_field :user_id, value: current_user.id %>
   </div>
 
   <div>
-    <%= form.label :topic_id, style: "display: block" %>
-    <%= form.text_field :topic_id %>
+    <!-- Hidden field for topic_id -->
+    <%= form.hidden_field :topic_id, value: @note.topic_id %>
   </div>
 
   <div>
