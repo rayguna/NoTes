@@ -1,5 +1,5 @@
 desc "Fill the database tables with some sample data"
-task({ :sample_data => :environment }) do
+task sample_data: :environment do
   p "Creating sample data"
 
   # Destroy existing data
@@ -16,11 +16,8 @@ task({ :sample_data => :environment }) do
     ActiveRecord::Base.connection.reset_pk_sequence!('users')
   end
 
-  topics_list = [
-    "physics", "biology", "chemistry", "rubik's cube", "behavioral interview", 
-    "technical interview", "electronics", "options trading", 
-    "quantitative finance", "elevator pitch"
-  ]
+  # Path to the directory containing the text files
+  data_directory = "path/to/your/text/files"
 
   # Generate five fake users
   5.times do
@@ -31,15 +28,39 @@ task({ :sample_data => :environment }) do
       username: name
     )
 
-    # Generate five unique random topics for each user
-    topics_list.sample(5).each do |topic_name|
-      Topic.create(
+    # Get all text files in the directory
+    all_files = Dir.glob("#{data_directory}/*.txt")
+
+    # Select five random files for the current user
+    selected_files = all_files.sample(5)
+
+    # Read each selected text file
+    selected_files.each do |file_path|
+      topic_name = File.basename(file_path, ".txt")
+
+      # Create the topic
+      topic = Topic.create(
         name: topic_name,
         user: user
       )
+
+      # Read the contents of the file
+      File.foreach(file_path).with_index do |line, line_num|
+        next if line_num == 0 # Skip header line
+
+        title, content = line.chomp.split(',', 2)
+
+        # Create the note
+        Note.create(
+          title: title,
+          content: content,
+          topic: topic
+        )
+      end
     end
   end
 
   p "#{User.count} users have been created."
   p "#{Topic.count} topics have been created."
+  p "#{Note.count} notes have been created."
 end
