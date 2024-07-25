@@ -27,4 +27,6 @@ class Note < ApplicationRecord
 
   validates :title, presence: { message: "can't be blank. Please provide a title." }
   validates :content, presence: { message: "can't be blank. Please provide a content." }
+
+  validates :title, uniqueness: { scope: [:user_id, :topic_id], message: "has already been taken for this topic and user" }
 end
