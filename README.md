@@ -414,6 +414,57 @@ end
 
 4. The newly generated elements will be linked automatically to the existing table and its fields. 
 
+## I. Routing
+
+1. To direct route to a specific page, you need to incorporate several changes, as follows. Essentially, you need to save the dynamic route into the params hash. In this example, the action is new/create.
+
+  - Modify the "New Note" link on the topics/1 page to pass the dynamic route, `@topic_id`, called `topic_id`. This command saves the value of topic id within the params hash.
+    ```
+    <!-- app/views/topics/show.html.erb -->
+    <%= link_to 'New Note', new_note_path(topic_id: @topic.id) %>
+    ```
+  - Ensure the new action initializes the @note with topic_id.
+    ```
+    # app/controllers/notes_controller.rb
+    class NotesController < ApplicationController
+      def new
+        @note = Note.new(topic_id: params[:topic_id])
+      end
+
+      def create
+        @note = Note.new(note_params)
+        if @note.save
+          redirect_to topic_path(@note.topic_id), notice: 'Note was successfully created.'
+        else
+          render :new
+        end
+      end
+
+      private
+
+      def note_params
+        params.require(:note).permit(:title, :content, :topic_id)
+      end
+    end
+    ```
+
+  - Update the form for creating a new note to include a hidden field for topic_id.
+    ```
+    <!-- app/views/notes/new.html.erb -->
+    ...
+    <div>
+      <%= link_to 'Back to Notes', topic_path(params[:topic_id]) %>
+    </div>
+    ```
+
+  - Ensure the "Back" link on the new note form uses params[:topic_id].
+    ```
+    <!-- app/views/notes/_form.html.erb -->
+    <%= form_with(model: note, local: true) do |form| %>
+      <%= form.hidden_field :topic_id, value: note.topic_id %>
+    ```
+
+
 # Appendix:
 
 ## A. References
