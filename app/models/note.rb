@@ -29,4 +29,9 @@ class Note < ApplicationRecord
   validates :content, presence: { message: "can't be blank. Please provide a content." }
 
   validates :title, uniqueness: { scope: [:user_id, :topic_id], message: "has already been taken for this topic and user" }
+
+  def self.ransackable_attributes(auth_object = nil)
+    # Return an array of attributes that can be searched
+    %w[title content created_at updated_at]
+  end
 end

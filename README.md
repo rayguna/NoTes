@@ -522,6 +522,24 @@ end
 4. At the start of the file, make sure to destroy existing tables and reset the indices. Pick 5 random topics for each user from a list without replacement to make sure each user has exactly 5 topics and not less due to duplication.
 5. Created datasets and saved into *.txt file. Exported datssets on local computer via github desktop. On codespaces, pull dataset with the command `git pull`.
 
+## M. Add Ransack Search Tool
+
+1. Add to Gemfile: `gem 'ransack', '~> 4.1.0'`. Type in terminal: `bundle install`.
+2. Add to models/note.rb:
+  ```
+  def self.ransackable_attributes(auth_object = nil)
+      # Return an array of attributes that can be searched
+      %w[title content created_at updated_at]
+    end
+  ```
+3. Place into the views/notes/index.html.erb page:
+  ```
+  <%q = Note.ransack(title_cont: "reaction")%>
+  <%= "Test ransack #{q.result}" %>
+  <%debugger%>
+  ```
+Type in the termnal: q.result. You will see the list of notes that meet the criteria.
+
 # Appendix:
 
 ## A. References
