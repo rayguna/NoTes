@@ -540,6 +540,8 @@ end
   ```
 Type in the termnal: q.result. You will see the list of notes that meet the criteria.
 
+4. Added bootstrap pagination as well.
+
 # Appendix:
 
 ## A. References
