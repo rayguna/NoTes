@@ -34,4 +34,8 @@ class Note < ApplicationRecord
     # Return an array of attributes that can be searched
     %w[title content created_at updated_at]
   end
+
+  def topic_name
+    topic.name
+  end
 end

@@ -1,41 +1,61 @@
+<style>
+  /* Add this in your application.css or custom CSS file */
+  .dropdown:hover .dropdown-menu {
+    display: block;
+  }
+</style>
+
 <p class="text-success"><%= notice %></p>
 
+<div class="container mt-4">
   <div class="container mt-4">
-    <div class="row align-items-center mb-4">
+    <div class="row mb-4">
       <!-- Heading -->
       <div class="col-md-8">
-        <h1>Topics</h1>
+        <h1>Notes</h1>
       </div>
 
-      <!-- Search Form -->
-      <div class="col-md-3">
-        <form class="d-flex">
-          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name = "search">
-          <button class="btn btn-outline-success search-btn" type="submit">
-            <i class="fas fa-search"></i> 
+      <!-- Search Form in Dropdown -->
+      <div class="col-md-4">
+        <div class="dropdown">
+          <button class="btn btn-secondary dropdown-toggle" type="button" id="searchDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Search
           </button>
-        </form>
+          <div class="dropdown-menu p-3" aria-labelledby="searchDropdown">
+            <%= search_form_for @q, url: notes_path, method: :get, html: { class: "form-inline" } do |f| %>
+              <div class="form-group">
+                <%= f.label :title_cont, "Title contains", class: "sr-only" %>
+                <%= f.search_field :title_cont, class: "form-control mr-2", placeholder: "Title" %>
+              </div>
+              <div class="form-group">
+                <%= f.label :content_cont, "Content contains", class: "sr-only" %>
+                <%= f.search_field :content_cont, class: "form-control mr-2", placeholder: "Content" %>
+              </div>
+              <%= f.submit "Search", class: "btn btn-primary" %>
+            <% end %>
+          </div>
+        </div>
       </div>
     </div>
   </div>
-
-<%q = Note.ransack(title_cont: "reaction")%>
-<%= "Test ransack #{q.result}" %>
-
-<div id="topics" class="container">
+  
   <div class="row">
-    <% @topics.each do |topic| %>
+    <% @notes.each do |note| %>
       <div class="col-md-4 mb-4">
-        <div class="card">
+        <div class="card h-100">
           <div class="card-body">
-            <h5 class="card-title"><%= topic.name %></h5>
-            <%= render topic %>
-            <p>
-              <%= link_to "Show this topic", topic, class: "btn btn-primary" %>
-            </p>
+            <h5 class="card-title"><%= note.title %></h5>
+            <p class="card-text"><%= truncate(note.content, length: 100) %></p>
+            <p class="card-text"><small class="text-muted">Topic: <%= note.topic_name %></small></p>
+            <p class="card-text"><small class="text-muted">Created At: <%= note.created_at.strftime("%B %d, %Y") %></small></p>
+            <a href="<%= note_path(note) %>" class="btn btn-primary">Show this note</a>
           </div>
         </div>
       </div>
     <% end %>
+  </div>
+
+  <div class="mt-4">
+    <%= link_to "New note", new_note_path, class: "btn btn-success" %>
   </div>
 </div>
