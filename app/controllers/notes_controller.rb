@@ -8,11 +8,16 @@ class NotesController < ApplicationController
     if params[:q].present?
       title_condition = params[:q][:title_cont].present? ? "LOWER(title) LIKE :title" : nil
       content_condition = params[:q][:content_cont].present? ? "LOWER(content) LIKE :content" : nil
+      topic_condition = params[:q][:topic_name_cont].present? ? "LOWER(topics.name) LIKE :topic_name" : nil
 
-      conditions = [title_condition, content_condition].compact.join(' AND ')
+      conditions = [title_condition, content_condition, topic_condition].compact.join(' AND ')
 
-      @notes = Note.where(user_id: current_user.id)
-                   .where(conditions, title: "%#{params[:q][:title_cont].downcase}%", content: "%#{params[:q][:content_cont].downcase}%")
+      @notes = Note.joins(:topic)
+                   .where(user_id: current_user.id)
+                   .where(conditions, 
+                          title: "%#{params[:q][:title_cont]&.downcase}%", 
+                          content: "%#{params[:q][:content_cont]&.downcase}%", 
+                          topic_name: "%#{params[:q][:topic_name_cont]&.downcase}%")
                    .distinct
     else
       @notes = Note.where(user_id: current_user.id)

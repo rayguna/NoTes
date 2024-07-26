@@ -18,23 +18,27 @@
       <!-- Search Form in Dropdown -->
       <div class="col-md-4">
         <div class="dropdown">
-          <button class="btn btn-secondary dropdown-toggle" type="button" id="searchDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Search
-          </button>
-          <div class="dropdown-menu p-3" aria-labelledby="searchDropdown">
-            <%= search_form_for @q, url: notes_path, method: :get, html: { class: "form-inline" } do |f| %>
-              <div class="form-group">
-                <%= f.label :title_cont, "Title contains", class: "sr-only" %>
-                <%= f.search_field :title_cont, class: "form-control mr-2", placeholder: "Title" %>
-              </div>
-              <div class="form-group">
-                <%= f.label :content_cont, "Content contains", class: "sr-only" %>
-                <%= f.search_field :content_cont, class: "form-control mr-2", placeholder: "Content" %>
-              </div>
-              <%= f.submit "Search", class: "btn btn-primary" %>
-            <% end %>
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="searchDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Search
+            </button>
+            <div class="dropdown-menu p-3" aria-labelledby="searchDropdown">
+              <%= search_form_for @q, url: notes_path, method: :get, html: { class: "form-inline" } do |f| %>
+                <div class="form-group">
+                  <%= f.label :title_cont, "Title contains", class: "sr-only" %>
+                  <%= f.search_field :title_cont, class: "form-control mr-2", placeholder: "Title" %>
+                </div>
+                <div class="form-group">
+                  <%= f.label :content_cont, "Content contains", class: "sr-only" %>
+                  <%= f.search_field :content_cont, class: "form-control mr-2", placeholder: "Content" %>
+                </div>
+                <div class="form-group">
+                  <%= f.label :topic_name_cont, "Topic contains", class: "sr-only" %>
+                  <%= f.search_field :topic_name_cont, class: "form-control mr-2", placeholder: "Topic" %>
+                </div>
+                <%= f.submit "Search", class: "btn btn-primary" %>
+              <% end %>
+            </div>
           </div>
-        </div>
       </div>
     </div>
   </div>
