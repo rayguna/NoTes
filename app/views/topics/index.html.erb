@@ -42,6 +42,13 @@
       </div>
     </div>
   </div>
+
+  <!-- pagination -->
+  <nav aria-label="Page navigation example" class="mt-4">
+    <ul class="pagination justify-content-center">
+      <%= paginate @topics, theme: 'bootstrap-4' %>
+    </ul>
+  </nav>
   
   <div class="row">
     <% @topics.each do |topic| %>
@@ -58,7 +65,4 @@
     <% end %>
   </div>
 
-  <div class="mt-4">
-    <%= link_to "New note", new_note_path, class: "btn btn-success" %>
-  </div>
 </div>

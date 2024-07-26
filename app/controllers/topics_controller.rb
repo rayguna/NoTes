@@ -3,7 +3,7 @@ class TopicsController < ApplicationController
 
   # GET /topics or /topics.json
   def index
-    @topics = Topic.where(user_id: current_user.id)
+    @topics = Topic.where(user_id: current_user.id).page(params[:page]).per(6)
 
     @q = Note.where(user_id: current_user.id).ransack(params[:q])
     @notes = @q.result(distinct: true)
@@ -11,6 +11,10 @@ class TopicsController < ApplicationController
 
   # GET /topics/1 or /topics/1.json
   def show
+    @topic = Topic.find(params[:id])
+    @q = @topic.notes.ransack(params[:q])
+    per_page = params[:per_page] || 6 # Default to 5 if not provided
+    @notes = @q.result(distinct: true).page(params[:page]).per(6)
   end
 
   # GET /topics/new
