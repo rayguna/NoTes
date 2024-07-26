@@ -1,2 +1,23 @@
-<h1><%=current_user.username%>'s <span style="color: gray;"> Things </span> </h1>
+<h1><%= current_user.username %>'s <span style="color: gray;"> Things </span> </h1>
 <p>The random number from an n-sided die is: <%= @heart %></p>
+
+<div class="circle-container">
+  <div class="circle-wrapper">
+    <div class="circle" style="background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQOc-iinzVf3l_y27FiBVExfST3j2ijSd1Dlg&s');"></div>
+    <div class="circle-caption">
+      <span>Troves</span>
+    </div>
+  </div>
+  <div class="circle-wrapper">
+    <div class="circle" style="background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTF5j9_OOyCW7sJxVJADF9omo_KDPN3unLuwQ&s');"></div>
+    <div class="circle-caption">
+      <span>Tools</span>
+    </div>
+  </div>
+  <div class="circle-wrapper">
+    <div class="circle" style="background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRkIJS1rP9BF5uufq5g3J9xycH89HWdXU8kUQ&s');"></div>
+    <div class="circle-caption">
+      <span>Teases</span>
+    </div>
+  </div>
+</div>
