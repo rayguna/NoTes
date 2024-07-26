@@ -18,9 +18,9 @@ class NotesController < ApplicationController
                           title: "%#{params[:q][:title_cont]&.downcase}%", 
                           content: "%#{params[:q][:content_cont]&.downcase}%", 
                           topic_name: "%#{params[:q][:topic_name_cont]&.downcase}%")
-                   .distinct
+                   .distinct.page(params[:page]).per(6)  # Adjust per page as needed
     else
-      @notes = Note.where(user_id: current_user.id)
+      @notes = Note.where(user_id: current_user.id).page(params[:page]).per(6)  # Adjust per page as needed
     end
   end
 
