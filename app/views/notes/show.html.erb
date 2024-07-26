@@ -1,10 +1,30 @@
 <p style="color: green"><%= notice %></p>
 
-<%= render @note %>
+<div class="container mt-4">
+  <div class="card position-relative border-success mb-3" style="max-width: 18rem;">
+    <div class="card-body">
+      <%= render @note %>
 
-<div>
-  <%= link_to "Edit this note", edit_note_path(@note) %> |
-  <%= link_to "Back to notes", notes_path %>
+      <!-- Top right corner buttons -->
+      <div class="position-absolute" style="top: 10px; right: 10px;">
+        <div class="d-inline-block">
+          <%= link_to edit_note_path(@note), class: "text-primary me-2" do %>
+            <i class="fa-solid fa-pen-to-square"></i>
+          <% end %>
+        </div>
+        <div class="d-inline-block">
+          <%= link_to @note, method: :delete, data: { turbo_confirm: "Are you sure?" }, class: "text-danger" do %>
+            <i class="fa-solid fa-trash"></i>
+          <% end %>
+        </div>
+      </div>
+    </div>
 
-  <%= button_to "Destroy this note", @note, method: :delete %>
+    <!-- Footer with back arrow -->
+    <div class="card-footer bg-transparent border-top">
+      <%= link_to notes_path, class: "text-secondary" do %>
+        <i class="fa-solid fa-arrow-left"></i>
+      <% end %>
+    </div>
+  </div>
 </div>
