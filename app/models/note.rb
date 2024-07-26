@@ -35,6 +35,10 @@ class Note < ApplicationRecord
     %w[title content created_at updated_at]
   end
 
+  def self.ransackable_associations(auth_object = nil)
+    ["favorites", "topic", "user"]
+  end
+
   def topic_name
     topic.name
   end
