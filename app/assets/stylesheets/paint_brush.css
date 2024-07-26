@@ -1,0 +1,13 @@
+
+/* Dropdown-hover for.css or custom CSS file */
+.dropdown:hover .dropdown-menu {
+  display: block;
+}
+
+.highlight {
+  display: inline-block;
+  background: url('https://www.transparenttextures.com/patterns/brushed-alum.png'), linear-gradient(to right, yellow 30%, rgba(255,255,0,0) 70%);
+  background-size: cover;
+  background-repeat: no-repeat;
+  padding: 0 5px;
+}
