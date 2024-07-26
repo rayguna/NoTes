@@ -1,26 +1,25 @@
-Title,Sentence
-Cosmology,Cosmology deals with the motion of macroscopic objects under the influence of forces.
-Biophysics,Biophysics applies probability and statistics to explain the behavior of systems with a large number of particles.
-Condensed Matter Physics,"Condensed Matter Physics examines the origin, evolution, and large-scale structure of the universe."
-Statistical Mechanics,Statistical Mechanics uses computational methods to solve complex physical problems.
-Electromagnetism,Electromagnetism studies the physical properties and processes of the Earth.
-Nuclear Physics,Nuclear Physics investigates the fundamental particles and forces that make up the universe.
-Geophysics,Geophysics analyzes the behavior of fluids and their interactions with their surroundings.
-Nuclear Physics,Nuclear Physics is concerned with the physical properties and phenomena of celestial bodies.
-Quantum Field Theory,"Quantum Field Theory deals with heat, work, and the laws governing energy transformations."
-Classical Mechanics,Classical Mechanics explains how objects move and interact under the influence of forces.
-High Energy Physics,High Energy Physics uses computational methods to solve complex physical problems.
-Biophysics,"Biophysics deals with heat, work, and the laws governing energy transformations."
-Quantum Field Theory,"Quantum Field Theory examines the origin, evolution, and large-scale structure of the universe."
-String Theory,String Theory studies the physical properties and processes of the Earth.
-Astrophysics,Astrophysics investigates the physical properties of condensed phases of matter.
-Acoustics,Acoustics is concerned with the physical properties and phenomena of celestial bodies.
-Electromagnetism,"Electromagnetism deals with heat, work, and the laws governing energy transformations."
-Computational Physics,Computational Physics applies the principles of physics to biological systems.
-Medical Physics,Medical Physics demonstrates that particles can exhibit both wave-like and particle-like properties.
-Nuclear Physics,Nuclear Physics describes the interactions between electric charges and magnetic fields.
-Biophysics,Biophysics explores the properties and behavior of ionized gases.
-Biophysics,"Biophysics revolutionized our understanding of space, time, and gravity."
-Wave-Particle Duality,Wave-Particle Duality studies the physical properties and processes of the Earth.
-Particle Physics,Particle Physics is concerned with the physical properties and phenomena of celestial bodies.
-Astrophysics,Astrophysics analyzes the behavior of fluids and their interactions with their surroundings.
+Cosmology;Cosmology deals with the motion of macroscopic objects under the influence of forces.
+Biophysics;Biophysics applies probability and statistics to explain the behavior of systems with a large number of particles.
+Condensed Matter Physics;Condensed Matter Physics examines the origin, evolution, and large-scale structure of the universe.
+Statistical Mechanics;Statistical Mechanics uses computational methods to solve complex physical problems.
+Electromagnetism;Electromagnetism studies the physical properties and processes of the Earth.
+Nuclear Physics;Nuclear Physics investigates the fundamental particles and forces that make up the universe.
+Geophysics;Geophysics analyzes the behavior of fluids and their interactions with their surroundings.
+Nuclear Physics;Nuclear Physics is concerned with the physical properties and phenomena of celestial bodies.
+Quantum Field Theory;Quantum Field Theory deals with heat, work, and the laws governing energy transformations.
+Classical Mechanics;Classical Mechanics explains how objects move and interact under the influence of forces.
+High Energy Physics;High Energy Physics uses computational methods to solve complex physical problems.
+Biophysics;Biophysics deals with heat, work, and the laws governing energy transformations.
+Quantum Field Theory;Quantum Field Theory examines the origin, evolution, and large-scale structure of the universe.
+String Theory;String Theory studies the physical properties and processes of the Earth.
+Astrophysics;Astrophysics investigates the physical properties of condensed phases of matter.
+Acoustics;Acoustics is concerned with the physical properties and phenomena of celestial bodies.
+Electromagnetism;Electromagnetism deals with heat, work, and the laws governing energy transformations.
+Computational Physics;Computational Physics applies the principles of physics to biological systems.
+Medical Physics;Medical Physics demonstrates that particles can exhibit both wave-like and particle-like properties.
+Nuclear Physics;Nuclear Physics describes the interactions between electric charges and magnetic fields.
+Biophysics;Biophysics explores the properties and behavior of ionized gases.
+Biophysics;Biophysics revolutionized our understanding of space, time, and gravity.
+Wave-Particle Duality;Wave-Particle Duality studies the physical properties and processes of the Earth.
+Particle Physics;Particle Physics is concerned with the physical properties and phenomena of celestial bodies.
+Astrophysics;Astrophysics analyzes the behavior of fluids and their interactions with their surroundings.

@@ -520,6 +520,7 @@ end
 3. Test using the command `rake sample data` in the terminal.
 
 4. At the start of the file, make sure to destroy existing tables and reset the indices. Pick 5 random topics for each user from a list without replacement to make sure each user has exactly 5 topics and not less due to duplication.
+5. Created datasets and saved into *.txt file. Exported datssets on local computer via github desktop. On codespaces, pull dataset with the command `git pull`.
 
 # Appendix:
 

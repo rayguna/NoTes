@@ -1,28 +1,25 @@
-title,content
-Resistor,A resistor is a passive electrical component that limits the flow of electric current.
-Capacitor,A capacitor stores electrical energy in an electric field, used in various electronic circuits.
-Inductor,An inductor stores energy in a magnetic field when electric current flows through it.
-Diode,A diode allows current to flow in one direction only, used for rectification.
-Transistor,A transistor is a semiconductor device used to amplify or switch electronic signals.
-Integrated Circuit,An IC is a set of electronic circuits on a small flat piece of semiconductor material.
-Microcontroller,A microcontroller is a compact integrated circuit designed to govern a specific operation in an embedded system.
-Oscillator,An oscillator is a circuit that generates a continuous output waveform.
-Transformer,A transformer transfers electrical energy between two or more circuits through electromagnetic induction.
-Battery,A battery stores chemical energy and converts it to electrical energy.
-Breadboard,A breadboard is used for prototyping electronics without soldering.
-Multimeter,A multimeter is a device that measures voltage, current, and resistance.
-Relay,A relay is an electrically operated switch used to control a circuit by a low-power signal.
-Sensor,A sensor detects changes in the environment and sends information to other electronics.
-PCB,A printed circuit board mechanically supports and electrically connects electronic components.
-LED,A light-emitting diode emits light when an electric current passes through it.
-Fuse,A fuse protects electronic circuits by breaking the connection if the current is too high.
-Switch,A switch controls the flow of electricity by opening or closing the circuit.
-Antenna,An antenna transmits and receives electromagnetic waves.
-Amplifier,An amplifier increases the power of a signal.
-Circuit Breaker,A circuit breaker automatically stops the flow of electricity in a circuit as a safety measure.
-Potentiometer,A potentiometer is a three-terminal resistor with a sliding contact that forms an adjustable voltage divider.
-Crystal Oscillator,A crystal oscillator uses the mechanical resonance of a vibrating crystal to create an electrical signal.
-Operational Amplifier,An operational amplifier is a voltage amplifying device used in various electronic circuits.
-Rectifier,A rectifier converts alternating current (AC) to direct current (DC).
-
-
+Resistor;A resistor is a passive electrical component that limits the flow of electric current.
+Capacitor;A capacitor stores electrical energy in an electric field, used in various electronic circuits.
+Inductor;An inductor stores energy in a magnetic field when electric current flows through it.
+Diode;A diode allows current to flow in one direction only, used for rectification.
+Transistor;A transistor is a semiconductor device used to amplify or switch electronic signals.
+Integrated Circuit;An IC is a set of electronic circuits on a small flat piece of semiconductor material.
+Microcontroller;A microcontroller is a compact integrated circuit designed to govern a specific operation in an embedded system.
+Oscillator;An oscillator is a circuit that generates a continuous output waveform.
+Transformer;A transformer transfers electrical energy between two or more circuits through electromagnetic induction.
+Battery;A battery stores chemical energy and converts it to electrical energy.
+Breadboard;A breadboard is used for prototyping electronics without soldering.
+Multimeter;A multimeter is a device that measures voltage, current, and resistance.
+Relay;A relay is an electrically operated switch used to control a circuit by a low-power signal.
+Sensor;A sensor detects changes in the environment and sends information to other electronics.
+PCB;A printed circuit board mechanically supports and electrically connects electronic components.
+LED;A light-emitting diode emits light when an electric current passes through it.
+Fuse;A fuse protects electronic circuits by breaking the connection if the current is too high.
+Switch;A switch controls the flow of electricity by opening or closing the circuit.
+Antenna;An antenna transmits and receives electromagnetic waves.
+Amplifier;An amplifier increases the power of a signal.
+Circuit Breaker;A circuit breaker automatically stops the flow of electricity in a circuit as a safety measure.
+Potentiometer;A potentiometer is a three-terminal resistor with a sliding contact that forms an adjustable voltage divider.
+Crystal Oscillator;A crystal oscillator uses the mechanical resonance of a vibrating crystal to create an electrical signal.
+Operational Amplifier;An operational amplifier is a voltage amplifying device used in various electronic circuits.
+Rectifier;A rectifier converts alternating current (AC) to direct current (DC).
