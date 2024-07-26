@@ -3,7 +3,20 @@ class NotesController < ApplicationController
 
   # GET /notes or /notes.json
   def index
-    @notes = Note.where(user_id: current_user.id)
+    @q = Note.where(user_id: current_user.id).ransack(params[:q])
+
+    if params[:q].present?
+      title_condition = params[:q][:title_cont].present? ? "LOWER(title) LIKE :title" : nil
+      content_condition = params[:q][:content_cont].present? ? "LOWER(content) LIKE :content" : nil
+
+      conditions = [title_condition, content_condition].compact.join(' AND ')
+
+      @notes = Note.where(user_id: current_user.id)
+                   .where(conditions, title: "%#{params[:q][:title_cont].downcase}%", content: "%#{params[:q][:content_cont].downcase}%")
+                   .distinct
+    else
+      @notes = Note.where(user_id: current_user.id)
+    end
   end
 
   # GET /notes/1 or /notes/1.json

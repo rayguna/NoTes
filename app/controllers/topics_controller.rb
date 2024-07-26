@@ -4,6 +4,9 @@ class TopicsController < ApplicationController
   # GET /topics or /topics.json
   def index
     @topics = Topic.where(user_id: current_user.id)
+
+    @q = Note.where(user_id: current_user.id).ransack(params[:q])
+    @notes = @q.result(distinct: true)
   end
 
   # GET /topics/1 or /topics/1.json

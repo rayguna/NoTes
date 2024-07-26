@@ -20,4 +20,5 @@ class Topic < ApplicationRecord
   validates :name, uniqueness: { scope: :user_id, message: "has already been taken for this user" }
   validates :name, presence: { message: "can't be blank. Please provide a topic name." }
   validates :user_id, presence: true
+  
 end
