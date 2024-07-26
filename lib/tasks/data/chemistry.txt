@@ -1,0 +1,26 @@
+title,content
+Atoms,Atoms are the building blocks of matter. They consist of electrons, protons, and neutrons. Atoms bond with each other to form molecules.
+Chemical Reactions,Chemical reactions involve the breaking and forming of bonds between atoms. They result in the transformation of substances. These reactions are governed by the laws of thermodynamics.
+Periodic Table,The periodic table organizes elements by increasing atomic number. Elements with similar properties are grouped together. It was first created by Dmitri Mendeleev.
+Ionic Bonds,Ionic bonds form between atoms that transfer electrons. This results in a positive and a negative ion. The electrostatic attraction between the ions holds them together.
+Covalent Bonds,Covalent bonds involve the sharing of electron pairs between atoms. This type of bond is common in organic compounds. It results in the formation of molecules.
+Acids and Bases,Acids release hydrogen ions in solution, while bases release hydroxide ions. The pH scale measures the acidity or basicity of a solution. Neutralization reactions occur when acids and bases react.
+Organic Chemistry,Organic chemistry studies compounds containing carbon. It includes hydrocarbons and their derivatives. This branch is essential for understanding biological molecules.
+Moles,The mole is a unit that measures the amount of substance. One mole contains Avogadro's number of entities, approximately 6.022 x 10^23. It is used to quantify atoms, molecules, and ions.
+Stoichiometry,Stoichiometry involves the calculation of reactants and products in chemical reactions. It is based on the conservation of mass. Balancing equations is a key aspect of stoichiometry.
+Electronegativity,Electronegativity is the tendency of an atom to attract electrons. It varies across the periodic table. Fluorine is the most electronegative element.
+States of Matter,Matter exists in three primary states: solid, liquid, and gas. The state of matter is determined by temperature and pressure. Phase transitions occur when matter changes state.
+Solutions,A solution is a homogeneous mixture of solute and solvent. Solubility is the ability of a solute to dissolve in a solvent. Factors affecting solubility include temperature and pressure.
+Gases,Gases have no fixed shape or volume. They expand to fill their container. Gas behavior can be described by the ideal gas law.
+Thermochemistry,Thermochemistry studies the energy changes in chemical reactions. It involves concepts like enthalpy and entropy. Exothermic reactions release heat, while endothermic reactions absorb heat.
+Chemical Equilibrium,Chemical equilibrium occurs when the rates of the forward and reverse reactions are equal. The concentrations of reactants and products remain constant. Le Chatelier's principle predicts the effect of changes on equilibrium.
+Redox Reactions,Redox reactions involve the transfer of electrons between species. Oxidation is the loss of electrons, while reduction is the gain of electrons. These reactions are crucial in energy production.
+Catalysts,Catalysts speed up chemical reactions without being consumed. They lower the activation energy required for the reaction. Enzymes are biological catalysts.
+Polymers,Polymers are large molecules made up of repeating units. They can be natural, like DNA, or synthetic, like plastic. Polymerization is the process of forming polymers.
+Electrolysis,Electrolysis is the process of using electricity to drive a non-spontaneous reaction. It is commonly used to decompose compounds. Electroplating is an application of electrolysis.
+Radioactivity,Radioactivity is the spontaneous emission of particles or radiation from unstable nuclei. It can result in alpha, beta, or gamma radiation. Radioactive decay follows first-order kinetics.
+Isotopes,Isotopes are atoms of the same element with different numbers of neutrons. They have the same chemical properties but different physical properties. Isotopes can be stable or radioactive.
+Crystallography,Crystallography studies the arrangement of atoms in crystalline solids. X-ray diffraction is a key technique used in this field. It helps determine the structure of complex molecules.
+Alloys,Alloys are mixtures of two or more metals. They often have improved properties compared to pure metals. Examples include steel and bronze.
+Acid-Base Titration,Acid-base titration is a technique used to determine the concentration of an acid or base. It involves the gradual addition of a titrant to a solution. The endpoint is detected using an indicator.
+Entropy,Entropy is a measure of the disorder or randomness in a system. It is a key concept in the second law of thermodynamics. Higher entropy means greater disorder.

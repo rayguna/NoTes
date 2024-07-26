@@ -1,0 +1,28 @@
+title,content
+Call Option,A call option gives the holder the right to buy an asset at a specified price within a specific time period.
+Put Option,A put option gives the holder the right to sell an asset at a specified price within a specific time period.
+Strike Price,The strike price is the set price at which an option can be bought or sold when exercised.
+Expiration Date,The expiration date is the date on which an option expires and can no longer be exercised.
+Premium,The premium is the price paid for purchasing an option.
+In the Money,An option is in the money if exercising it would result in a profit.
+Out of the Money,An option is out of the money if exercising it would not result in a profit.
+At the Money,An option is at the money if the strike price is equal to the current price of the underlying asset.
+Covered Call,A covered call involves holding a long position in an asset while selling a call option on the same asset.
+Naked Call,A naked call involves selling a call option without owning the underlying asset.
+Protective Put,A protective put involves buying a put option for an asset already owned to hedge against potential losses.
+Long Straddle,A long straddle involves buying both a call and a put option at the same strike price and expiration date.
+Iron Condor,An iron condor is a strategy that involves holding a combination of four different options with different strike prices.
+Volatility,Volatility measures the price fluctuations of an asset.
+Delta,Delta measures the sensitivity of an option's price to changes in the price of the underlying asset.
+Gamma,Gamma measures the rate of change of delta over time.
+Theta,Theta measures the rate of decline in the value of an option due to the passage of time.
+Vega,Vega measures the sensitivity of an option's price to changes in the volatility of the underlying asset.
+Rho,Rho measures the sensitivity of an option's price to changes in interest rates.
+Implied Volatility,Implied volatility reflects the market's view of the likelihood of changes in an asset's price.
+Exercise,Exercise is the act of utilizing the right to buy or sell the underlying asset of an option.
+Assignment,Assignment occurs when the seller of an option is obligated to fulfill the terms of the option contract.
+Margin Requirement,Margin requirement is the minimum amount of equity that must be maintained in a margin account.
+Hedging,Hedging is the practice of taking a position in one market to offset potential losses in another.
+Speculation,Speculation involves trading with the expectation of making a profit from market movements.
+
+
