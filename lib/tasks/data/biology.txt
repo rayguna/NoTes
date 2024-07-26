@@ -1,26 +1,25 @@
-title,content
-Cell,The cell is the basic unit of life. It contains organelles that perform various functions. Cells can be prokaryotic or eukaryotic.
-DNA,DNA stands for deoxyribonucleic acid. It carries genetic information in living organisms. DNA is composed of nucleotides arranged in a double helix.
-Photosynthesis,Photosynthesis is the process by which plants convert sunlight into energy. It takes place in the chloroplasts of plant cells. The main products are glucose and oxygen.
-Evolution,Evolution is the change in the heritable characteristics of biological populations over successive generations. It is driven by natural selection. Charles Darwin is known for his contributions to the theory of evolution.
-Mitosis,Mitosis is a type of cell division that results in two daughter cells. Each daughter cell has the same number of chromosomes as the parent cell. Mitosis is important for growth and repair.
-Genetics,Genetics is the study of heredity and variation in organisms. It involves the study of genes, DNA, and genetic inheritance. Gregor Mendel is known as the father of genetics.
-Ecosystem,An ecosystem is a community of living organisms interacting with their physical environment. It includes both biotic and abiotic components. Ecosystems can vary in size and complexity.
-Biodiversity,Biodiversity refers to the variety of life in a particular habitat or ecosystem. It includes the diversity of species, genes, and ecosystems. High biodiversity is essential for ecosystem stability.
-Proteins,Proteins are large biomolecules consisting of amino acids. They perform a variety of functions within organisms. Enzymes are a type of protein that catalyze biochemical reactions.
-Hormones,Hormones are chemical messengers produced by endocrine glands. They regulate various physiological processes. Examples include insulin and adrenaline.
-Ecology,Ecology is the study of interactions between organisms and their environment. It encompasses both biotic and abiotic factors. Ecologists study ecosystems, communities, and populations.
-Natural Selection,Natural selection is a mechanism of evolution. It favors individuals with advantageous traits. Over time, these traits become more common in the population.
-Respiration,Respiration is the process of converting glucose into energy. It occurs in the mitochondria of cells. The main products are ATP, carbon dioxide, and water.
-Chromosomes,Chromosomes are thread-like structures made of DNA and proteins. They contain genetic information. Humans have 23 pairs of chromosomes.
-Enzymes,Enzymes are biological catalysts that speed up chemical reactions. They are highly specific to their substrates. Enzymes are essential for various metabolic processes.
-Biomes,Biomes are large regions characterized by specific climate and vegetation. Examples include deserts, forests, and tundras. Each biome supports distinct plant and animal life.
-Genetic Code,The genetic code is the set of rules by which information encoded in DNA is translated into proteins. It is universal among all living organisms. Codons are the basic units of the genetic code.
-Meiosis,Meiosis is a type of cell division that reduces the chromosome number by half. It produces four genetically distinct gametes. Meiosis is essential for sexual reproduction.
-Adaptation,Adaptation is the process by which organisms become better suited to their environment. It can be structural, behavioral, or physiological. Adaptations increase an organism's chances of survival and reproduction.
-Symbiosis,Symbiosis is an interaction between two different organisms living in close physical association. It can be mutualistic, commensalistic, or parasitic. Examples include lichens and mycorrhizae.
-Gene Expression,Gene expression is the process by which information from a gene is used to synthesize a functional gene product. This product is usually a protein. Gene expression is regulated at multiple levels.
-Microbiology,Microbiology is the study of microorganisms. It includes bacteria, viruses, fungi, and protozoa. Microbiologists study their biology, ecology, and applications.
-Homeostasis,Homeostasis is the maintenance of a stable internal environment. It is crucial for the proper functioning of organisms. Examples include temperature regulation and pH balance.
-Antibodies,Antibodies are proteins produced by the immune system. They recognize and neutralize pathogens. Antibodies are specific to antigens on the surface of pathogens.
-Cloning,Cloning is the process of producing genetically identical individuals. It can occur naturally or artificially. Dolly the sheep was the first mammal to be cloned from an adult somatic cell.
+Cell;The cell is the basic unit of life. It contains organelles that perform various functions. Cells can be prokaryotic or eukaryotic.
+DNA;DNA stands for deoxyribonucleic acid. It carries genetic information in living organisms. DNA is composed of nucleotides arranged in a double helix.
+Photosynthesis;Photosynthesis is the process by which plants convert sunlight into energy. It takes place in the chloroplasts of plant cells. The main products are glucose and oxygen.
+Evolution;Evolution is the change in the heritable characteristics of biological populations over successive generations. It is driven by natural selection. Charles Darwin is known for his contributions to the theory of evolution.
+Mitosis;Mitosis is a type of cell division that results in two daughter cells. Each daughter cell has the same number of chromosomes as the parent cell. Mitosis is important for growth and repair.
+Genetics;Genetics is the study of heredity and variation in organisms. It involves the study of genes, DNA, and genetic inheritance. Gregor Mendel is known as the father of genetics.
+Ecosystem;An ecosystem is a community of living organisms interacting with their physical environment. It includes both biotic and abiotic components. Ecosystems can vary in size and complexity.
+Biodiversity;Biodiversity refers to the variety of life in a particular habitat or ecosystem. It includes the diversity of species, genes, and ecosystems. High biodiversity is essential for ecosystem stability.
+Proteins;Proteins are large biomolecules consisting of amino acids. They perform a variety of functions within organisms. Enzymes are a type of protein that catalyze biochemical reactions.
+Hormones;Hormones are chemical messengers produced by endocrine glands. They regulate various physiological processes. Examples include insulin and adrenaline.
+Ecology;Ecology is the study of interactions between organisms and their environment. It encompasses both biotic and abiotic factors. Ecologists study ecosystems, communities, and populations.
+Natural Selection;Natural selection is a mechanism of evolution. It favors individuals with advantageous traits. Over time, these traits become more common in the population.
+Respiration;Respiration is the process of converting glucose into energy. It occurs in the mitochondria of cells. The main products are ATP, carbon dioxide, and water.
+Chromosomes;Chromosomes are thread-like structures made of DNA and proteins. They contain genetic information. Humans have 23 pairs of chromosomes.
+Enzymes;Enzymes are biological catalysts that speed up chemical reactions. They are highly specific to their substrates. Enzymes are essential for various metabolic processes.
+Biomes;Biomes are large regions characterized by specific climate and vegetation. Examples include deserts, forests, and tundras. Each biome supports distinct plant and animal life.
+Genetic Code;The genetic code is the set of rules by which information encoded in DNA is translated into proteins. It is universal among all living organisms. Codons are the basic units of the genetic code.
+Meiosis;Meiosis is a type of cell division that reduces the chromosome number by half. It produces four genetically distinct gametes. Meiosis is essential for sexual reproduction.
+Adaptation;Adaptation is the process by which organisms become better suited to their environment. It can be structural, behavioral, or physiological. Adaptations increase an organism's chances of survival and reproduction.
+Symbiosis;Symbiosis is an interaction between two different organisms living in close physical association. It can be mutualistic, commensalistic, or parasitic. Examples include lichens and mycorrhizae.
+Gene Expression;Gene expression is the process by which information from a gene is used to synthesize a functional gene product. This product is usually a protein. Gene expression is regulated at multiple levels.
+Microbiology;Microbiology is the study of microorganisms. It includes bacteria, viruses, fungi, and protozoa. Microbiologists study their biology, ecology, and applications.
+Homeostasis;Homeostasis is the maintenance of a stable internal environment. It is crucial for the proper functioning of organisms. Examples include temperature regulation and pH balance.
+Antibodies;Antibodies are proteins produced by the immune system. They recognize and neutralize pathogens. Antibodies are specific to antigens on the surface of pathogens.
+Cloning;Cloning is the process of producing genetically identical individuals. It can occur naturally or artificially. Dolly the sheep was the first mammal to be cloned from an adult somatic cell.
