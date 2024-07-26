@@ -1,6 +1,26 @@
 <p class="text-success"><%= notice %></p>
 
-<h1>Topics</h1>
+  <div class="container mt-4">
+    <div class="row align-items-center mb-4">
+      <!-- Heading -->
+      <div class="col-md-8">
+        <h1>Topics</h1>
+      </div>
+
+      <!-- Search Form -->
+      <div class="col-md-4">
+        <form class="d-flex">
+          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name = "search">
+          <button class="btn btn-outline-success search-btn" type="submit">
+            <i class="fas fa-search"></i> 
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+<%q = Note.ransack(title_cont: "reaction")%>
+<%= "Test ransack #{q.result}" %>
 
 <div id="topics" class="container">
   <div class="row">
