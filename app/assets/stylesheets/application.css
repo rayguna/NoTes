@@ -136,3 +136,12 @@ h1, p {
 .last {
   animation-name: enter-top-to-bottom;
 }
+
+/* New CSS for equal card width */
+.card.equal-card {
+  width: 100%;
+}
+
+.row {
+  display: flex;
+}
