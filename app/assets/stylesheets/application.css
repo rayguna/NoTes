@@ -1,15 +1,38 @@
-/*
- * This is a manifest file that'll be compiled into application.css, which will include all the files
- * listed below.
- *
- * Any CSS (and SCSS, if configured) file within this directory, lib/assets/stylesheets, or any plugin's
- * vendor/assets/stylesheets directory can be referenced here using a relative path.
- *
- * You're free to add application-wide styles to this file and they'll appear at the bottom of the
- * compiled file so the styles you add here take precedence over styles defined in any other CSS
- * files in this directory. Styles in this file should be added after the last require_* statement.
- * It is generally better to create a new file per style scope.
- *
- *= require_tree .
- *= require_self
- */
+
+/* Dropdown-hover for.css or custom CSS file */
+.dropdown:hover .dropdown-menu {
+  display: block;
+}
+
+.highlight {
+  display: inline-block;
+  background: url('https://www.transparenttextures.com/patterns/brushed-alum.png'), linear-gradient(to right, yellow 30%, rgba(255,255,0,0) 70%);
+  background-size: cover;
+  background-repeat: no-repeat;
+  padding: 0 5px;
+}
+
+/* Gradient Background and 3D Effect */
+.navbar-custom {
+  background: linear-gradient(135deg, #6a11cb, #2575fc); /* Gradient Background */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* 3D Effect */
+  border-radius: 8px; /* Rounded corners for a smoother look */
+  transition: transform 0.3s ease-in-out; /* Smooth transformation effect */
+}
+
+/* Hover Effect */
+.navbar-custom:hover {
+  transform: translateY(-5px); /* Slight lift on hover */
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4); /* Enhanced shadow on hover */
+}
+
+/* Optional: Adding some padding for the text shadow effect */
+.navbar-dark .navbar-nav .nav-link {
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5); /* Subtle text shadow */
+}
+
+/* Make sure the content is above the navbar shadow */
+.container {
+  position: relative;
+  z-index: 1;
+}
