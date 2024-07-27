@@ -1,5 +1,5 @@
 class NotesController < ApplicationController
-  before_action :set_note, only: %i[ show edit update destroy ]
+  before_action :set_note, only: %i[show edit update destroy]
 
   # GET /notes or /notes.json
   def index
@@ -30,8 +30,11 @@ class NotesController < ApplicationController
 
   # GET /notes/new
   def new
-    # @note = Note.new
     @note = Note.new(topic_id: params[:topic_id])
+    if params[:preview] && params[:content].present?
+      @markdown_preview = render_markdown(params[:content])
+      @note.content = params[:content]
+    end
   end
 
   # GET /notes/1/edit
@@ -43,13 +46,17 @@ class NotesController < ApplicationController
     @note = Note.new(note_params)
     @note.user_id = current_user.id
 
-    respond_to do |format|
-      if @note.save
-        format.html { redirect_to topic_path(@note.topic_id), notice: "Note was successfully created." }
-        format.json { render :show, status: :created, location: @note }
-      else
-        format.html { redirect_to new_note_path(topic_id: @note.topic_id), alert: @note.errors.full_messages.join(", ") }
-        format.json { render json: @note.errors, status: :unprocessable_entity }
+    if params[:preview_button]
+      redirect_to new_note_path(topic_id: @note.topic_id, content: @note.content, preview: true)
+    else
+      respond_to do |format|
+        if @note.save
+          format.html { redirect_to topic_path(@note.topic_id), notice: "Note was successfully created." }
+          format.json { render :show, status: :created, location: @note }
+        else
+          format.html { redirect_to new_note_path(topic_id: @note.topic_id), alert: @note.errors.full_messages.join(", ") }
+          format.json { render json: @note.errors, status: :unprocessable_entity }
+        end
       end
     end
   end
@@ -78,13 +85,20 @@ class NotesController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_note
-      @note = Note.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def note_params
-      params.require(:note).permit(:title, :content, :user_id, :topic_id)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_note
+    @note = Note.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def note_params
+    params.require(:note).permit(:title, :content, :user_id, :topic_id)
+  end
+
+  def render_markdown(text)
+    renderer = Redcarpet::Render::HTML.new
+    markdown = Redcarpet::Markdown.new(renderer, extensions = {})
+    markdown.render(text).html_safe
+  end
 end
