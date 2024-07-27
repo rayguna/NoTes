@@ -1,3 +1,16 @@
+/* Reset some default margins and paddings */
+body {
+  margin: 0;
+  padding: 0;
+  overflow: hidden; /* Prevent vertical scrolling */
+}
+
+h1, p {
+  margin: 0;
+  padding: 10px 0; /* Add some padding for spacing */
+  text-align: center; /* Center the heading and paragraph */
+}
+
 /* Existing CSS */
 .dropdown:hover .dropdown-menu {
   display: block;
@@ -36,58 +49,60 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 20px;
+  margin-top: 2px; /* Reduce the margin to make the distance minimal */
+  height: calc(50vh - 30px); /* Adjust height to consider header and paragraph height */
 }
 
 .circle-item {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: 0 20px;
+  margin: 0 10px; /* Adjust margin for horizontal spacing */
+  width: 20%; /* Each circle occupies 20% of the screen width */
+  animation-duration: 1s;
+  animation-fill-mode: forwards;
 }
 
 .circle-image {
-  width: 200px;
-  height: 200px;
+  width: 100%; /* The circle will have 100% of the width of its container */
+  padding-top: 100%; /* The height will be equal to the width, making it a circle */
   border-radius: 50%;
   overflow: hidden;
   position: relative;
-  animation: bounce 1s ease forwards;
 }
 
 .circle-image img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  position: absolute;
+  top: 0;
+  left: 0;
 }
 
 .circle-caption {
-  margin-top: 10px;
+  margin-top: 5px; /* Reduce spacing between image and caption */
   font-size: 1.2em;
   color: #333;
   font-style: italic;
 }
 
-@keyframes bounce {
+@keyframes enter-top-to-bottom {
   0% {
     transform: translateY(-100%);
-  }
-  50% {
-    transform: translateY(0);
-  }
-  100% {
-    transform: translateY(-20%);
-  }
-  70% {
-    transform: translateY(0);
   }
   100% {
     transform: translateY(0);
   }
 }
 
-.circle-image:hover {
-  animation: wiggle 0.5s ease-in-out infinite;
+@keyframes enter-bottom-to-top {
+  0% {
+    transform: translateY(100%);
+  }
+  100% {
+    transform: translateY(0);
+  }
 }
 
 @keyframes wiggle {
@@ -106,41 +121,18 @@
   }
 }
 
-/* Additional styles for login and carousel cards */
-.equal-card {
-  width: 100%;
-  max-width: 500px; /* Set a max-width to ensure consistency */
-  min-height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+.circle-image:hover {
+  animation: wiggle 0.5s ease-in-out infinite;
 }
 
-.card-body {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  width: 100%;
+.first {
+  animation-name: enter-top-to-bottom;
 }
 
-.form-group {
-  width: 100%;
+.middle {
+  animation-name: enter-bottom-to-top;
 }
 
-.w-70 {
-  width: 70%;
-}
-
-.carousel-inner img {
-  max-height: 100%;
-  object-fit: cover;
-}
-
-.card-header {
-  width: 100%;
-}
-
-.form-group .devise-links {
-  margin-top: 1rem;
+.last {
+  animation-name: enter-top-to-bottom;
 }
