@@ -542,6 +542,12 @@ Type in the termnal: q.result. You will see the list of notes that meet the crit
 
 4. Added bootstrap pagination as well.
 
+## N. Added markdown 
+
+1. Use redcarpet gem.
+2. Define markdown method in the helper section.
+
+
 # Appendix:
 
 ## A. References
