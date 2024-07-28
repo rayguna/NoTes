@@ -10,26 +10,6 @@
 </head>
 <body>
   <h1><%= current_user.username %>'s <span style="color: gray;">Things</span></h1>
-  <!--<p>The random number from an n-sided die is: <%#= @heart %></p>-->
-
-  <!-- Ask the chatbot -->
-  <h1>Ask the Chatbot</h1>
-
-  <%= form_with url: root_path, method: :get, local: true do %>
-    <div class="form-group">
-      <%= label_tag :user_input, "Enter your question:" %>
-      <%= text_field_tag :user_input, params[:user_input], class: "form-control" %>
-    </div>
-    <div class="form-group">
-      <%= submit_tag "Submit", class: "btn btn-primary" %>
-    </div>
-  <% end %>
-
-  <% if @chatbot.present? %>
-    <h2>Response from Chatbot:</h2>
-    <p><%= @chatbot %></p>
-  <% end %>
-  <!--end-->
 
   <div class="content-wrapper">
     <div class="circle-container">
@@ -43,7 +23,9 @@
       </div>
       <div class="circle-item middle">
         <div class="circle-image">
+          <a href = "/tools">
           <img src="https://media.istockphoto.com/id/1842409394/photo/mountain-biker-takes-of-his-bike-from-the-car-roof.jpg?s=612x612&w=0&k=20&c=zaf_laVRbNzsshbWadK2DisJ7uEZnt5_Q1D0bbqQ9ew=" alt="Tools">
+          </a>
         </div>
         <div class="circle-caption">Tools</div>
       </div>

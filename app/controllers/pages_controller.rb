@@ -1,7 +1,10 @@
 class PagesController < ApplicationController
   before_action :authenticate_user!
   
-  def home
+  def navigate
+  end
+
+  def tools
     if params[:user_input]
       @chatbot = run_python_script("lib/assets/python/chatbot.py", params[:user_input])
     end
