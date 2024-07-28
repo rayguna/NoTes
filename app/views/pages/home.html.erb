@@ -10,8 +10,26 @@
 </head>
 <body>
   <h1><%= current_user.username %>'s <span style="color: gray;">Things</span></h1>
-  <p>The random number from an n-sided die is: <%= @heart %></p>
-  <p>The best color on earth is: <%= @chatbot %></p>
+  <!--<p>The random number from an n-sided die is: <%#= @heart %></p>-->
+
+  <!-- Ask the chatbot -->
+  <h1>Ask the Chatbot</h1>
+
+  <%= form_with url: root_path, method: :get, local: true do %>
+    <div class="form-group">
+      <%= label_tag :user_input, "Enter your question:" %>
+      <%= text_field_tag :user_input, params[:user_input], class: "form-control" %>
+    </div>
+    <div class="form-group">
+      <%= submit_tag "Submit", class: "btn btn-primary" %>
+    </div>
+  <% end %>
+
+  <% if @chatbot.present? %>
+    <h2>Response from Chatbot:</h2>
+    <p><%= @chatbot %></p>
+  <% end %>
+  <!--end-->
 
   <div class="content-wrapper">
     <div class="circle-container">
