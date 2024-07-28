@@ -16,6 +16,7 @@ Rails.application.routes.draw do
   end
 
   get 'tools', to: 'pages#tools'
+  get 'teases', to: 'pages#teases'
 
   root "pages#navigate"
 
