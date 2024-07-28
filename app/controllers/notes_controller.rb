@@ -46,17 +46,13 @@ class NotesController < ApplicationController
     @note = Note.new(note_params)
     @note.user_id = current_user.id
 
-    if params[:preview_button]
-      redirect_to new_note_path(topic_id: @note.topic_id, content: @note.content, preview: true)
-    else
-      respond_to do |format|
-        if @note.save
-          format.html { redirect_to topic_path(@note.topic_id), notice: "Note was successfully created." }
-          format.json { render :show, status: :created, location: @note }
-        else
-          format.html { redirect_to new_note_path(topic_id: @note.topic_id), alert: @note.errors.full_messages.join(", ") }
-          format.json { render json: @note.errors, status: :unprocessable_entity }
-        end
+    respond_to do |format|
+      if @note.save
+        format.html { redirect_to topic_path(@note.topic_id), notice: "Note was successfully created." }
+        format.json { render :show, status: :created, location: @note }
+      else
+        format.html { redirect_to new_note_path(topic_id: @note.topic_id), alert: @note.errors.full_messages.join(", ") }
+        format.json { render json: @note.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -82,6 +78,11 @@ class NotesController < ApplicationController
       format.html { redirect_to topic_path(@note.topic_id), notice: "Note was successfully destroyed." }
       format.json { head :no_content }
     end
+  end
+
+  # POST /notes/preview
+  def preview
+    render json: { preview: render_markdown(params[:content]) }
   end
 
   private

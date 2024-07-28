@@ -9,6 +9,12 @@ Rails.application.routes.draw do
     resources :notes
   end
 
+  resources :notes do
+    collection do
+      post :preview
+    end
+  end
+
   root "pages#home"
 
   # This is a blank app! Pick your first screen, build out the RCAV, and go from there. E.g.:
