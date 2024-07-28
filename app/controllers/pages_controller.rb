@@ -2,11 +2,9 @@ class PagesController < ApplicationController
   before_action :authenticate_user!
   
   def home
-    user_input = "10"
-    @heart = run_python_script("lib/assets/python/heart.py", user_input)
-
-    user_input2 = "What is the best color on earth?"
-    @chatbot = run_python_script("lib/assets/python/chatbot.py", user_input2)
+    if params[:user_input]
+      @chatbot = run_python_script("lib/assets/python/chatbot.py", params[:user_input])
+    end
   end
 
   private
