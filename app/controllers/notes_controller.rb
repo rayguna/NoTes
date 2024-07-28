@@ -12,15 +12,22 @@ class NotesController < ApplicationController
 
       conditions = [title_condition, content_condition, topic_condition].compact.join(' AND ')
 
+      #sort by title
       @notes = Note.joins(:topic)
-                   .where(user_id: current_user.id)
-                   .where(conditions, 
-                          title: "%#{params[:q][:title_cont]&.downcase}%", 
-                          content: "%#{params[:q][:content_cont]&.downcase}%", 
-                          topic_name: "%#{params[:q][:topic_name_cont]&.downcase}%")
-                   .distinct.page(params[:page]).per(6)  # Adjust per page as needed
+      .where(user_id: current_user.id)
+      .where(conditions, 
+             title: "%#{params[:q][:title_cont]&.downcase}%", 
+             content: "%#{params[:q][:content_cont]&.downcase}%", 
+             topic_name: "%#{params[:q][:topic_name_cont]&.downcase}%")
+      .distinct
+      .order(title: :asc)  # Sort by title in ascending order
+      .page(params[:page])
+      .per(6)  # Adjust per page as needed
     else
-      @notes = Note.where(user_id: current_user.id).page(params[:page]).per(6)  # Adjust per page as needed
+      @notes = Note.where(user_id: current_user.id)
+             .order(title: :asc)  # Sort by title in ascending order
+             .page(params[:page])
+             .per(6)  # Adjust per page as needed
     end
   end
 
@@ -95,11 +102,5 @@ class NotesController < ApplicationController
   # Only allow a list of trusted parameters through.
   def note_params
     params.require(:note).permit(:title, :content, :user_id, :topic_id)
-  end
-
-  def render_markdown(text)
-    renderer = Redcarpet::Render::HTML.new
-    markdown = Redcarpet::Markdown.new(renderer, extensions = {})
-    markdown.render(text).html_safe
   end
 end
