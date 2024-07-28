@@ -4,6 +4,9 @@ class PagesController < ApplicationController
   def navigate
   end
 
+  def teases
+  end
+
   def tools
     if params[:user_input]
       @chatbot = run_python_script("lib/assets/python/chatbot.py", params[:user_input])
