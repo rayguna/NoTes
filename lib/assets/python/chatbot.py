@@ -11,9 +11,9 @@ if len(sys.argv) > 1:
 else:
     user_input2 = "No input provided."
 
-# Create a chat completion request to OpenAI using the gpt-3.5-turbo model
+# Create a chat completion request to OpenAI using the gpt-4o-mini-2024-07-18 model
 response = openai.ChatCompletion.create(
-    model="gpt-3.5-turbo",
+    model="gpt-4o-mini-2024-07-18",
     messages=[{"role": "user", "content": user_input2}]
 )
 
