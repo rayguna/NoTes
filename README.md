@@ -546,6 +546,8 @@ Type in the termnal: q.result. You will see the list of notes that meet the crit
 
 1. Use redcarpet gem.
 2. Define markdown method in the helper section.
+3. Used js to dynamically update markdown preview for note content entry.
+4. Display note contents as markdown.
 
 
 # Appendix:
