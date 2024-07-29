@@ -502,6 +502,60 @@ end
 2. To do so, modify the `config/database.yml` file.
 3. Then, type rails `db:drop`, `rails db:create`, `rails db:migrate`.
 
+## L. Generate sample data
+
+1. Follow the tutorial in photogram-industrial.
+, section O.
+
+2. Write the commands within:
+
+  ```
+  #lib/tasks/dev.rake
+
+  task sample_data: :environment do
+    p "Creating sample data"
+  end
+  ```
+
+3. Test using the command `rake sample data` in the terminal.
+
+4. At the start of the file, make sure to destroy existing tables and reset the indices. Pick 5 random topics for each user from a list without replacement to make sure each user has exactly 5 topics and not less due to duplication.
+5. Created datasets and saved into *.txt file. Exported datssets on local computer via github desktop. On codespaces, pull dataset with the command `git pull`.
+
+## M. Add Ransack Search Tool
+
+1. Add to Gemfile: `gem 'ransack', '~> 4.1.0'`. Type in terminal: `bundle install`.
+2. Add to models/note.rb:
+  ```
+  def self.ransackable_attributes(auth_object = nil)
+      # Return an array of attributes that can be searched
+      %w[title content created_at updated_at]
+    end
+  ```
+3. Place into the views/notes/index.html.erb page:
+  ```
+  <%q = Note.ransack(title_cont: "reaction")%>
+  <%= "Test ransack #{q.result}" %>
+  <%debugger%>
+  ```
+Type in the termnal: q.result. You will see the list of notes that meet the criteria.
+
+4. Added bootstrap pagination as well.
+
+## N. Added markdown 
+
+1. Use redcarpet gem.
+2. Define markdown method in the helper section.
+3. Used js to dynamically update markdown preview for note content entry.
+4. Display note contents as markdown.
+5. To refactor the code, I place the render_markdown method in the helper folder. Since I want to make the method accessible both for the views and the controller, I had to include in the applicationcontroller:
+  
+  ``
+  helper MarkdownHelper
+  include MarkdownHelper # Include the module to make it available in controllers
+  ``
+- Use helper when you want to make methods available in views.
+- Use include when you want to mix methods into a class so they can be used as instance methods within that class.
 
 # Appendix:
 

@@ -1,0 +1,25 @@
+History of Rubik's Cube;The Rubik's Cube was invented by Ernő Rubik in 1974. It was initially called the Magic Cube. It became a worldwide sensation in the 1980s.
+Cube Notation;Rubik's Cube notation uses letters to represent rotations. For example, F means front face, R means right face. Each move can be clockwise or counterclockwise.
+Solving Methods;There are various methods to solve a Rubik's Cube. The CFOP method is popular among speedcubers. It stands for Cross, F2L, OLL, and PLL.
+CFOP Method;CFOP is a common solving method for Rubik's Cube. It involves solving the cross, first two layers, orientation of the last layer, and permutation of the last layer. It is used by many speedcubers.
+Speedcubing;Speedcubing is the practice of solving the Rubik's Cube as fast as possible. Competitions are held worldwide. The current world record is under 4 seconds.
+World Records;The world record for solving the Rubik's Cube is held by Yusheng Du. He solved the cube in 3.47 seconds. Records are officially recognized by the World Cube Association.
+Blindfolded Solving;Blindfolded solving involves memorizing the cube and solving it without sight. It requires a good memory and advanced techniques. Competitions include single, multiple, and fewest moves categories.
+Cube Variations;There are many variations of the Rubik's Cube. These include the 2x2, 4x4, and 5x5 cubes. Other shapes include pyramids and dodecahedrons.
+Algorithms;Algorithms are sequences of moves that achieve a specific goal. They are essential for solving the Rubik's Cube efficiently. Speedcubers memorize many algorithms to improve their times.
+Corner Cutting;Corner cutting is the ability of a cube to tolerate misalignment. Good corner cutting is essential for speedcubing. Modern cubes are designed to enhance corner cutting.
+Lubrication;Proper lubrication improves the performance of a Rubik's Cube. It reduces friction between the pieces. Special silicone-based lubricants are commonly used.
+Cubing Competitions;Cubing competitions are organized by the World Cube Association. Events include solving various cubes and other puzzles. Competitors aim for the fastest times and fewest moves.
+One-Handed Solving;One-handed solving is a popular event in cubing competitions. It requires a different technique compared to two-handed solving. The world record for one-handed solving is under 7 seconds.
+F2L;F2L stands for First Two Layers. It is a step in the CFOP method. Solving F2L involves pairing edge and corner pieces simultaneously.
+OLL;OLL stands for Orientation of the Last Layer. It is a step in the CFOP method. There are 57 different OLL algorithms.
+PLL;PLL stands for Permutation of the Last Layer. It is the final step in the CFOP method. There are 21 different PLL algorithms.
+Color Schemes;Modern Rubik's Cubes come in various color schemes. The standard scheme includes white, yellow, red, green, blue, and orange. Some cubes have stickerless designs.
+Scrambles;Official scrambles are generated using a computer algorithm. They ensure that the cube is randomly mixed. Scrambles are important for fair competition.
+Cube Design;Modern Rubik's Cubes are designed for speed and durability. They feature mechanisms that reduce friction and popping. Magnetic cubes have become popular among speedcubers.
+Multi-Blind;Multi-Blind is an event where competitors solve multiple cubes blindfolded. It requires memorizing the positions of many cubes. The current world record is over 50 cubes.
+Fewest Moves;The Fewest Moves Challenge involves solving the cube in the least number of moves. Competitors have one hour to find the optimal solution. It requires advanced solving techniques and algorithms.
+Cubing Notations;Cubing notation includes letters and symbols to describe moves. Standard notation uses letters like R, U, and F. Some variations use prime symbols and numbers.
+Cubing Community;The cubing community is a global network of enthusiasts. They share tips, techniques, and support each other. Online forums and social media are popular platforms.
+Cubing Myths;There are many myths about the Rubik's Cube. One myth is that it is unsolvable. In reality, any scramble can be solved in 20 moves or less.
+Cubing History;The Rubik's Cube has a rich history. It has evolved from a simple toy to a competitive sport. Its impact on popular culture is significant.
