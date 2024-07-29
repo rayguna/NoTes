@@ -13,12 +13,14 @@
     <% @notes.each do |note| %>
       <div class="col-md-4 mb-4">
         <div class="card">
-          <div class="card-body">
+          <div class="card-body position-relative">
             <h5 class="card-title"><%= note.topic_name %></h5>
             <p class="card-text"><small class="text-muted">Title: <%= note.title %></small></p>
-            <p class="card-text"><%= truncate(note.content, length: 100) %></p>
+            <p class="card-text"><%= render_markdown(note.content) %></p>
             <p class="card-text"><small class="text-muted">Created At: <%= note.created_at.strftime("%B %d, %Y") %></small></p>
-            <a href="<%= note_path(note) %>" class="btn btn-primary">Show this note</a>
+            <a href="<%= note_path(note) %>" class="position-absolute" style="top: 10px; right: 10px;">
+              <i class="fa-solid fa-eye"></i>
+            </a>
           </div>
         </div>
       </div>
