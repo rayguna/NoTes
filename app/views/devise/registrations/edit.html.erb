@@ -1,0 +1,54 @@
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="card">
+        <div class="card-header text-center">
+          <h2>Edit <%= resource_name.to_s.humanize %></h2>
+        </div>
+        <div class="card-body">
+          <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+            <%= f.error_notification %>
+
+            <div class="form-inputs">
+              <div class="mb-3">
+                <%= f.input :email, required: true, autofocus: true, input_html: { class: 'form-control' }, label: 'Email' %>
+              </div>
+
+              <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+                <p>Currently waiting confirmation for: <%= resource.unconfirmed_email %></p>
+              <% end %>
+
+              <div class="mb-3">
+                <%= f.input :password, hint: "Leave it blank if you don't want to change it", required: false, input_html: { autocomplete: "new-password", class: 'form-control' }, label: 'Password' %>
+              </div>
+              <div class="mb-3">
+                <%= f.input :password_confirmation, required: false, input_html: { autocomplete: "new-password", class: 'form-control' }, label: 'Password confirmation' %>
+              </div>
+              <div class="mb-3">
+                <%= f.input :current_password, hint: "We need your current password to confirm your changes", required: true, input_html: { autocomplete: "current-password", class: 'form-control' }, label: 'Current password' %>
+              </div>
+              <div class="mb-3">
+                <%= f.input :username, required: true, input_html: { autocomplete: "username", class: 'form-control' }, label: 'Username' %>
+              </div>
+            </div>
+
+            <div class="form-actions text-center">
+              <%= f.button :submit, "Update", class: "btn btn-primary" %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+      <div class="card mt-4">
+        <div class="card-body text-center">
+          <h3>Cancel my account</h3>
+          <div>
+            Unhappy? <%= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?", turbo_confirm: "Are you sure?" }, method: :delete, class: "btn btn-danger" %>
+          </div>
+        </div>
+      </div>
+      <div class="text-center mt-3">
+        <%= link_to "Back", :back, class: "btn btn-secondary" %>
+      </div>
+    </div>
+  </div>
+</div>

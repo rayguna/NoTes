@@ -1,0 +1,25 @@
+Data Structures;Data structures organize and store data efficiently. Common examples include arrays, linked lists, and trees. Understanding data structures is crucial for optimizing algorithms.
+Algorithms;Algorithms are step-by-step procedures for solving problems. They can be classified into sorting, searching, and graph algorithms. Efficiency is measured by time and space complexity.
+Big O Notation;Big O notation describes the performance of an algorithm. It provides an upper bound on time and space requirements. Common notations include O(1), O(n), and O(log n).
+System Design;System design involves creating large-scale software architectures. It requires understanding requirements and constraints. Key components include scalability, reliability, and maintainability.
+Object-Oriented Programming;Object-oriented programming (OOP) uses objects and classes. Key principles include encapsulation, inheritance, and polymorphism. OOP helps in creating modular and reusable code.
+Databases;Databases store and manage data. They can be relational (SQL) or non-relational (NoSQL). Understanding database design and queries is essential.
+Networking;Networking involves connecting computers and devices. Key concepts include IP addresses, protocols, and routing. Knowledge of networking is important for system design.
+Operating Systems;Operating systems manage hardware and software resources. They provide services like process management, memory management, and file systems. Understanding OS concepts is crucial for system-level programming.
+Version Control;Version control systems track changes to code. Git is a popular version control system. It allows collaboration and maintains a history of modifications.
+Testing;Testing ensures software quality and reliability. Types include unit testing, integration testing, and acceptance testing. Automated testing helps in continuous integration and deployment.
+Security;Security involves protecting systems from threats. Key concepts include encryption, authentication, and authorization. Understanding security best practices is essential for safe software.
+APIs;APIs allow communication between software systems. They can be RESTful or SOAP-based. Designing and using APIs is crucial for integrating different services.
+Concurrency;Concurrency involves executing multiple tasks simultaneously. It can be achieved through multithreading or multiprocessing. Managing concurrency is important for performance and responsiveness.
+Microservices;Microservices architecture breaks applications into smaller, independent services. Each service can be developed and deployed separately. Microservices offer scalability and flexibility.
+Cloud Computing;Cloud computing provides on-demand computing resources. Key providers include AWS, Azure, and Google Cloud. Understanding cloud services is important for modern software development.
+CI/CD;Continuous Integration (CI) and Continuous Deployment (CD) automate the software delivery process. CI ensures code changes are tested, while CD automates deployment. CI/CD pipelines improve efficiency and reliability.
+Containers;Containers package applications and their dependencies. Docker is a popular containerization tool. Containers ensure consistency across development and production environments.
+Load Balancing;Load balancing distributes incoming traffic across servers. It improves performance and reliability. Common techniques include round-robin and least connections.
+Scalability;Scalability is the ability to handle increased load. It can be achieved through horizontal or vertical scaling. Scalable systems ensure performance under high demand.
+Design Patterns;Design patterns provide solutions to common software design problems. Examples include Singleton, Observer, and Factory patterns. Using design patterns improves code maintainability and flexibility.
+Sockets;Sockets enable communication between devices over a network. They can use TCP or UDP protocols. Understanding sockets is important for network programming.
+Debugging;Debugging is the process of identifying and fixing bugs. It involves using tools and techniques to analyze code. Effective debugging improves software quality.
+Profiling;Profiling analyzes the performance of a program. It helps identify bottlenecks and optimize code. Profiling tools measure CPU, memory, and I/O usage.
+DevOps;DevOps combines development and operations practices. It aims to improve collaboration and automate processes. Key practices include CI/CD, infrastructure as code, and monitoring.
+Agile Methodology;Agile methodology promotes iterative development and collaboration. It includes frameworks like Scrum and Kanban. Agile practices improve flexibility and responsiveness.

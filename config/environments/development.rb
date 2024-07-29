@@ -1,6 +1,9 @@
 require "active_support/core_ext/integer/time"
 
 Rails.application.configure do
+  #added for devise - In production, :host should be set to the actual host of your application.
+  config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
+
   # Allow server to be hosted on any URL
   config.hosts.clear
   # Allow better_errors to work in online IDE
