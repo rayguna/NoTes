@@ -1,5 +1,5 @@
 class NotesController < ApplicationController
-  before_action :set_note, only: %i[ show edit update destroy ]
+  before_action :set_note, only: %i[show edit update destroy]
 
   # GET /notes or /notes.json
   def index
@@ -12,15 +12,22 @@ class NotesController < ApplicationController
 
       conditions = [title_condition, content_condition, topic_condition].compact.join(' AND ')
 
+      #sort by title
       @notes = Note.joins(:topic)
-                   .where(user_id: current_user.id)
-                   .where(conditions, 
-                          title: "%#{params[:q][:title_cont]&.downcase}%", 
-                          content: "%#{params[:q][:content_cont]&.downcase}%", 
-                          topic_name: "%#{params[:q][:topic_name_cont]&.downcase}%")
-                   .distinct.page(params[:page]).per(6)  # Adjust per page as needed
+      .where(user_id: current_user.id)
+      .where(conditions, 
+             title: "%#{params[:q][:title_cont]&.downcase}%", 
+             content: "%#{params[:q][:content_cont]&.downcase}%", 
+             topic_name: "%#{params[:q][:topic_name_cont]&.downcase}%")
+      .distinct
+      .order(title: :asc)  # Sort by title in ascending order
+      .page(params[:page])
+      .per(6)  # Adjust per page as needed
     else
-      @notes = Note.where(user_id: current_user.id).page(params[:page]).per(6)  # Adjust per page as needed
+      @notes = Note.where(user_id: current_user.id)
+             .order(title: :asc)  # Sort by title in ascending order
+             .page(params[:page])
+             .per(6)  # Adjust per page as needed
     end
   end
 
@@ -30,8 +37,11 @@ class NotesController < ApplicationController
 
   # GET /notes/new
   def new
-    # @note = Note.new
     @note = Note.new(topic_id: params[:topic_id])
+    if params[:preview] && params[:content].present?
+      @markdown_preview = render_markdown(params[:content])
+      @note.content = params[:content]
+    end
   end
 
   # GET /notes/1/edit
@@ -77,14 +87,21 @@ class NotesController < ApplicationController
     end
   end
 
-  private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_note
-      @note = Note.find(params[:id])
-    end
+  # POST /notes/preview
+  def preview
+    render json: { preview: render_markdown(params[:content]) }
+  end
 
-    # Only allow a list of trusted parameters through.
-    def note_params
-      params.require(:note).permit(:title, :content, :user_id, :topic_id)
-    end
+  private
+
+  # Use callbacks to share common setup or constraints between actions.
+  def set_note
+    @note = Note.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def note_params
+    params.require(:note).permit(:title, :content, :user_id, :topic_id)
+  end
+
 end
