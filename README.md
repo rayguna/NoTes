@@ -414,11 +414,148 @@ end
 
 4. The newly generated elements will be linked automatically to the existing table and its fields. 
 
-## To dos:
+## I. Routing
 
-- Create scaffold_controller for each table.
-- You may want to force user to create subjects first.
-- you may need to create a new table called subjects. 
+1. To direct route to a specific page, you need to incorporate several changes, as follows. Essentially, you need to save the dynamic route into the params hash. In this example, the action is new/create.
+
+  - Modify the "New Note" link on the topics/1 page to pass the dynamic route, `@topic_id`, called `topic_id`. This command saves the value of topic id within the params hash.
+    ```
+    <!-- app/views/topics/show.html.erb -->
+    <%= link_to 'New Note', new_note_path(topic_id: @topic.id) %>
+    ```
+  - Ensure the new action initializes the @note with topic_id.
+    ```
+    # app/controllers/notes_controller.rb
+    class NotesController < ApplicationController
+      def new
+        @note = Note.new(topic_id: params[:topic_id])
+      end
+
+      def create
+        @note = Note.new(note_params)
+        if @note.save
+          redirect_to topic_path(@note.topic_id), notice: 'Note was successfully created.'
+        else
+          render :new
+        end
+      end
+
+      private
+
+      def note_params
+        params.require(:note).permit(:title, :content, :topic_id)
+      end
+    end
+    ```
+
+  - Update the form for creating a new note to include a hidden field for topic_id.
+    ```
+    <!-- app/views/notes/new.html.erb -->
+    ...
+    <div>
+      <%= link_to 'Back to Notes', topic_path(params[:topic_id]) %>
+    </div>
+    ```
+
+  - Ensure the "Back" link on the new note form uses params[:topic_id].
+    ```
+    <!-- app/views/notes/_form.html.erb -->
+    <%= form_with(model: note, local: true) do |form| %>
+      <%= form.hidden_field :topic_id, value: note.topic_id %>
+    ```
+
+## J. Prevent user from creating duplicated topics or notes title
+
+1. Go to app/models/topic.rb and modify it to:
+
+```
+class Topic < ApplicationRecord
+  belongs_to :user
+
+  validates :name, uniqueness: { scope: :user_id, message: "has already been taken for this user" }
+end
+```
+
+2. In the terminal, type: `rails generate migration add_unique_index_to_topics_name_and_user_id`.
+
+3. Edit the generated migration file to add the unique index:
+
+```
+class AddUniqueIndexToTopicsNameAndUserId < ActiveRecord::Migration[6.1]
+  def change
+    add_index :topics, [:name, :user_id], unique: true
+  end
+end
+```
+
+4. Run: `rails db:migrate`.
+
+5. Do the same with notes model. You just have to add into the models/note.rb
+
+  ```
+  validates :title, uniqueness: { scope: [:user_id, :topic_id], message: "has already been taken for this topic and user" }
+  ```
+
+## K. Change Database Default from sqlite to Postgres
+
+1. This is to prevent constant updates during testing.
+2. To do so, modify the `config/database.yml` file.
+3. Then, type rails `db:drop`, `rails db:create`, `rails db:migrate`.
+
+## L. Generate sample data
+
+1. Follow the tutorial in photogram-industrial.
+, section O.
+
+2. Write the commands within:
+
+  ```
+  #lib/tasks/dev.rake
+
+  task sample_data: :environment do
+    p "Creating sample data"
+  end
+  ```
+
+3. Test using the command `rake sample data` in the terminal.
+
+4. At the start of the file, make sure to destroy existing tables and reset the indices. Pick 5 random topics for each user from a list without replacement to make sure each user has exactly 5 topics and not less due to duplication.
+5. Created datasets and saved into *.txt file. Exported datssets on local computer via github desktop. On codespaces, pull dataset with the command `git pull`.
+
+## M. Add Ransack Search Tool
+
+1. Add to Gemfile: `gem 'ransack', '~> 4.1.0'`. Type in terminal: `bundle install`.
+2. Add to models/note.rb:
+  ```
+  def self.ransackable_attributes(auth_object = nil)
+      # Return an array of attributes that can be searched
+      %w[title content created_at updated_at]
+    end
+  ```
+3. Place into the views/notes/index.html.erb page:
+  ```
+  <%q = Note.ransack(title_cont: "reaction")%>
+  <%= "Test ransack #{q.result}" %>
+  <%debugger%>
+  ```
+Type in the termnal: q.result. You will see the list of notes that meet the criteria.
+
+4. Added bootstrap pagination as well.
+
+## N. Added markdown 
+
+1. Use redcarpet gem.
+2. Define markdown method in the helper section.
+3. Used js to dynamically update markdown preview for note content entry.
+4. Display note contents as markdown.
+5. To refactor the code, I place the render_markdown method in the helper folder. Since I want to make the method accessible both for the views and the controller, I had to include in the applicationcontroller:
+  
+  ``
+  helper MarkdownHelper
+  include MarkdownHelper # Include the module to make it available in controllers
+  ``
+- Use helper when you want to make methods available in views.
+- Use include when you want to mix methods into a class so they can be used as instance methods within that class.
 
 # Appendix:
 

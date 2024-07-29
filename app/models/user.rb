@@ -2,7 +2,7 @@
 #
 # Table name: users
 #
-#  id                     :integer          not null, primary key
+#  id                     :bigint           not null, primary key
 #  email                  :string           default(""), not null
 #  encrypted_password     :string           default(""), not null
 #  remember_created_at    :datetime
@@ -26,6 +26,7 @@ class User < ApplicationRecord
 
   has_many :notes, dependent: :destroy
   has_many :favorites, dependent: :destroy
+  has_many :topics
 
   validates :email, presence: true, uniqueness: true
 

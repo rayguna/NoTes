@@ -2,13 +2,13 @@
 #
 # Table name: notes
 #
-#  id         :integer          not null, primary key
+#  id         :bigint           not null, primary key
 #  content    :text
 #  title      :string
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
-#  topic_id   :integer          not null
-#  user_id    :integer          not null
+#  topic_id   :bigint           not null
+#  user_id    :bigint           not null
 #
 # Indexes
 #
@@ -17,13 +17,29 @@
 #
 # Foreign Keys
 #
-#  topic_id  (topic_id => topics.id)
-#  user_id   (user_id => users.id)
+#  fk_rails_...  (topic_id => topics.id)
+#  fk_rails_...  (user_id => users.id)
 #
 class Note < ApplicationRecord
   belongs_to :user
   belongs_to :topic
   has_many :favorites, dependent: :destroy
 
-  validates :title, :content, presence: true
+  validates :title, presence: { message: "can't be blank. Please provide a title." }
+  validates :content, presence: { message: "can't be blank. Please provide a content." }
+
+  validates :title, uniqueness: { scope: [:user_id, :topic_id], message: "has already been taken for this topic and user" }
+
+  def self.ransackable_attributes(auth_object = nil)
+    # Return an array of attributes that can be searched
+    %w[title content created_at updated_at]
+  end
+
+  def self.ransackable_associations(auth_object = nil)
+    ["favorites", "topic", "user"]
+  end
+
+  def topic_name
+    topic.name
+  end
 end

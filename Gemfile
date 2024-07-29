@@ -3,6 +3,15 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby "3.2.1"
 
+#for markdown
+gem 'redcarpet'
+
+#for pagination
+gem 'kaminari'
+
+#for searching and filtering
+gem 'ransack', '~> 4.1.0'
+
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem "rails", "~> 7.1.3", ">= 7.1.3.2"
 
@@ -105,3 +114,5 @@ group :test do
   gem "rspec-html-matchers"
   gem "webmock"
 end
+
+gem "jsbundling-rails", "~> 1.3"

@@ -3,11 +3,25 @@ class TopicsController < ApplicationController
 
   # GET /topics or /topics.json
   def index
-    @topics = Topic.all
+    @topics = Topic.where(user_id: current_user.id)
+               .order(name: :asc)  # Sort by name in ascending order
+               .page(params[:page])
+               .per(6)
+
+    @q = Note.where(user_id: current_user.id).ransack(params[:q])
+    @notes = @q.result(distinct: true)
   end
 
   # GET /topics/1 or /topics/1.json
   def show
+    @topic = Topic.find(params[:id])
+    @q = @topic.notes.ransack(params[:q])
+    per_page = params[:per_page] || 6  # Default to 6 if not provided
+    @notes = @q.result(distinct: true)
+               .order(title: :asc)  # Sort by title in ascending order
+               .page(params[:page])
+               .per(per_page)
+    
   end
 
   # GET /topics/new
@@ -22,10 +36,11 @@ class TopicsController < ApplicationController
   # POST /topics or /topics.json
   def create
     @topic = Topic.new(topic_params)
-
+    @topic.user_id = current_user.id
+  
     respond_to do |format|
       if @topic.save
-        format.html { redirect_to topic_url(@topic), notice: "Topic was successfully created." }
+        format.html { redirect_to topics_path, notice: "Topic was successfully created." }
         format.json { render :show, status: :created, location: @topic }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -65,6 +80,6 @@ class TopicsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def topic_params
-      params.require(:topic).permit(:name)
+      params.require(:topic).permit(:name, :user_id)
     end
 end
