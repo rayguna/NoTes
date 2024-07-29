@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Circle Image Animation</title>
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="/assets/application.css"> <!-- Link to the external CSS file -->
+</head>
+<body>
+  <h1><%= current_user.username %>'s <span style="color: gray;">Things</span></h1>
+
+  <div class="content-wrapper">
+    <div class="circle-container">
+      <div class="circle-item first">
+        <div class="circle-image">
+          <!--<img src="https://media.istockphoto.com/id/1285373297/photo/man-dismounting-his-mountain-bike-from-a-car-roof-rack.jpg?s=612x612&w=0&k=20&c=_xKrRPu7xemKL0dDfykQrri2BYyBLE-zHN6Q0kMm6Yw=" alt="Troves">-->
+          <a href="/topics">
+            <img src="#" alt="Troves">
+          </a>
+        </div>
+        <div class="circle-caption">Troves</div>
+      </div>
+      <div class="circle-item middle">
+        <div class="circle-image">
+          <!--<img src="https://media.istockphoto.com/id/1842409394/photo/mountain-biker-takes-of-his-bike-from-the-car-roof.jpg?s=612x612&w=0&k=20&c=zaf_laVRbNzsshbWadK2DisJ7uEZnt5_Q1D0bbqQ9ew=" alt="Tools">-->
+          <a href = "/tools">
+          <img src="<img src="#" alt="Tools">
+          </a>
+        </div>
+        <div class="circle-caption">Tools</div>
+      </div>
+      <div class="circle-item last">
+        <div class="circle-image">
+          <!--<img src="https://media.istockphoto.com/id/1193121744/photo/hispanic-man-dismounting-his-mountain-bike-from-a-car-roof-rack.jpg?s=612x612&w=0&k=20&c=gADGpQXCO3Ogy1pC_pauF3cfIhwNTHRB0UXXjmKh9hI=" alt="Teases">-->
+          <a href = "teases">
+          <img src="#" alt="Teases">
+          </a>
+        </div>
+        <div class="circle-caption">Teases</div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

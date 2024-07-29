@@ -540,6 +540,23 @@ end
   ```
 Type in the termnal: q.result. You will see the list of notes that meet the criteria.
 
+4. Added bootstrap pagination as well.
+
+## N. Added markdown 
+
+1. Use redcarpet gem.
+2. Define markdown method in the helper section.
+3. Used js to dynamically update markdown preview for note content entry.
+4. Display note contents as markdown.
+5. To refactor the code, I place the render_markdown method in the helper folder. Since I want to make the method accessible both for the views and the controller, I had to include in the applicationcontroller:
+  
+  ``
+  helper MarkdownHelper
+  include MarkdownHelper # Include the module to make it available in controllers
+  ``
+- Use helper when you want to make methods available in views.
+- Use include when you want to mix methods into a class so they can be used as instance methods within that class.
+
 # Appendix:
 
 ## A. References
