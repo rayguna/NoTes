@@ -1,21 +1,22 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>YourAppName</title>
-  <%= csrf_meta_tags %>
-  <%= csp_meta_tag %>
+  <head>
+    <title>YourAppName</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
 
-  <%= stylesheet_link_tag 'application', media: 'all', 'data-turbo-track': 'reload' %>
-  <%= javascript_include_tag 'application', 'data-turbo-track': 'reload' %>
-</head>
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbo-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbo-track': 'reload' %>
+  </head>
+
 <body>
   <p class="text-success"><%= notice %></p>
 
   <div class="container mt-4">
     <!-- Heading -->
-    <div class="col-md-8">
+    <p>
       <h1>Topics</h1>
-    </div>
+    </p>
 
     <!-- Search Form in Dropdown -->
     <div class="col-md-4">
@@ -40,7 +41,6 @@
             <%= f.submit "Search", class: "btn btn-primary" %>
           <% end %>
         </div>
-        
       </div>
     </div>
     
