@@ -12,18 +12,34 @@
   <%= button_to "Destroy this topic", @topic, method: :delete, class: "btn btn-danger rounded-pill" %>
 </div>
 
+<!-- pagination -->
+<nav aria-label="Page navigation example" class="mt-4">
+  <ul class="pagination justify-content-center">
+    <%= paginate @notes, theme: 'bootstrap-4' %>
+  </ul>
+</nav>
+
 <!-- Notes Section -->
-<% notes = Note.where(topic_id: @topic.id) %>
 <div class="row">
-  <% notes.each do |note| %>
+  <% @notes.each do |note| %>
     <div class="col-md-4 mb-3">
       <div class="card h-100">
-        <div class="card-body">
+        <div class="card-body position-relative">
           <%= render partial: 'notes/note', locals: { note: note } %>
 
-          <div class="d-flex justify-content-between mt-3">
-            <%= button_to "Edit this note", edit_note_path(note), method: :get %>
-            <%= button_to "Destroy this note", note, method: :delete%>
+          <div class="position-absolute" style="top: 10px; right: 10px;">
+            <div class="row">
+              <div class="col-auto">
+                <%= link_to edit_note_path(note), method: :get, class: "text-primary" do %>
+                  <i class="fa-solid fa-pen-to-square"></i>
+                <% end %>
+              </div>
+              <div class="col-auto">
+                <%= link_to note, method: :delete, data: { turbo_confirm: "Are you sure?" }, class: "text-primary" do %>
+                  <i class="fa-solid fa-trash"></i>
+                <% end %>
+              </div>
+            </div>
           </div>
         </div>
       </div>
