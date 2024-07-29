@@ -1,4 +1,4 @@
-<div id="<%= dom_id note %>">
+<div id="<%= dom_id note %>">  
   <p>
     <strong>Title:</strong>
     <%= note.title %>
@@ -6,12 +6,7 @@
 
   <p>
     <strong>Content:</strong>
-    <%= note.content %>
-  </p>
-
-  <p>
-    <strong>User:</strong>
-    <%= note.user_id %>
+    <%= render_markdown(note.content) %>
   </p>
 
 </div>

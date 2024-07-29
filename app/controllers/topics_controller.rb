@@ -4,10 +4,24 @@ class TopicsController < ApplicationController
   # GET /topics or /topics.json
   def index
     @topics = Topic.where(user_id: current_user.id)
+               .order(name: :asc)  # Sort by name in ascending order
+               .page(params[:page])
+               .per(6)
+
+    @q = Note.where(user_id: current_user.id).ransack(params[:q])
+    @notes = @q.result(distinct: true)
   end
 
   # GET /topics/1 or /topics/1.json
   def show
+    @topic = Topic.find(params[:id])
+    @q = @topic.notes.ransack(params[:q])
+    per_page = params[:per_page] || 6  # Default to 6 if not provided
+    @notes = @q.result(distinct: true)
+               .order(title: :asc)  # Sort by title in ascending order
+               .page(params[:page])
+               .per(per_page)
+    
   end
 
   # GET /topics/new
