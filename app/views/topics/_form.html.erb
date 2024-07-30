@@ -1,27 +1,47 @@
-<%= form_with(model: topic) do |form| %>
-  <% if topic.errors.any? %>
-    <div style="color: red">
-      <h2><%= pluralize(topic.errors.count, "error") %> prohibited this topic from being saved:</h2>
+<!DOCTYPE html>
+<html>
+<head>
+  <title>New Topic</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
 
-      <ul>
-        <% topic.errors.each do |error| %>
-          <li><%= error.full_message %></li>
-        <% end %>
-      </ul>
+  <link rel="stylesheet" href="<%= asset_path('application.css') %>">
+  <link rel="stylesheet" href="<%= asset_path('topics_form.css') %>">
+</head>
+<body>
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-8 mb-4">
+        <div class="card organic-card">
+          <div class="card-body organic-card-body p-4">
+            <%= form_with(model: topic, local: true, id: 'topic-form') do |form| %>
+              <% if topic.errors.any? %>
+                <div style="color: red">
+                  <h2><%= pluralize(topic.errors.count, "error") %> prohibited this topic from being saved:</h2>
+                  <ul>
+                    <% topic.errors.each do |error| %>
+                      <li><%= error.full_message %></li>
+                    <% end %>
+                  </ul>
+                </div>
+              <% end %>
+
+              <div class="form-group">
+                <%= form.label :name, style: "display: block" %>
+                <%= form.text_field :name, class: 'form-control' %>
+              </div>
+
+              <%= form.hidden_field :user_id, value: current_user.id %>   
+
+              <div class="form-group">
+                <%= form.submit 'Save', class: 'btn btn-primary' %>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      </div>
     </div>
-  <% end %>
-
-  <div>
-    <%= form.label :name, style: "display: block" %>
-    <%= form.text_field :name %>
   </div>
-
-  <div>
-    <!-- Hidden field for user_id -->
-    <%= form.hidden_field :user_id, value: current_user.id %>   
-  </div>
-
-  <div>
-    <%= form.submit %>
-  </div>
-<% end %>
+</body>
+</html>

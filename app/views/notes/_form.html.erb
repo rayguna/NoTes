@@ -1,3 +1,7 @@
+<head>
+  <link rel="stylesheet" href="<%= asset_path('notes_form.css') %>">
+</head>
+
 <%= form_with(model: @note, local: true, id: 'note-form') do |form| %>
   <%= form.hidden_field :topic_id, value: params[:topic_id] || @note.topic_id %>
 
@@ -12,28 +16,21 @@
     </div>
   <% end %>
 
-  <div>
+  <div class="form-group">
     <%= form.label :title, style: "display: block" %>
-    <%= form.text_field :title %>
+    <%= form.text_field :title, class: 'form-control' %>
   </div>
 
-  <div>
+  <div class="form-group">
     <%= form.label :content, style: "display: block" %>
-    <%= form.text_area :content, value: params[:content] || @note.content, id: 'note-content' %>
+    <%= form.text_area :content, value: params[:content] || @note.content, class: 'form-control', id: 'note-content' %>
   </div>
 
-  <div>
-    <!-- Hidden field for user_id -->
-    <%= form.hidden_field :user_id, value: current_user.id %>
-  </div>
+  <%= form.hidden_field :user_id, value: current_user.id %>
+  <%= form.hidden_field :topic_id, value: @note.topic_id %>
 
-  <div>
-    <!-- Hidden field for topic_id -->
-    <%= form.hidden_field :topic_id, value: @note.topic_id %>
-  </div>
-
-  <div>
-    <%= form.submit 'Save' %>
+  <div class="form-group">
+    <%= form.submit 'Save', class: 'btn btn-primary' %>
   </div>
 <% end %>
 
