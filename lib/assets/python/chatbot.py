@@ -28,7 +28,7 @@ response = openai.ChatCompletion.create(
     messages=[
         {"role": "system", "content": "You are a helpful assistant that answers questions based on the provided text."},
         {"role": "user", "content": f"Given the following text: {dummy_text}"},
-        {"role": "user", "content": f"Question: {user_question}"}
+        {"role": "user", "content": f"Question: {user_question}. If the question is outside the scope of the provided text, respond with: 'Your question is outside the scope of the data.'"}
     ]
 )
 
