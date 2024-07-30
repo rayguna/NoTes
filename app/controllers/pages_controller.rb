@@ -10,7 +10,8 @@ class PagesController < ApplicationController
   def tools
     if params[:user_input]
       input_text = format_notes(Note.where(user_id: current_user.id))
-      @chatbot = render_markdown(run_python_script("lib/assets/python/chatbot.py", params[:user_input], input_text))
+      question_scope = params[:question_scope]
+      @chatbot = render_markdown(run_python_script("lib/assets/python/chatbot.py", params[:user_input], input_text, question_scope))
     end
   end
 
@@ -22,9 +23,9 @@ class PagesController < ApplicationController
     end.join("\n\n")
   end
 
-  def run_python_script(script_path, user_input, input_text)
+  def run_python_script(script_path, user_input, input_text, question_scope)
     begin
-      result = `python3 #{script_path} #{Shellwords.escape(user_input)} #{Shellwords.escape(input_text)}`
+      result = `python3 #{script_path} #{Shellwords.escape(user_input)} #{Shellwords.escape(input_text)} #{Shellwords.escape(question_scope)}`
       raise "Python script error" if result.blank?
       result
     rescue => e
