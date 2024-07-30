@@ -1,9 +1,39 @@
 import openai
 import os
 import sys
+import re
+from collections import defaultdict
 
 # Set your OpenAI API key
 openai.api_key = os.getenv('MY_GPT2_KEY')  # Ensure this environment variable is set correctly
+
+# Preprocess notes data for efficient lookup
+notes_data = [
+    {"title": "Note 1", "content": "Content of note 1", "topic": "AI"},
+    {"title": "Note 2", "content": "Content of note 2", "topic": "AI"},
+    {"title": "Note 3", "content": "Content of note 3", "topic": "ML"},
+    {"title": "Note 4", "content": "Content of note 4", "topic": "ML"}
+]
+
+# Create a dictionary for quick topic lookup
+notes_by_topic = defaultdict(list)
+for note in notes_data:
+    notes_by_topic[note['topic'].lower()].append(f"Title: {note['title']}\nContent: {note['content']}")
+
+def fetch_notes_by_topic_name(topic_name):
+    """
+    Fetch notes associated with a given topic name from preprocessed data.
+    
+    Args:
+    topic_name (str): The name of the topic.
+    
+    Returns:
+    str: A formatted string containing all notes associated with the topic.
+    """
+    topic_name = topic_name.lower()
+    if topic_name in notes_by_topic:
+        return "\n\n".join(notes_by_topic[topic_name])
+    return "No matching topics found."
 
 def answer_question(input_text, user_question):
     """
@@ -17,9 +47,15 @@ def answer_question(input_text, user_question):
     str: The response from the OpenAI model.
     """
     try:
-        # Create a chat completion request to OpenAI using the gpt-3.5-turbo model
+        # Check if the user question pertains to a topic name
+        topic_name_match = re.search(r'\btopic:?\s*(\w+)', user_question, re.IGNORECASE)
+        if topic_name_match:
+            topic_name = topic_name_match.group(1)
+            input_text = fetch_notes_by_topic_name(topic_name)
+        
+        # Create a chat completion request to OpenAI using the gpt-4 model
         response = openai.ChatCompletion.create(
-            model="gpt-4o-mini-2024-07-18",
+            model="gpt-4",
             messages=[
                 {"role": "system", "content": "You are a helpful assistant that answers questions based on the provided text. If the question is outside the scope of the provided text, respond with: 'Your question is outside the scope of the data.'"},
                 {"role": "user", "content": f"Here is the context: {input_text}"},
@@ -35,23 +71,13 @@ def answer_question(input_text, user_question):
 
 # Example usage
 if __name__ == "__main__":
-    # Dummy text block for demonstration
-    dummy_text = """
-    Artificial Intelligence (AI) is the simulation of human intelligence in machines that are programmed to think like humans and mimic their actions. The term may also be applied to any machine that exhibits traits associated with a human mind such as learning and problem-solving. AI is being used across different industries and sectors including healthcare, finance, education, and transportation. In healthcare, AI is being used for diagnosis, treatment recommendations, and personalized medicine. In finance, AI helps in fraud detection and financial forecasting.
-
-    The color of the sky is blue, but, depending on the weather, it can be red or purple and some other colors are possible too. The development of AI involves a variety of disciplines such as computer science, mathematics, psychology, neuroscience, cognitive science, linguistics, operations research, economics, and others. The field was founded on the claim that human intelligence can be so precisely described that a machine can be made to simulate it. AI research is divided into subfields that often fail to communicate with each other. These subfields are based on technical considerations, such as particular goals (e.g. robotics or machine learning), the use of particular tools (e.g. logic or neural networks), or deep philosophical differences. Subfields have also been organized based on social factors (particular institutions or the work of particular researchers).
-
-    The main approaches used by AI to learn information are supervised learning, unsupervised learning, and reinforcement learning. Blue is the color of the sky. Sometimes, the sky color can also be red, or even purple. It depends on the weather. AI research is divided into subfields that often fail to communicate with each other. These subfields are based on technical considerations, such as particular goals (e.g. robotics or machine learning), the use of particular tools (e.g. logic or neural networks), or deep philosophical differences. Subfields have also been organized based on social factors (particular institutions or the work of particular researchers).
-
-    The development of AI involves a variety of disciplines such as computer science, mathematics, psychology, neuroscience, cognitive science, linguistics, operations research, economics, and others. The field was founded on the claim that human intelligence can be so precisely described that a machine can be made to simulate it. AI research is divided into subfields that often fail to communicate with each other. These subfields are based on technical considerations, such as particular goals (e.g. robotics or machine learning), the use of particular tools (e.g. logic or neural networks), or deep philosophical differences. Subfields have also been organized based on social factors (particular institutions or the work of particular researchers). The main approaches used by AI to learn information are supervised learning, unsupervised learning, and reinforcement learning.
-    """
-
-    # Example question
-    if len(sys.argv) > 1:
+    if len(sys.argv) > 2:
         user_question = str(sys.argv[1])
+        input_text = str(sys.argv[2])
     else:
         user_question = "No question provided."
+        input_text = "No input text provided."
 
     # Get the answer to the question based on the provided text
-    response = answer_question(dummy_text, user_question)
+    response = answer_question(input_text, user_question)
     print(response)
