@@ -1,19 +1,23 @@
-  <!-- Ask the chatbot -->
-  <h1>Ask the Chatbot</h1>
+<!-- Ask the chatbot -->
+<h1>Ask the Chatbot</h1>
 
-  <%= form_with url: 'tools', method: :get, local: true do %>
-    <div class="form-group">
+<%= form_with url: 'tools', method: :get, local: true do %>
+  <div class="form-group" style="display: flex;">
+    <div style="flex: 80%;">
       <%= label_tag :user_input, "Enter your question:" %>
       <%= text_field_tag :user_input, params[:user_input], class: "form-control" %>
     </div>
-    <div class="form-group">
-      <%= submit_tag "Submit", class: "btn btn-primary" %>
+    <div style="flex: 20%; margin-left: 10px;">
+      <%= label_tag :question_scope, "Scope:" %>
+      <%= select_tag :question_scope, options_for_select([['Ask about the notes', 'notes'], ['Ask any questions', 'any']], selected: 'notes'), class: "form-control" %>
     </div>
-  <% end %>
+  </div>
+  <div class="form-group">
+    <%= submit_tag "Submit", class: "btn btn-primary" %>
+  </div>
+<% end %>
 
-  <h2>Response from Chatbot:</h2>
-  <% if @chatbot.present? %>
-    <p><%= @chatbot %></p>
-  <% end %>
-  <!--end-->
-
+<h2>Response from Chatbot:</h2>
+<% if @chatbot.present? %>
+  <p><%= @chatbot %></p>
+<% end %>
