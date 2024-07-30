@@ -2,27 +2,13 @@ import openai
 import os
 import sys
 import re
-from collections import defaultdict
 
 # Set your OpenAI API key
 openai.api_key = os.getenv('MY_GPT2_KEY')  # Ensure this environment variable is set correctly
 
-# Preprocess notes data for efficient lookup
-notes_data = [
-    {"title": "Note 1", "content": "Content of note 1", "topic": "AI"},
-    {"title": "Note 2", "content": "Content of note 2", "topic": "AI"},
-    {"title": "Note 3", "content": "Content of note 3", "topic": "ML"},
-    {"title": "Note 4", "content": "Content of note 4", "topic": "ML"}
-]
-
-# Create a dictionary for quick topic lookup
-notes_by_topic = defaultdict(list)
-for note in notes_data:
-    notes_by_topic[note['topic'].lower()].append(f"Title: {note['title']}\nContent: {note['content']}")
-
 def fetch_notes_by_topic_name(topic_name):
     """
-    Fetch notes associated with a given topic name from preprocessed data.
+    Fetch notes associated with a given topic name from the database.
     
     Args:
     topic_name (str): The name of the topic.
@@ -30,10 +16,16 @@ def fetch_notes_by_topic_name(topic_name):
     Returns:
     str: A formatted string containing all notes associated with the topic.
     """
-    topic_name = topic_name.lower()
-    if topic_name in notes_by_topic:
-        return "\n\n".join(notes_by_topic[topic_name])
-    return "No matching topics found."
+    # Mocked function to simulate fetching from the database
+    # Replace this function with actual database queries in your Rails environment
+    notes = [
+        {"title": "Note 1", "content": "Content of note 1", "topic": "AI"},
+        {"title": "Note 2", "content": "Content of note 2", "topic": "AI"},
+        {"title": "Note 3", "content": "Content of note 3", "topic": "ML"},
+        {"title": "Note 4", "content": "Content of note 4", "topic": "ML"}
+    ]
+    filtered_notes = [note for note in notes if note['topic'].lower() == topic_name.lower()]
+    return "\n\n".join([f"Title: {note['title']}\nContent: {note['content']}" for note in filtered_notes])
 
 def answer_question(input_text, user_question):
     """
