@@ -1,0 +1,50 @@
+/* app/assets/stylesheets/notes_form.css */
+.organic-card {
+  border-radius: 15px;
+  overflow: hidden; /* Ensure rounded corners are visible */
+}
+
+.organic-card-body {
+  background: #ffffff;
+  border-radius: 15px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2), 0 6px 6px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.organic-card-body:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 20px 30px rgba(0, 0, 0, 0.3), 0 10px 10px rgba(0, 0, 0, 0.3);
+}
+
+.organic-card .card-header {
+  background: linear-gradient(135deg, #ff7e5f, #feb47b);
+  color: white;
+  border-radius: 15px 15px 0 0;
+}
+
+.form-control {
+  border-radius: 15px;
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+}
+
+.btn-primary, .btn-secondary {
+  border-radius: 15px;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+}
+
+.btn-primary:hover, .btn-secondary:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.3);
+}
+
+#markdown-preview {
+  border: 1px solid #ddd;
+  padding: 10px;
+  margin-top: 20px;
+}
+
+#markdown-preview u {
+  text-decoration: underline;
+}
