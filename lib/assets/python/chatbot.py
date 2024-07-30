@@ -1,6 +1,9 @@
 import sys
 from transformers import DistilBertForQuestionAnswering, DistilBertTokenizer
 import torch
+import boto3
+import os
+from botocore.exceptions import NoCredentialsError, PartialCredentialsError, ClientError
 
 class QAEngine:
     def __init__(self, model_name='distilbert-base-uncased-distilled-squad'):
@@ -30,8 +33,36 @@ class QAEngine:
             else:
                 return answer
 
+def download_document_from_s3(bucket_name, file_key, local_file_name):
+    s3 = boto3.client('s3')
+    try:
+        s3.download_file(bucket_name, file_key, local_file_name)
+    except NoCredentialsError:
+        print("Credentials not available")
+        sys.exit(1)
+    except PartialCredentialsError:
+        print("Incomplete credentials provided")
+        sys.exit(1)
+    except ClientError as e:
+        if e.response['Error']['Code'] == '403':
+            print("Forbidden: Check your AWS credentials and bucket permissions.")
+        else:
+            print(f"ClientError: {e}")
+        sys.exit(1)
+
 if __name__ == "__main__":
     question = sys.argv[1]
-    document = sys.argv[2]
+    bucket_name = "number-of-things" 
+    file_key = "AWS_ACCESS_KEY" 
+
+    local_file_name = 'downloaded_document.txt'
+    download_document_from_s3(bucket_name, file_key, local_file_name)
+
+    with open(local_file_name, 'r') as file:
+        document = file.read()
+
     qa_engine = QAEngine()
     print(qa_engine.answer_question(question, document))
+    
+    # Clean up the downloaded file
+    os.remove(local_file_name)

@@ -557,6 +557,18 @@ Type in the termnal: q.result. You will see the list of notes that meet the crit
 - Use helper when you want to make methods available in views.
 - Use include when you want to mix methods into a class so they can be used as instance methods within that class.
 
+## O. AWS S3.
+
+1. Setup AWS S3 bucket
+- Disable bucket versioning. 
+- No tags.
+- SSE-S3.
+- Enable bucket key.
+2. To set up a user, login to AWS and in the search box type IAM.
+3. Click on Users in the left panel and create a new user.
+4. Follow instructions. 
+5. Tried to channel data to AWS S3, but unable to enable authorization.
+
 # Appendix:
 
 ## A. References
