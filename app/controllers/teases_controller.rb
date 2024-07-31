@@ -1,29 +1,52 @@
 class TeasesController < ApplicationController
-  def index
-    # Code for the index action
+
+  def create_teases
+    # Code for the create_teases action
   end
 
-  def show
-    # Code for the show action
+  def view_teases
+    # Code for the view_teases action
   end
 
   def new
-    # Code for the new action
-  end
-
-  def edit
-    # Code for the edit action
+    @tease = Tease.new
   end
 
   def create
-    # Code for the create action
+    @tease = Tease.new(tease_params)
+    if @tease.save
+      redirect_to @tease, notice: 'Tease was successfully created.'
+    else
+      render :new
+    end
+  end
+
+  def show
+    @tease = Tease.find(params[:id])
+  end
+
+  def edit
+    @tease = Tease.find(params[:id])
   end
 
   def update
-    # Code for the update action
+    @tease = Tease.find(params[:id])
+    if @tease.update(tease_params)
+      redirect_to @tease, notice: 'Tease was successfully updated.'
+    else
+      render :edit
+    end
   end
 
   def destroy
-    # Code for the destroy action
+    @tease = Tease.find(params[:id])
+    @tease.destroy
+    redirect_to teases_url, notice: 'Tease was successfully destroyed.'
+  end
+
+  private
+
+  def tease_params
+    params.require(:tease).permit(:question, :answer, :user_id, :category)
   end
 end
