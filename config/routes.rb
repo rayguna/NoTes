@@ -5,6 +5,8 @@ Rails.application.routes.draw do
   resources :users
   resources :notes
 
+  resources :teases
+
   resources :topics do
     resources :notes
   end
