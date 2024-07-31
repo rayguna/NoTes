@@ -4,6 +4,7 @@
 #
 #  id         :bigint           not null, primary key
 #  name       :string
+#  type       :string
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #  user_id    :integer
@@ -20,6 +21,8 @@ class Topic < ApplicationRecord
   validates :name, uniqueness: { scope: :user_id, message: "has already been taken for this user" }
   validates :name, presence: { message: "can't be blank. Please provide a topic name." }
   validates :user_id, presence: true
+  
+  enum type: { note: 'note', question: 'question' }
   
   def self.ransackable_attributes(auth_object = nil)
     ["created_at", "id", "id_value", "name", "updated_at", "user_id"]
