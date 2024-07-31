@@ -549,13 +549,17 @@ Type in the termnal: q.result. You will see the list of notes that meet the crit
 3. Used js to dynamically update markdown preview for note content entry.
 4. Display note contents as markdown.
 5. To refactor the code, I place the render_markdown method in the helper folder. Since I want to make the method accessible both for the views and the controller, I had to include in the applicationcontroller:
-  
+
   ``
   helper MarkdownHelper
   include MarkdownHelper # Include the module to make it available in controllers
   ``
 - Use helper when you want to make methods available in views.
 - Use include when you want to mix methods into a class so they can be used as instance methods within that class.
+
+## O. Added chart toggle button
+
+1. Added a toggle button to show/unshow user activities chart. This functionality is, however, slow. Ajaxify this in the future or consider some other feasible alternatives.
 
 # Appendix:
 

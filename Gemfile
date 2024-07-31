@@ -3,6 +3,10 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby "3.2.1"
 
+#for charting
+gem 'chartkick'
+gem 'groupdate'
+
 #for markdown
 gem 'redcarpet'
 
