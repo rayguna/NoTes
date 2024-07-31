@@ -7,7 +7,7 @@ def generate_chart(data, year):
 
     plt.figure(figsize=(10, 5))
     plt.plot(months, topic_counts, marker='o', linestyle='-', color='b')
-    plt.title(f'Number of Topics for {year}')
+    plt.title(f'Number of Topics Created for {year}')
     plt.xlabel('Month')
     plt.ylabel('Number of Topics')
     plt.grid(True)

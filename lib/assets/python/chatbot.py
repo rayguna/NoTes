@@ -6,26 +6,21 @@ import re
 # Set your OpenAI API key
 openai.api_key = os.getenv('MY_GPT2_KEY')  # Ensure this environment variable is set correctly
 
-def fetch_notes_by_topic_name(topic_name):
+def fetch_notes_by_topic_name(topic_name, input_text):
     """
-    Fetch notes associated with a given topic name from the database.
+    Fetch notes associated with a given topic name from the input text.
     
     Args:
     topic_name (str): The name of the topic.
+    input_text (str): The input text containing notes.
     
     Returns:
     str: A formatted string containing all notes associated with the topic.
     """
-    # Mocked function to simulate fetching from the database
-    # Replace this function with actual database queries in your Rails environment
-    notes = [
-        {"title": "Note 1", "content": "Content of note 1", "topic": "AI"},
-        {"title": "Note 2", "content": "Content of note 2", "topic": "AI"},
-        {"title": "Note 3", "content": "Content of note 3", "topic": "ML"},
-        {"title": "Note 4", "content": "Content of note 4", "topic": "ML"}
-    ]
-    filtered_notes = [note for note in notes if note['topic'].lower() == topic_name.lower()]
-    return "\n\n".join([f"Title: {note['title']}\nContent: {note['content']}" for note in filtered_notes])
+    notes_pattern = re.compile(r"Title: (.*?)\nContent: (.*?)\nTopic: (.*?)\n\n", re.DOTALL)
+    notes = notes_pattern.findall(input_text)
+    filtered_notes = [f"Title: {title}\nContent: {content}" for title, content, topic in notes if topic.lower() == topic_name.lower()]
+    return "\n\n".join(filtered_notes)
 
 def answer_question(input_text, user_question, question_scope):
     """
@@ -40,12 +35,15 @@ def answer_question(input_text, user_question, question_scope):
     str: The response from the OpenAI model.
     """
     try:
+        input_text = input_text.lower()
+        user_question = user_question.lower()
+        
         if question_scope == "notes":
             # Check if the user question pertains to a topic name
             topic_name_match = re.search(r'\btopic:?\s*(\w+)', user_question, re.IGNORECASE)
             if topic_name_match:
                 topic_name = topic_name_match.group(1)
-                input_text = fetch_notes_by_topic_name(topic_name)
+                input_text = fetch_notes_by_topic_name(topic_name, input_text)
             
             # Create a chat completion request to OpenAI using the gpt-4 model
             response = openai.ChatCompletion.create(
