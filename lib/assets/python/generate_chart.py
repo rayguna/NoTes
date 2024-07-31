@@ -1,6 +1,5 @@
 import sys
 import matplotlib.pyplot as plt
-from datetime import datetime
 
 def generate_chart(data, year):
     months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
@@ -15,7 +14,7 @@ def generate_chart(data, year):
     plt.xticks(rotation=45)
     plt.tight_layout()
 
-    image_path = f'/path/to/save/directory/topics_{year}.png'
+    image_path = f'public/charts/topics_{year}.png'
     plt.savefig(image_path)
     plt.close()
     return image_path
