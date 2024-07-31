@@ -23,6 +23,9 @@
       <%= label_tag :year, 'Select Year:', class: 'form-label me-2' %>
       <%= select_tag :year, options_for_select(Topic.pluck(Arel.sql('DISTINCT EXTRACT(YEAR FROM created_at)')).map(&:to_i).sort.reverse, params[:year] || Topic.maximum(Arel.sql('EXTRACT(YEAR FROM created_at)')).to_i), class: 'form-select', style: 'width: auto; padding-right: 1.5rem;', onchange: 'this.form.submit()' %>
     </div>
+    <div class="mb-3">
+      <%= button_tag 'View Activities Chart', class: 'btn btn-primary', style: 'min-width: 150px; padding: 5px 10px;' %>
+    </div>
   <% end %>
 
   <div class="table-container position-relative">
@@ -56,7 +59,6 @@
     <div class="circle-container">
       <div class="circle-item first">
         <div class="circle-image">
-          <!--<img src="https://media.istockphoto.com/id/1285373297/photo/man-dismounting-his-mountain-bike-from-a-car-roof-rack.jpg?s=612x612&w=0&k=20&c=_xKrRPu7xemKL0dDfykQrri2BYyBLE-zHN6Q0kMm6Yw=" alt="Troves">-->
           <a href="/topics">
             <img src="#" alt="Troves">
           </a>
@@ -65,23 +67,28 @@
       </div>
       <div class="circle-item middle">
         <div class="circle-image">
-          <!--<img src="https://media.istockphoto.com/id/1842409394/photo/mountain-biker-takes-of-his-bike-from-the-car-roof.jpg?s=612x612&w=0&k=20&c=zaf_laVRbNzsshbWadK2DisJ7uEZnt5_Q1D0bbqQ9ew=" alt="Tools">-->
           <a href="/tools">
-          <img src="#" alt="Tools">
+            <img src="#" alt="Tools">
           </a>
         </div>
         <div class="circle-caption">Tools</div>
       </div>
       <div class="circle-item last">
         <div class="circle-image">
-          <!--<img src="https://media.istockphoto.com/id/1193121744/photo/hispanic-man-dismounting-his-mountain-bike-from-a-car-roof-rack.jpg?s=612x612&w=0&k=20&c=gADGpQXCO3Ogy1pC_pauF3cfIhwNTHRB0UXXjmKh9hI=" alt="Teases">-->
           <a href="teases">
-          <img src="#" alt="Teases">
+            <img src="#" alt="Teases">
           </a>
         </div>
         <div class="circle-caption">Teases</div>
       </div>
     </div>
   </div>
+
+  <!-- Display the generated chart image -->
+  <% if @chart_image_path.present? %>
+    <div id="chart-container" style="width: 100%; height: 400px; margin-top: 20px;">
+      <img src="<%= asset_path(@chart_image_path) %>" alt="Topics Chart for <%= @selected_year %>" class="img-fluid">
+    </div>
+  <% end %>
 </body>
 </html>

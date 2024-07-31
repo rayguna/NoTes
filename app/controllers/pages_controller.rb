@@ -1,6 +1,6 @@
 class PagesController < ApplicationController
   before_action :authenticate_user!
-  
+
   def navigate
   end
 
@@ -15,6 +15,15 @@ class PagesController < ApplicationController
     end
   end
 
+  def index
+    @selected_year = params[:year] ? params[:year].to_i : Date.today.year
+    @topics_data = (1..12).map do |month|
+      Topic.where(user_id: current_user.id, created_at: Date.new(@selected_year, month).all_month).count
+    end.join(",")
+
+    @chart_image_path = run_python_script("lib/assets/python/generate_chart.py", @topics_data, @selected_year)
+  end
+
   private
 
   def format_notes(notes)
@@ -23,14 +32,14 @@ class PagesController < ApplicationController
     end.join("\n\n")
   end
 
-  def run_python_script(script_path, user_input, input_text, question_scope)
-    begin
-      result = `python3 #{script_path} #{Shellwords.escape(user_input)} #{Shellwords.escape(input_text)} #{Shellwords.escape(question_scope)}`
-      raise "Python script error" if result.blank?
+  def run_python_script(script_path, *args)
+    command = "python3 #{script_path} #{args.map { |a| Shellwords.escape(a.to_s) }.join(' ')}"
+    result = `#{command}`.strip
+    if $?.success?
       result
-    rescue => e
-      Rails.logger.error("Error running Python script: #{e.message}")
-      "Error executing script"
+    else
+      Rails.logger.error("Error running Python script: #{result}")
+      nil
     end
   end
 end
