@@ -1,6 +1,9 @@
 require "active_support/core_ext/integer/time"
 
 Rails.application.configure do
+  #for matplotlib
+  ENV['MPLCONFIGDIR'] = Rails.root.join('tmp', 'matplotlib').to_s
+
   #added for devise - In production, :host should be set to the actual host of your application.
   config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
 
