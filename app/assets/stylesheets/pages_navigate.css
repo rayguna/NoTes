@@ -1,0 +1,22 @@
+.align-left {
+  text-align: left;
+}
+
+.table-bordered {
+  border: 2px solid #dee2e6;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+.table-bordered th, .table-bordered td {
+  width: 100px;
+  padding: 5px; /* Minimal padding */
+  text-align: center;
+  vertical-align: middle;
+}
+.highlighted {
+  color: purple;
+}
+.position-relative {
+  position: relative;
+}
