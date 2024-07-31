@@ -7,6 +7,7 @@ Rails.application.routes.draw do
 
   get 'teases/create_teases', to: 'teases#create_teases'
   get 'teases/view_teases', to: 'teases#view_teases'
+
   resources :teases
 
   resources :topics do
@@ -18,6 +19,21 @@ Rails.application.routes.draw do
       post :preview
     end
   end
+
+  resources :teases do
+    collection do
+      get :create_teases
+    end
+  end
+
+  resources :topics
+  
+  resources :teases do
+    collection do
+      get :view_teases
+    end
+  end
+  
 
   get 'tools', to: 'pages#tools'
   

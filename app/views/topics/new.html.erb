@@ -1,9 +1,16 @@
-<h1>New topic</h1>
+<!DOCTYPE html>
+<html>
+<head>
+  <title>New Topic</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
 
-<%= render "form", topic: @topic %>
-
-<br>
-
-<div>
-  <%= link_to "Back to topics", topics_path %>
-</div>
+  <link rel="stylesheet" href="<%= asset_path('application.css') %>">
+  <link rel="stylesheet" href="<%= asset_path('topics_form.css') %>">
+</head>
+<body>
+  <h1>New Topic</h1>
+  <%= render 'shared/topic_form', topic: @topic, topic_type: 'note' %>
+</body>
+</html>
