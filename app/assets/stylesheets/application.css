@@ -11,6 +11,12 @@ h1, p {
   text-align: center; /* Center the heading and paragraph */
 }
 
+.custom_size{
+  width: 20px;
+  height:20px;
+}
+
+
 /* Existing CSS */
 .dropdown:hover .dropdown-menu {
   display: block;
@@ -144,4 +150,9 @@ h1, p {
 
 .row {
   display: flex;
+}
+
+.carousel-inner img {
+  height: 500px; /* Set a fixed height */
+  object-fit: cover; /* Maintain aspect ratio while covering the set height */
 }
