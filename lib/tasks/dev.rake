@@ -53,7 +53,7 @@ task sample_data: :environment do
       # Create the topic
       topic = Topic.create(
         name: topic_name,
-        type: "note",
+        topic_type: "note",
         user: user
       )
 
