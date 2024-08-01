@@ -42,4 +42,8 @@ class Note < ApplicationRecord
   def topic_name
     topic.name
   end
+
+  def topic_type
+    topic.topic_type
+  end
 end

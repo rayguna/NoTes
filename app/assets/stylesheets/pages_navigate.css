@@ -1,7 +1,35 @@
+body, html {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: auto; /* Allow body to scroll only when content overflows */
+}
+.content-wrapper {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+.content {
+  flex: 1;
+  overflow-y: auto; /* Allow vertical scrolling */
+  overflow-x: hidden; /* Prevent horizontal scrolling */
+}
+.table-container {
+  overflow-x: auto; /* Allow horizontal scrolling for the table */
+  display: flex;
+  justify-content: center; /* Center the table horizontally */
+}
+.table-container table {
+  width: auto;
+  table-layout: auto;
+}
+#chart-container {
+  max-width: 100%;
+  overflow: auto; /* Allow scrolling for the chart container */
+}
 .align-left {
   text-align: left;
 }
-
 .table-bordered {
   border: 2px solid #dee2e6;
   border-radius: 15px;
@@ -9,8 +37,7 @@
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
 }
 .table-bordered th, .table-bordered td {
-  width: 100px;
-  padding: 5px; /* Minimal padding */
+  padding: 2px 5px; /* Minimal padding */
   text-align: center;
   vertical-align: middle;
 }
@@ -19,4 +46,36 @@
 }
 .position-relative {
   position: relative;
+}
+.grid-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* Two columns grid */
+  gap: 1rem;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+.grid-item {
+  display: flex;
+  align-items: center;
+}
+.grid-item-year {
+  display: flex;
+  align-items: center;
+}
+.grid-item-year label {
+  margin-right: 0.5rem;
+}
+.grid-item-topic-notes {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+.center-container {
+  display: flex;
+  justify-content: center; /* Center the form horizontally */
+  align-items: center; /* Center the form vertically */
+  height: 100%; /* Ensure it takes full height for vertical centering */
+}
+#chart-button {
+  margin-right: 1rem; /* Add space between the button and the select year elements */
 }

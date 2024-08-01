@@ -1,0 +1,22 @@
+.card-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem; /* Adjust spacing between cards */
+  justify-content: center;
+}
+
+.card {
+  flex: 1 1 300px; /* Adjust card size: flex-grow, flex-shrink, flex-basis */
+  max-width: 100%; /* Ensures card doesn't overflow container */
+  width: 18rem; /* Fixed width for large screens */
+}
+
+.card-header {
+  font-weight: bold;
+}
+
+.list-group-item img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}

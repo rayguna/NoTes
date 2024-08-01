@@ -5,6 +5,11 @@ Rails.application.routes.draw do
   resources :users
   resources :notes
 
+  get 'teases/create_teases', to: 'teases#create_teases'
+  get 'teases/view_teases', to: 'teases#view_teases'
+
+  resources :teases
+
   resources :topics do
     resources :notes
   end
@@ -15,9 +20,23 @@ Rails.application.routes.draw do
     end
   end
 
-  get 'tools', to: 'pages#tools'
-  get 'teases', to: 'pages#teases'
+  resources :teases do
+    collection do
+      get :create_teases
+    end
+  end
 
+  resources :topics
+  
+  resources :teases do
+    collection do
+      get :view_teases
+    end
+  end
+  
+
+  get 'tools', to: 'pages#tools'
+  
   root "pages#navigate"
 
   # This is a blank app! Pick your first screen, build out the RCAV, and go from there. E.g.:

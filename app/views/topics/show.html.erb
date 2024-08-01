@@ -1,48 +1,101 @@
-<p class="text-success"><%= notice %></p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>YourAppName</title>
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
 
-<!-- Render the topic -->
-<div class="mb-4">
-  <%= render @topic %>
-</div>
+  <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
 
-<!-- Action Buttons -->
-<div class="d-flex justify-content-between align-items-center mb-4">
-  <%= link_to "Edit this topic", edit_topic_path(@topic), class: "btn btn-primary rounded-pill me-2" %>
-  <%= link_to "Back to topics", topics_path, class: "btn btn-secondary rounded-pill me-2" %>
-  <%= button_to "Destroy this topic", @topic, method: :delete, class: "btn btn-danger rounded-pill" %>
-</div>
+  <!-- Bootstrap 4.0 CSS -->
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+  <p class="text-success"><%= notice %></p>
 
-<!-- pagination -->
-<nav aria-label="Page navigation example" class="mt-4">
-  <ul class="pagination justify-content-center">
-    <%= paginate @notes, theme: 'bootstrap-4' %>
-  </ul>
-</nav>
+  <!-- Render the topic -->
+  <div class="mb-4">
+    <%= render @topic %>
+  </div>
 
-<!-- Notes Section -->
-<div class="row">
-  <% @notes.each do |note| %>
-    <div class="col-md-4 mb-3">
-      <div class="card h-100">
-        <div class="card-body position-relative">
-          <%= render partial: 'notes/note', locals: { note: note } %>
+  <!-- Action Buttons -->
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <%= link_to "Edit this topic", edit_topic_path(@topic), class: "btn btn-primary rounded-pill me-2" %>
+    <%= link_to "Back to topics", "/teases/view_teases", class: "btn btn-secondary rounded-pill me-2" %>
+    <%= button_to "Destroy this topic", @topic, method: :delete, class: "btn btn-danger rounded-pill" %>
+  </div>
 
-          <div class="position-absolute" style="top: 10px; right: 10px;">
-            <div class="row">
-              <div class="col-auto">
-                <%= link_to edit_note_path(note), method: :get, class: "text-primary" do %>
-                  <i class="fa-solid fa-pen-to-square"></i>
-                <% end %>
-              </div>
-              <div class="col-auto">
-                <%= link_to note, method: :delete, data: { turbo_confirm: "Are you sure?" }, class: "text-primary" do %>
-                  <i class="fa-solid fa-trash"></i>
-                <% end %>
+  <!-- Pagination -->
+  <nav aria-label="Page navigation example" class="mt-4">
+    <ul class="pagination justify-content-center">
+      <%= paginate @notes, theme: 'bootstrap-4' %>
+    </ul>
+  </nav>
+
+  <!-- Notes Section -->
+  <div class="row">
+    <% @notes.each do |note| %>
+      <% if note.topic_type == "note" %>
+        <div class="col-md-4 mb-3">
+          <div class="card h-100">
+            <div class="card-body position-relative">
+              <%= render partial: 'notes/note', locals: { note: note } %>
+              <div class="position-absolute" style="top: 10px; right: 10px;">
+                <div class="row">
+                  <div class="col-auto">
+                    <%= link_to edit_note_path(note), method: :get, class: "text-primary" do %>
+                      <i class="fa-solid fa-pen-to-square"></i>
+                    <% end %>
+                  </div>
+                  <div class="col-auto">
+                    <%= link_to note, method: :delete, data: { turbo_confirm: "Are you sure?" }, class: "text-primary" do %>
+                      <i class="fa-solid fa-trash"></i>
+                    <% end %>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
-    </div>
-  <% end %>
-</div>
+      <% else %>
+        <div class="col-md-4 mb-3">
+          <div class="card h-100">
+            <div id="accordion<%= note.id %>">
+              <div class="card">
+                <div class="card-header d-flex justify-content-between align-items-center" id="heading<%= note.id %>">
+                  <h5 class="mb-0">
+                    <button class="btn btn-link no-underline" data-toggle="collapse" data-target="#collapse<%= note.id %>" aria-expanded="false" aria-controls="collapse<%= note.id %>">
+                      <%= note.title %>
+                    </button>
+                  </h5>
+                  <div>
+                    <%= link_to edit_note_path(note), method: :get, class: "text-primary mr-2" do %>
+                      <i class="fa-solid fa-pen-to-square"></i>
+                    <% end %>
+                    <%= link_to note, method: :delete, data: { turbo_confirm: "Are you sure?" }, class: "text-primary" do %>
+                      <i class="fa-solid fa-trash"></i>
+                    <% end %>
+                  </div>
+                </div>
+                <div id="collapse<%= note.id %>" class="collapse" aria-labelledby="heading<%= note.id %>" data-parent="#accordion<%= note.id %>">
+                  <div class="card-body">
+                    <%= note.content %>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+
+  <!-- Bootstrap 4.0 JS -->
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+</body>
+</html>

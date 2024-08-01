@@ -2,7 +2,7 @@
 body {
   margin: 0;
   padding: 0;
-  overflow: hidden; /* Prevent vertical scrolling */
+  overflow: auto; /* Allow vertical scrolling */
 }
 
 h1, p {
@@ -11,7 +11,6 @@ h1, p {
   text-align: center; /* Center the heading and paragraph */
 }
 
-/* Existing CSS */
 .dropdown:hover .dropdown-menu {
   display: block;
 }
@@ -144,6 +143,17 @@ h1, p {
 
 .row {
   display: flex;
+  flex-wrap: wrap;
+}
+
+/* CSS for no underline on clickable titles */
+.no-underline {
+  text-decoration: none;
+}
+
+/* CSS for transparent borders on collapsed cards */
+.collapse:not(.show) .card {
+  border-color: transparent;
 }
 
 .carousel-inner img {

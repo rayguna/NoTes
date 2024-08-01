@@ -1,12 +1,12 @@
 class TopicsController < ApplicationController
-  before_action :set_topic, only: %i[ show edit update destroy ]
+  before_action :set_topic, only: %i[show edit update destroy]
 
   # GET /topics or /topics.json
   def index
-    @topics = Topic.where(user_id: current_user.id)
-               .order(name: :asc)  # Sort by name in ascending order
-               .page(params[:page])
-               .per(6)
+    @topics = Topic.where(user_id: current_user.id, topic_type: 'note')
+                   .order(name: :asc)  # Sort by name in ascending order
+                   .page(params[:page])
+                   .per(6)
 
     @q = Note.where(user_id: current_user.id).ransack(params[:q])
     @notes = @q.result(distinct: true)
@@ -14,19 +14,17 @@ class TopicsController < ApplicationController
 
   # GET /topics/1 or /topics/1.json
   def show
-    @topic = Topic.find(params[:id])
     @q = @topic.notes.ransack(params[:q])
     per_page = params[:per_page] || 6  # Default to 6 if not provided
     @notes = @q.result(distinct: true)
                .order(title: :asc)  # Sort by title in ascending order
                .page(params[:page])
                .per(per_page)
-    
   end
 
   # GET /topics/new
   def new
-    @topic = Topic.new
+    @topic = Topic.new(topic_type: 'note') # Set default topic_type to 'note'
   end
 
   # GET /topics/1/edit
@@ -37,7 +35,7 @@ class TopicsController < ApplicationController
   def create
     @topic = Topic.new(topic_params)
     @topic.user_id = current_user.id
-  
+
     respond_to do |format|
       if @topic.save
         format.html { redirect_to topics_path, notice: "Topic was successfully created." }
@@ -73,6 +71,7 @@ class TopicsController < ApplicationController
   end
 
   private
+
     # Use callbacks to share common setup or constraints between actions.
     def set_topic
       @topic = Topic.find(params[:id])
@@ -80,6 +79,6 @@ class TopicsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def topic_params
-      params.require(:topic).permit(:name, :user_id)
+      params.require(:topic).permit(:name, :user_id, :topic_type)
     end
 end
