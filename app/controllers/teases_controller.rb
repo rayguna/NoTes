@@ -2,7 +2,7 @@ class TeasesController < ApplicationController
   before_action :set_tease, only: %i[show edit update destroy]
 
   def create_teases
-    @topic = Topic.new
+    @topic = Topic.new(topic_type: 'teases')
   end
 
   def view_teases
@@ -16,7 +16,7 @@ class TeasesController < ApplicationController
   end
 
   def new
-    @tease = Tease.new
+    @topic = Topic.new(topic_type: 'teases') # Set default topic_type to 'note'
   end
 
   def create

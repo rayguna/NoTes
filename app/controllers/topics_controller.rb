@@ -24,7 +24,7 @@ class TopicsController < ApplicationController
 
   # GET /topics/new
   def new
-    @topic = Topic.new
+    @topic = Topic.new(topic_type: 'note') # Set default topic_type to 'note'
   end
 
   # GET /topics/1/edit
