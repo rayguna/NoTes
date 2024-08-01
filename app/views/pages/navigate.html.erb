@@ -18,16 +18,19 @@
   </p>
 
   <!-- Year selection form -->
-  <%= form_with(url: root_path, method: :get, local: true) do %>
-    <div class="mb-3 d-flex align-items-center">
-      <%= label_tag :year, 'Select Year:', class: 'form-label me-2' %>
-      <%= select_tag :year, options_for_select(Topic.pluck(Arel.sql('DISTINCT EXTRACT(YEAR FROM created_at)')).map(&:to_i).sort.reverse, params[:year] || Topic.maximum(Arel.sql('EXTRACT(YEAR FROM created_at)')).to_i), class: 'form-select', style: 'width: auto; padding-right: 1.5rem;', onchange: 'this.form.submit()' %>
-    </div>
-    <%= hidden_field_tag :show_chart, params[:show_chart] == "true" ? "false" : "true" %>
-    <div class="mb-3">
-      <%= button_tag params[:show_chart] == "true" ? "Hide Activities Chart" : "View Activities Chart", class: 'btn btn-primary', style: 'min-width: 150px; padding: 5px 10px;' %>
-    </div>
-  <% end %>
+  <div class="center-container">
+    <%= form_with(url: root_path, method: :get, local: true) do %>
+      <div class="mb-3 d-flex align-items-center form-group">
+        <%= button_tag params[:show_chart] == "true" ? "Hide Activities Chart" : "View Activities Chart", class: 'btn btn-primary', id: 'chart-button' %>
+
+        <%= label_tag :year, 'Select Year:', class: 'form-label me-2' %>
+        <%= select_tag :year, options_for_select(Topic.pluck(Arel.sql('DISTINCT EXTRACT(YEAR FROM created_at)')).map(&:to_i).sort.reverse, params[:year] || Topic.maximum(Arel.sql('EXTRACT(YEAR FROM created_at)')).to_i), class: 'form-select', style: 'width: auto; padding-right: 1.5rem;', onchange: 'this.form.submit()' %>
+
+        <%= hidden_field_tag :show_chart, params[:show_chart] == "true" ? "false" : "true" %>
+      </div>
+    <% end %>
+  </div>
+
 
   <div class="table-container position-relative">
     <!-- Table displaying data for the selected year -->
