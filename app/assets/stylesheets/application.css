@@ -11,12 +11,6 @@ h1, p {
   text-align: center; /* Center the heading and paragraph */
 }
 
-.custom_size{
-  width: 20px;
-  height:20px;
-}
-
-
 /* Existing CSS */
 .dropdown:hover .dropdown-menu {
   display: block;
