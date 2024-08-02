@@ -7,7 +7,6 @@ attrs==23.2.0
 awscli==1.18.69
 bokeh==3.1.1
 boto3==1.34.150
-botocore==1.34.150
 bun==0.0.8
 certifi==2024.7.4
 chardet==3.0.4
