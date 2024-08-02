@@ -16,4 +16,6 @@ services:
 databases: # this section provides some additional database configuration
   - name: NoTes
     plan: free
+    databaseName: NoTes
+    user: NoTes
     ipAllowList: []
