@@ -13,8 +13,19 @@
   <h1><%= current_user.username %>'s <span style="color: gray;">Things</span></h1>
 
   <p>
-    Number of Topics: <%= Topic.where(user_id: current_user.id).count %> (<%=Topic.minimum(:created_at).strftime("%Y/%m/%d")%> - <%=Topic.maximum(:created_at).strftime("%Y/%m/%d")%>) <i class="fa-solid fa-grip-vertical"></i>
-    Number of Notes: <%= Note.where(user_id: current_user.id).count %> (<%=Note.minimum(:created_at).strftime("%Y/%m/%d")%> - <%=Note.maximum(:created_at).strftime("%Y/%m/%d")%>)
+    Number of Topics: <%= Topic.where(user_id: current_user.id).count %> 
+    <% if Topic.where(user_id: current_user.id).exists? %>
+      (<%= Topic.minimum(:created_at)&.strftime("%Y/%m/%d") %> - <%= Topic.maximum(:created_at)&.strftime("%Y/%m/%d") %>)
+    <% else %>
+      (Y/M/D)
+    <% end %> 
+    <i class="fa-solid fa-grip-vertical"></i>
+    Number of Notes: <%= Note.where(user_id: current_user.id).count %> 
+    <% if Note.where(user_id: current_user.id).exists? %>
+      (<%= Note.minimum(:created_at)&.strftime("%Y/%m/%d") %> - <%= Note.maximum(:created_at)&.strftime("%Y/%m/%d") %>)
+    <% else %>
+      (Y/M/D)
+    <% end %>
   </p>
 
   <!-- Year selection form -->
@@ -50,6 +61,8 @@
             <td>
               <% if topics_count > 0 || notes_count > 0 %>
                 <span class="highlighted"><%= topics_count %> | <%= notes_count %></span>
+              <% else %>
+                0 | 0
               <% end %>
             </td>
           <% end %>
@@ -95,4 +108,3 @@
   </div>
 </body>
 </html>
-
