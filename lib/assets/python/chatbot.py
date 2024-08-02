@@ -20,7 +20,9 @@ def fetch_notes_by_topic_name(topic_name, input_text):
     notes_pattern = re.compile(r"Title: (.*?)\nContent: (.*?)\nTopic: (.*?)\n\n", re.DOTALL)
     notes = notes_pattern.findall(input_text)
     filtered_notes = [f"Title: {title}\nContent: {content}" for title, content, topic in notes if topic.lower() == topic_name.lower()]
-    return "\n\n".join(filtered_notes)
+    
+    # Return an empty string if no notes are found
+    return "\n\n".join(filtered_notes) if filtered_notes else ""
 
 def answer_question(input_text, user_question, question_scope):
     """
@@ -34,40 +36,48 @@ def answer_question(input_text, user_question, question_scope):
     Returns:
     str: The response from the OpenAI model.
     """
-    try:
-        input_text = input_text.lower()
-        user_question = user_question.lower()
+    
+    # try:
+    #     input_text = input_text.lower()
+    #     user_question = user_question.lower()
         
-        if question_scope == "notes":
-            # Check if the user question pertains to a topic name
-            topic_name_match = re.search(r'\btopic:?\s*(\w+)', user_question, re.IGNORECASE)
-            if topic_name_match:
-                topic_name = topic_name_match.group(1)
-                input_text = fetch_notes_by_topic_name(topic_name, input_text)
+    #     if question_scope == "notes":
+    #         # Check if the user question pertains to a topic name
+    #         topic_name_match = re.search(r'\btopic:?\s*(\w+)', user_question, re.IGNORECASE)
+    #         if topic_name_match:
+    #             topic_name = topic_name_match.group(1)
+    #             notes_content = fetch_notes_by_topic_name(topic_name, input_text)
+                
+    #             if not notes_content:
+    #                 return "There is no data available to answer your question."
+
+    #             input_text = notes_content
             
-            # Create a chat completion request to OpenAI using the gpt-4 model
-            response = openai.ChatCompletion.create(
-                model="gpt-4",
-                messages=[
-                    {"role": "system", "content": "You are a helpful assistant that answers questions based on the provided text. If the question is outside the scope of the provided text, respond with: 'Your question is outside the scope of the data.'"},
-                    {"role": "user", "content": f"Here is the context: {input_text}"},
-                    {"role": "user", "content": f"Question: {user_question}"}
-                ]
-            )
+    #         # Create a chat completion request to OpenAI using the gpt-4 model
+    #         response = openai.ChatCompletion.create(
+    #             model="gpt-4",
+    #             messages=[
+    #                 {"role": "system", "content": "You are a helpful assistant that answers questions based on the provided text. If the question is outside the scope of the provided text, respond with: 'Your question is outside the scope of the data.'"},
+    #                 {"role": "user", "content": f"Here is the context: {input_text}"},
+    #                 {"role": "user", "content": f"Question: {user_question}"}
+    #             ]
+    #         )
 
-            # Extract the message content from the response
-            response_content = response['choices'][0]['message']['content']
+    #         # Extract the message content from the response
+    #         response_content = response['choices'][0]['message']['content']
 
-        elif question_scope == "any":
-            response = openai.ChatCompletion.create(
-                model="gpt-4",
-                messages=[{"role": "user", "content": user_question}]
-            )
-            response_content = response['choices'][0]['message']['content']
+    #     elif question_scope == "any":
+    #         response = openai.ChatCompletion.create(
+    #             model="gpt-4",
+    #             messages=[{"role": "user", "content": user_question}]
+    #         )
+    #         response_content = response['choices'][0]['message']['content']
 
-        return response_content
-    except Exception as e:
-        return f"An error occurred: {str(e)}"
+    #     return response_content
+    # except Exception as e:
+    #     return f"An error occurred: {str(e)}"
+
+    return print("This feature is temporarily disabled for monetary reason. Response: ")
 
 # Example usage
 if __name__ == "__main__":
