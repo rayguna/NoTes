@@ -4,6 +4,9 @@ set -o errexit
 
 bundle install
 
+# Install Python dependencies
+pip install -r requirements.txt
+
 # For Ruby on Rails apps uncomment these lines to precompile assets and migrate your database.
 bundle exec rake assets:precompile
 bundle exec rake assets:clean 
