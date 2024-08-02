@@ -1,6 +1,6 @@
 services:
   - type: web
-    name: NoTes # the name of this service, eg hello-world
+    name: notes # the name of this service, eg hello-world
     env: ruby # this app is written in ruby
     plan: free # make sure to set this to free or you'll get billed $$$
     buildCommand: "./bin/render-build.sh" # # we already created these two files for you
@@ -10,11 +10,11 @@ services:
         generateValue: true
       - key: DATABASE_URL
         fromDatabase:
-          name: NoTes
+          name: notes
           property: connectionString
 databases: # this section provides some additional database configuration
-  - name: NoTes
+  - name: notes
     plan: free
-    databaseName: NoTes
-    user: NoTes
+    databaseName: notes
+    user: notes
     ipAllowList: []
