@@ -6,18 +6,23 @@ class PagesController < ApplicationController
     @topics_data = (1..12).map do |month|
       Topic.where(user_id: current_user.id, created_at: Date.new(@selected_year, month).all_month).count
     end.join(",")
-
+  
     # Capture the topic_type parameter when the link is clicked.
     @topic_type = params[:topic_type]
-
+  
     Rails.logger.debug("Topics data: #{@topics_data}")
-    
-    image_full_path = run_python_script("lib/assets/python/generate_chart.py", @topics_data, @selected_year)
-    Rails.logger.debug("Image full path: #{image_full_path}")
-    
-    @chart_image_path = image_full_path.sub('public/', '') if image_full_path.present? # Remove 'public/' from the path
-    Rails.logger.debug("Chart image path: #{@chart_image_path}")
+  
+    # Run the Python script and capture the output
+    script_output = `python3 lib/assets/python/generate_chart.py #{@topics_data} #{@selected_year}`
+    bokeh_script, bokeh_div = script_output.split("<div", 2)
+  
+    @bokeh_script = bokeh_script
+    @bokeh_div = "<div" + bokeh_div
+  
+    Rails.logger.debug("Generated Bokeh Script: #{@bokeh_script}")
+    Rails.logger.debug("Generated Bokeh Div: #{@bokeh_div}")
   end
+  
 
   def teases
   end
