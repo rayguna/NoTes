@@ -11,6 +11,9 @@ class TeasesController < ApplicationController
                    .page(params[:page])
                    .per(6)
 
+    # Capture the topic_type parameter for any logic you need
+    @topic_type = params[:topic_type]
+
     @q = Note.where(user_id: current_user.id).ransack(params[:q])
     @notes = @q.result(distinct: true)
   end

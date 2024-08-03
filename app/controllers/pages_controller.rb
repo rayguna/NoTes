@@ -7,6 +7,9 @@ class PagesController < ApplicationController
       Topic.where(user_id: current_user.id, created_at: Date.new(@selected_year, month).all_month).count
     end.join(",")
 
+    # Capture the topic_type parameter when the link is clicked.
+    @topic_type = params[:topic_type]
+
     Rails.logger.debug("Topics data: #{@topics_data}")
     
     image_full_path = run_python_script("lib/assets/python/generate_chart.py", @topics_data, @selected_year)
