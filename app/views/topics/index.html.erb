@@ -50,6 +50,9 @@
       </div>
     </div>
     
+    <!--filter data -->
+    <% @topics = @topics.where(topic_type: params[:topic_type]) %>
+
 
     <!-- Pagination -->
     <nav aria-label="Page navigation example" class="mt-4">
@@ -60,7 +63,7 @@
 
     <!-- Topic Cards -->
     <div class="row">
-      <% @topics.where(topic_type: params[:topic_type]).each do |topic| %>
+      <% @topics.each do |topic| %>
         <div class="col-md-4 mb-4">
           <div class="card h-100">
             <div class="card-body">
