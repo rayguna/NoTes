@@ -3,34 +3,30 @@ class TopicsController < ApplicationController
 
   # GET /topics or /topics.json
   def index
-    # Fetch topics of the current user with the topic_type 'note'
-    @topics = Topic.where(user_id: current_user.id, topic_type: 'note')
-                   .order(name: :asc)  # Sort by name in ascending order
+    @topics = Topic.where(user_id: current_user.id, topic_type: params[:topic_type])
+                   .order(name: :asc)
                    .page(params[:page])
                    .per(6)
     
-    # Capture the topic_type parameter for any logic you need
-    @topic_type = params[:topic_type]
-
-    # Setup the Ransack search object
+    @topic_type = params[:topic_type] # Capture the topic_type parameter
     @q = Note.where(user_id: current_user.id).ransack(params[:q])
     @notes = @q.result(distinct: true)
   end
 
   # GET /topics/1 or /topics/1.json
   def show
-    # Prepare a Ransack object for searching notes within a specific topic
     @q = @topic.notes.ransack(params[:q])
-    per_page = params[:per_page] || 6  # Default to 6 if not provided
+    per_page = params[:per_page] || 6
     @notes = @q.result(distinct: true)
-               .order(title: :asc)  # Sort by title in ascending order
+               .order(title: :asc)
                .page(params[:page])
                .per(per_page)
   end
 
   # GET /topics/new
   def new
-    @topic = Topic.new(topic_type: 'note') # Set default topic_type to 'note'
+    @topic_type = params[:topic_type] || 'note' # Use the parameter or a default
+    @topic = Topic.new(topic_type: @topic_type)
   end
 
   # GET /topics/1/edit
@@ -78,12 +74,10 @@ class TopicsController < ApplicationController
 
   private
 
-  # Use callbacks to share common setup or constraints between actions.
   def set_topic
     @topic = Topic.find(params[:id])
   end
 
-  # Only allow a list of trusted parameters through.
   def topic_params
     params.require(:topic).permit(:name, :user_id, :topic_type)
   end
