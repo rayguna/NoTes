@@ -3,12 +3,12 @@ class TopicsController < ApplicationController
 
   # GET /topics or /topics.json
   def index
-    @topics = Topic.where(user_id: current_user.id, topic_type: params[:topic_type])
+    @topic_type = params[:topic_type] || 'note' # Default topic type if not provided
+    @topics = Topic.where(user_id: current_user.id, topic_type: @topic_type)
                    .order(name: :asc)
                    .page(params[:page])
                    .per(6)
     
-    @topic_type = params[:topic_type] # Capture the topic_type parameter
     @q = Note.where(user_id: current_user.id).ransack(params[:q])
     @notes = @q.result(distinct: true)
   end
@@ -25,7 +25,7 @@ class TopicsController < ApplicationController
 
   # GET /topics/new
   def new
-    @topic_type = params[:topic_type] || 'note' # Use the parameter or a default
+    @topic_type = params[:topic_type] || 'note'
     @topic = Topic.new(topic_type: @topic_type)
   end
 
@@ -40,7 +40,7 @@ class TopicsController < ApplicationController
 
     respond_to do |format|
       if @topic.save
-        format.html { redirect_to topics_path, notice: "Topic was successfully created." }
+        format.html { redirect_to topics_path(topic_type: @topic.topic_type), notice: "Topic was successfully created." }
         format.json { render :show, status: :created, location: @topic }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -53,7 +53,7 @@ class TopicsController < ApplicationController
   def update
     respond_to do |format|
       if @topic.update(topic_params)
-        format.html { redirect_to topic_url(@topic), notice: "Topic was successfully updated." }
+        format.html { redirect_to topic_url(@topic, topic_type: @topic.topic_type), notice: "Topic was successfully updated." }
         format.json { render :show, status: :ok, location: @topic }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -67,7 +67,7 @@ class TopicsController < ApplicationController
     @topic.destroy!
 
     respond_to do |format|
-      format.html { redirect_to topics_url, notice: "Topic was successfully destroyed." }
+      format.html { redirect_to topics_url(topic_type: @topic.topic_type), notice: "Topic was successfully destroyed." }
       format.json { head :no_content }
     end
   end
