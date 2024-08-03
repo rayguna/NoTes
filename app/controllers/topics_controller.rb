@@ -3,11 +3,12 @@ class TopicsController < ApplicationController
 
   # GET /topics or /topics.json
   def index
-    @topics = Topic.where(user_id: current_user.id, topic_type: 'note')
-                   .order(name: :asc)  # Sort by name in ascending order
+    @topic_type = params[:topic_type] || 'note' # Default topic type if not provided
+    @topics = Topic.where(user_id: current_user.id, topic_type: @topic_type)
+                   .order(name: :asc)
                    .page(params[:page])
                    .per(6)
-
+    
     @q = Note.where(user_id: current_user.id).ransack(params[:q])
     @notes = @q.result(distinct: true)
   end
@@ -15,16 +16,17 @@ class TopicsController < ApplicationController
   # GET /topics/1 or /topics/1.json
   def show
     @q = @topic.notes.ransack(params[:q])
-    per_page = params[:per_page] || 6  # Default to 6 if not provided
+    per_page = params[:per_page] || 6
     @notes = @q.result(distinct: true)
-               .order(title: :asc)  # Sort by title in ascending order
+               .order(title: :asc)
                .page(params[:page])
                .per(per_page)
   end
 
   # GET /topics/new
   def new
-    @topic = Topic.new(topic_type: 'note') # Set default topic_type to 'note'
+    @topic_type = params[:topic_type] || 'note'
+    @topic = Topic.new(topic_type: @topic_type)
   end
 
   # GET /topics/1/edit
@@ -38,7 +40,7 @@ class TopicsController < ApplicationController
 
     respond_to do |format|
       if @topic.save
-        format.html { redirect_to topics_path, notice: "Topic was successfully created." }
+        format.html { redirect_to topics_path(topic_type: @topic.topic_type), notice: "Topic was successfully created." }
         format.json { render :show, status: :created, location: @topic }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -51,7 +53,7 @@ class TopicsController < ApplicationController
   def update
     respond_to do |format|
       if @topic.update(topic_params)
-        format.html { redirect_to topic_url(@topic), notice: "Topic was successfully updated." }
+        format.html { redirect_to topic_url(@topic, topic_type: @topic.topic_type), notice: "Topic was successfully updated." }
         format.json { render :show, status: :ok, location: @topic }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -65,20 +67,18 @@ class TopicsController < ApplicationController
     @topic.destroy!
 
     respond_to do |format|
-      format.html { redirect_to topics_url, notice: "Topic was successfully destroyed." }
+      format.html { redirect_to topics_url(topic_type: @topic.topic_type), notice: "Topic was successfully destroyed." }
       format.json { head :no_content }
     end
   end
 
   private
 
-    # Use callbacks to share common setup or constraints between actions.
-    def set_topic
-      @topic = Topic.find(params[:id])
-    end
+  def set_topic
+    @topic = Topic.find(params[:id])
+  end
 
-    # Only allow a list of trusted parameters through.
-    def topic_params
-      params.require(:topic).permit(:name, :user_id, :topic_type)
-    end
+  def topic_params
+    params.require(:topic).permit(:name, :user_id, :topic_type)
+  end
 end

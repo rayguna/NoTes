@@ -20,13 +20,13 @@
         <% if user_signed_in? %>
         <ul class="navbar-nav mr-auto">
           <li class="nav-item">
-            <a class="nav-link" href="/alice/feed">
-              <i class="fas fa-users fa-fw"></i>
-              Feed
+            <a class= "nav-link" href="/friends"> 
+              <i class="fa-solid fa-people-group"></i>  
+              Friends 
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/topics">
+            <a class="nav-link" href="<%= topics_path(topic_type: 'note') %>">
               <i class="fa-solid fa-house-user"></i>
               My Troves
             </a>
@@ -35,12 +35,12 @@
         <ul class="navbar-nav ms-auto">
           <li class="nav-item">
             <% if (params["controller"] == "topics") && (params["id"] != nil) %>
-              <a class="nav-link" href="/notes/new?topic_id=<%= params["id"] %>">
+              <a class="nav-link" href="/notes/new?topic_id=<%= params["id"] %>&topic_type=<%= params[:topic_type] %>">
                 <i class="fa-regular fa-square-plus"></i>
                 Add Notes
               </a>
             <% elsif (params["controller"] == "topics") %>
-              <a class="nav-link" href="/topics/new">
+              <a class="nav-link" href="<%= new_topic_path(topic_type: params[:topic_type]) %>">
                 <i class="fa-regular fa-square-plus"></i>
                 Add Topics
               </a>

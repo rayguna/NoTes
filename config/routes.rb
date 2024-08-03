@@ -5,8 +5,8 @@ Rails.application.routes.draw do
   resources :users
   resources :notes
 
-  get 'teases/create_teases', to: 'teases#create_teases'
-  get 'teases/view_teases', to: 'teases#view_teases'
+  # get 'teases/create_teases', to: 'teases#create_teases'
+  # get 'teases/view_teases', to: 'teases#view_teases'
 
   resources :teases
 
@@ -20,19 +20,21 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :teases do
-    collection do
-      get :create_teases
-    end
-  end
+  # resources :teases do
+  #   collection do
+  #     get :create_teases
+  #   end
+  # end
 
-  resources :topics
+  # resources :topics
   
-  resources :teases do
-    collection do
-      get :view_teases
-    end
-  end
+  # resources :teases do
+  #   collection do
+  #     get :view_teases
+  #   end
+  # end
+  
+  get 'friends', to: 'users#friends' 
   
 
   get 'tools', to: 'pages#tools'

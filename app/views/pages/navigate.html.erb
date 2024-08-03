@@ -6,8 +6,8 @@
   <title>Circle Image Animation</title>
   <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="/assets/application.css"> <!-- Link to the external CSS file -->
-  <link rel="stylesheet" href="/assets/pages_navigate.css"> <!-- Link to the new external CSS file -->
+  <link rel="stylesheet" href="/assets/application.css">
+  <link rel="stylesheet" href="/assets/pages_navigate.css">
 </head>
 <body>
   <h1><%= current_user.username %>'s <span style="color: gray;">Things</span></h1>
@@ -82,7 +82,7 @@
     <div class="circle-container">
       <div class="circle-item first">
         <div class="circle-image">
-          <a href="/topics">
+          <a href="<%= topics_path(topic_type: 'note') %>">
             <%= image_tag('troves.jpg', class: "d-block w-100") %>
           </a>
         </div>
@@ -98,7 +98,7 @@
       </div>
       <div class="circle-item last">
         <div class="circle-image">
-          <a href="teases">
+          <a href="<%= topics_path(topic_type: 'teases') %>">
             <%= image_tag('teases.jpg', class: "d-block w-100") %>
           </a>
         </div>
