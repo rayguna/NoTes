@@ -3,6 +3,9 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby "3.2.1"
 
+#for python
+# gem 'pycall'
+
 #needed for final deployment
 gem "simple_form"
 

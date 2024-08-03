@@ -2,6 +2,7 @@
 # exit on error
 set -o errexit
 
+# Install Ruby dependencies
 bundle install
 
 # Install Python dependencies
