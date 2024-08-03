@@ -1,22 +1,28 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <title>notes</title>
-    <%= csrf_meta_tags %>
-    <%= csp_meta_tag %>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Notes</title>
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
 
-    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbo-track': 'reload' %>
-    <%= javascript_include_tag 'application', 'data-turbo-track': 'reload' %>
-  </head>
+  <%= stylesheet_link_tag 'application', media: 'all', 'data-turbo-track': 'reload' %>
+  <%= javascript_include_tag 'application', 'data-turbo-track': 'reload' %>
+
+  <!-- Bootstrap 4.0 CSS -->
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
+  
+  <!-- Font Awesome -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
 
 <body>
   <p class="text-success"><%= notice %></p>
 
   <div class="container mt-4">
     <!-- Heading -->
-    <p>
-      <h1>My Troves</h1>
-    </p>
+    <h1>My Troves</h1>
 
     <!-- Search Form in Dropdown -->
     <div class="col-md-4">
@@ -45,13 +51,14 @@
     </div>
     
 
-    <!-- pagination -->
+    <!-- Pagination -->
     <nav aria-label="Page navigation example" class="mt-4">
       <ul class="pagination justify-content-center">
         <%= paginate @topics, theme: 'bootstrap-4' %>
       </ul>
     </nav>
 
+    <!-- Topic Cards -->
     <div class="row">
       <% @topics.each do |topic| %>
         <div class="col-md-4 mb-4">
@@ -60,12 +67,19 @@
               <h5 class="card-title"><span class="highlight"><%= topic.name %></span></h5>
               <p class="card-text"><small class="text-muted">Topic: <%= topic.name %></small></p>
               <p class="card-text"><small class="text-muted">Created At: <%= topic.created_at.strftime("%B %d, %Y") %></small></p>
-              <a href="<%= topic_path(topic) %>" class="position-absolute" style="top: 10px; right: 10px;"><i class="fa-solid fa-eye"></i></a>
+              <a href="<%= topic_path(topic, topic_type: 'note') %>" class="position-absolute" style="top: 10px; right: 10px;">
+                <i class="fa-solid fa-eye"></i>
+              </a>
             </div>
           </div>
         </div>
       <% end %>
     </div>
   </div>
+
+  <!-- Bootstrap 4.0 JS -->
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 </body>
 </html>
