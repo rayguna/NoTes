@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>YourAppName</title>
+  <title>NoTes</title>
   <%= csrf_meta_tags %>
   <%= csp_meta_tag %>
 
@@ -25,13 +25,8 @@
   <div class="d-flex justify-content-between align-items-center mb-4">
     <%= link_to "Edit this topic", edit_topic_path(@topic), class: "btn btn-primary rounded-pill me-2" %>
 
-  <%if params[:topic_type] == 'note'%>
-    <%= link_to "Back to topics", "/topics", class: "btn btn-secondary rounded-pill me-2" %>
-    <%= button_to "Destroy this topic", "topics", method: :delete, class: "btn btn-danger rounded-pill" %>
-  <%else%>
-    <%= link_to "Back to topics", "/teases/view_teases", class: "btn btn-secondary rounded-pill me-2" %>
+    <%= link_to "Back to topics", topics_path(topic_type:  params[:topic_type]), class: "btn btn-secondary rounded-pill me-2" %>
     <%= button_to "Destroy this topic", @topic, method: :delete, class: "btn btn-danger rounded-pill" %>
-  <%end%>
   </div>
 
   <!-- Pagination -->
@@ -88,7 +83,7 @@
                 </div>
                 <div id="collapse<%= note.id %>" class="collapse" aria-labelledby="heading<%= note.id %>" data-parent="#accordion<%= note.id %>">
                   <div class="card-body">
-                    <%= note.content %>
+                    <%= render_markdown(note.content) %>
                   </div>
                 </div>
               </div>

@@ -22,7 +22,11 @@
 
   <div class="container mt-4">
     <!-- Heading -->
-    <h1>My Troves</h1>
+    <% if params[:topic_type]=='note' %>
+      <h1> My Troves </h1>
+    <%else%>
+      <h1> My Teases </h1>
+    <%end%>
 
     <!-- Search Form in Dropdown -->
     <div class="col-md-4">
