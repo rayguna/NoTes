@@ -20,10 +20,7 @@
         <% if user_signed_in? %>
         <ul class="navbar-nav mr-auto">
           <li class="nav-item">
-            <a class="nav-link" href="/alice/feed">
-              <i class="fas fa-users fa-fw"></i>
-              Feed
-            </a>
+            <%= link_to 'Friends', 'friends', class: "nav-link" %>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="<%= topics_path(topic_type: 'note') %>">
