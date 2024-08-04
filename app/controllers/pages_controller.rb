@@ -7,21 +7,23 @@ class PagesController < ApplicationController
       Topic.where(user_id: current_user.id, created_at: Date.new(@selected_year, month).all_month).count
     end.join(",")
   
-    # Capture the topic_type parameter when the link is clicked.
-    @topic_type = params[:topic_type]
-  
     Rails.logger.debug("Topics data: #{@topics_data}")
   
     # Run the Python script and capture the output
     script_output = `python3 lib/assets/python/generate_chart.py #{@topics_data} #{@selected_year}`
-    bokeh_script, bokeh_div = script_output.split("<div", 2)
+    Rails.logger.debug("Script Output: #{script_output}")
   
-    @bokeh_script = bokeh_script
-    @bokeh_div = "<div" + bokeh_div
+    begin
+      # Plotly returns the full HTML block needed to render the plot
+      @plotly_html = script_output.strip
   
-    Rails.logger.debug("Generated Bokeh Script: #{@bokeh_script}")
-    Rails.logger.debug("Generated Bokeh Div: #{@bokeh_div}")
+      Rails.logger.debug("Generated Plotly HTML: #{@plotly_html}")
+    rescue StandardError => e
+      Rails.logger.error("Error processing script output: #{e.message}")
+      @plotly_html = ""
+    end
   end
+  
   
 
   def teases
