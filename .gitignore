@@ -7,6 +7,10 @@
 # Ignore bundler config.
 /.bundle
 
+#ignore myenv and wheels
+myenv/
+*wheels*.tar.gz
+
 # Ignore all logfiles and tempfiles.
 /log/*
 /tmp/*
