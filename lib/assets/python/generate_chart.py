@@ -1,37 +1,34 @@
-import plotly.graph_objects as go
-import plotly.io as pio
+from bokeh.plotting import figure
+from bokeh.embed import components
 
 def generate_chart(data, year):
     # Data preparation
     months = ["January", "February", "March", "April", "May", "June", "July", 
               "August", "September", "October", "November", "December"]
-
     # Use provided data or fallback to dummy data
-    topic_counts = [int(count) for count in data.split(",")] if data else [0, 0, 0, 0, 0, 0, 0, 5, 0, 0, 0, 0]
+    if data:
+        topic_counts = [int(count) for count in data.split(",")]
+    else:
+        # Dummy data for demonstration
+        topic_counts = [5, 9, 15, 20, 25, 18, 30, 10, 5, 8, 12, 7]
 
-    # Create a Plotly figure
-    fig = go.Figure()
+    # Create a new plot with a title and axis labels
+    p = figure(title=f"Number of Topics Created for {year}",
+               x_axis_label='Month', y_axis_label='Number of Topics',
+               x_range=months, width=800, height=400)  # Updated attributes
 
-    # Add a line plot with markers
-    fig.add_trace(go.Scatter(x=months, y=topic_counts, mode='lines+markers', name='Topics'))
+    # Add a line renderer with markers
+    p.line(months, topic_counts, legend_label="Topics", line_width=2)
+    p.circle(months, topic_counts, size=8, color='navy', alpha=0.5)
 
-    # Update the layout
-    fig.update_layout(
-        title=f"Number of Topics Created for {year}",
-        xaxis_title='Month',
-        yaxis_title='Number of Topics',
-        width=800,
-        height=400
-    )
-
-    # Get the HTML components
-    plot_html = pio.to_html(fig, full_html=False)
-
-    return plot_html
+    # Get the components for embedding
+    script, div = components(p)
+    return script, div
 
 if __name__ == "__main__":
     import sys
     data = sys.argv[1] if len(sys.argv) > 1 else None
     year = sys.argv[2] if len(sys.argv) > 2 else "2024"
-    plot_html = generate_chart(data, year)
-    print(plot_html)
+    script, div = generate_chart(data, year)
+    print(script)
+    print(div)
