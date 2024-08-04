@@ -9,7 +9,7 @@
 
 #ignore myenv and wheels
 myenv/
-*wheels*.tar.gz
+wheels.tar.gz
 
 # Ignore all logfiles and tempfiles.
 /log/*
