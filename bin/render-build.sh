@@ -30,10 +30,10 @@ tar -xzf wheels.tar.gz
 
 # Install the Python dependencies using wheel files
 echo "Installing Python dependencies from wheels..."
-pip install wheels/*.whl
+#pip install wheels/*.whl
 
 # Alternatively, use requirements.txt if you prefer:
-# pip install -r requirements.txt
+pip install -r requirements.txt
 
 # Precompile Rails assets and migrate the database
 echo "Precompiling assets and migrating the database..."
