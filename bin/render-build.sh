@@ -7,69 +7,6 @@ bundle install
 
 # Configure AWS CLI and download Python dependencies from S3
 
-# Define installation paths for AWS CLI
-AWS_CLI_DIR="$HOME/aws-cli"
-AWS_CLI_BIN="$HOME/bin"
-
-# Ensure directories exist
-mkdir -p "$AWS_CLI_DIR" "$AWS_CLI_BIN"
-
-# Check if AWS CLI is installed
-if ! command -v aws &> /dev/null; then
-  echo "AWS CLI not found, installing..."
-
-  # Download AWS CLI installation script
-  curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
-  unzip awscliv2.zip
-
-  # Install AWS CLI to a local directory with update flag
-  ./aws/install -i "$AWS_CLI_DIR" -b "$AWS_CLI_BIN" --update
-
-  # Clean up installation files
-  rm -rf aws awscliv2.zip
-
-  # Add the binary to PATH
-  export PATH="$AWS_CLI_BIN:$PATH"
-
-  # Verify installation
-  aws --version
-else
-  echo "AWS CLI already installed. Attempting update..."
-
-  # Download AWS CLI installation script
-  curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
-  unzip awscliv2.zip
-
-  # Update existing AWS CLI installation in the user directory
-  ./aws/install -i "$AWS_CLI_DIR" -b "$AWS_CLI_BIN" --update
-
-  # Clean up installation files
-  rm -rf aws awscliv2.zip
-
-  # Add the binary to PATH
-  export PATH="$AWS_CLI_BIN:$PATH"
-
-  # Verify installation
-  aws --version
-fi
-
-# Configure AWS credentials (ensure these are set in your Render environment variables)
-export AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID
-export AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY
-export AWS_DEFAULT_REGION=$AWS_DEFAULT_REGION
-
-# Download the packaged Python dependencies from S3
-echo "Downloading Python wheels from S3..."
-aws s3 cp s3://number-of-things/wheels.tar.gz .
-
-# Extract the packages
-echo "Extracting Python wheels..."
-tar -xzf wheels.tar.gz
-
-# Install the Python dependencies using wheel files
-echo "Installing Python dependencies from wheels..."
-pip install wheels/*.whl
-
 # Alternatively, use requirements.txt if you prefer:
 # pip install -r requirements.txt
 
