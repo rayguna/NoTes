@@ -7,9 +7,9 @@ bundle install
 
 # Configure AWS CLI and download Python dependencies from S3
 
-# Check if AWS CLI is installed, if not, install it
+# Check if AWS CLI is installed
 if ! command -v aws &> /dev/null; then
-  echo "Installing AWS CLI..."
+  echo "AWS CLI not found, installing..."
 
   # Define installation paths
   AWS_CLI_DIR=$HOME/aws-cli
@@ -33,6 +33,10 @@ if ! command -v aws &> /dev/null; then
 
   # Verify installation
   aws --version
+else
+  echo "AWS CLI already installed. Checking version..."
+  aws --version
+  echo "If an update is needed, please consider running the install script with --update flag."
 fi
 
 # Configure AWS credentials (ensure these are set in your Render environment variables)
@@ -53,7 +57,7 @@ echo "Installing Python dependencies from wheels..."
 pip install wheels/*.whl
 
 # Alternatively, use requirements.txt if you prefer:
-#pip install -r requirements.txt
+# pip install -r requirements.txt
 
 # Precompile Rails assets and migrate the database
 echo "Precompiling assets and migrating the database..."
