@@ -11,32 +11,33 @@ bundle install
 if ! command -v aws &> /dev/null; then
   echo "AWS CLI not found, installing..."
 
-  # Define installation paths
-  AWS_CLI_DIR=$HOME/aws-cli
-  AWS_CLI_BIN=$HOME/bin
+  # Download AWS CLI installation script
+  curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+  unzip awscliv2.zip
 
-  # Ensure directories exist
-  mkdir -p $AWS_CLI_DIR $AWS_CLI_BIN
+  # Install AWS CLI with update flag to ensure it updates if already installed
+  sudo ./aws/install --update
+
+  # Clean up installation files
+  rm -rf aws awscliv2.zip
+
+  # Verify installation
+  aws --version
+else
+  echo "AWS CLI already installed. Attempting update..."
 
   # Download AWS CLI installation script
   curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
   unzip awscliv2.zip
 
-  # Install AWS CLI to a local directory
-  ./aws/install -i $AWS_CLI_DIR -b $AWS_CLI_BIN
+  # Update existing AWS CLI installation
+  sudo ./aws/install --update
 
   # Clean up installation files
   rm -rf aws awscliv2.zip
 
-  # Add the binary to PATH
-  export PATH=$AWS_CLI_BIN:$PATH
-
   # Verify installation
   aws --version
-else
-  echo "AWS CLI already installed. Checking version..."
-  aws --version
-  echo "If an update is needed, please consider running the install script with --update flag."
 fi
 
 # Configure AWS credentials (ensure these are set in your Render environment variables)
