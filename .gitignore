@@ -6,7 +6,10 @@
 
 # Ignore myenv
 myenv/
+wheels/
 
+#ignore .tar.gz
+*.tar.gz
 
 # Ignore bundler config.
 /.bundle
