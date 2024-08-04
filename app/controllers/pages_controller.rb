@@ -3,25 +3,16 @@ class PagesController < ApplicationController
 
   def navigate
     @selected_year = params[:year] ? params[:year].to_i : Date.today.year
+
     @topics_data = (1..12).map do |month|
       Topic.where(user_id: current_user.id, created_at: Date.new(@selected_year, month).all_month).count
-    end.join(",")
-  
-    Rails.logger.debug("Topics data: #{@topics_data}")
-  
-    # Run the Python script and capture the output
-    script_output = `python3 lib/assets/python/generate_chart.py #{@topics_data} #{@selected_year}`
-    Rails.logger.debug("Script Output: #{script_output}")
-  
-    begin
-      # Plotly returns the full HTML block needed to render the plot
-      @plotly_html = script_output.strip
-  
-      Rails.logger.debug("Generated Plotly HTML: #{@plotly_html}")
-    rescue StandardError => e
-      Rails.logger.error("Error processing script output: #{e.message}")
-      @plotly_html = ""
     end
+
+    @notes_data = (1..12).map do |month|
+      Note.where(user_id: current_user.id, created_at: Date.new(@selected_year, month).all_month).count
+    end
+
+    @months = Date::MONTHNAMES[1..12] # Extract month names for labels
   end
   
   
