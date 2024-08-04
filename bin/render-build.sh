@@ -29,11 +29,11 @@ aws s3 cp s3://number-of-things/wheels.tar.gz .
 #tar -xzf wheels.tar.gz
 
 # Install the Python dependencies using wheel files
-echo "Installing Python dependencies from wheels..."
-pip install wheels/*.whl
+#echo "Installing Python dependencies from wheels..."
+#pip install wheels/*.whl
 
 # Alternatively, use requirements.txt if you prefer:
-# pip install -r requirements.txt
+pip install -r requirements.txt
 
 # Precompile Rails assets and migrate the database
 echo "Precompiling assets and migrating the database..."
