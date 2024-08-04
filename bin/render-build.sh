@@ -12,7 +12,7 @@ if ! command -v aws &> /dev/null; then
   echo "Installing AWS CLI..."
   curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
   unzip awscliv2.zip
-  sudo ./aws/install
+  ./aws/install
 fi
 
 # Configure AWS credentials (ensure these are set in your Render environment variables)
