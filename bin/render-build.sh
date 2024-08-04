@@ -7,37 +7,12 @@ bundle install
 
 # Configure AWS CLI and download Python dependencies from S3
 
-# Check if AWS CLI is installed
+# Check if AWS CLI is installed, if not, install it
 if ! command -v aws &> /dev/null; then
-  echo "AWS CLI not found, installing..."
-
-  # Download AWS CLI installation script
+  echo "Installing AWS CLI..."
   curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
   unzip awscliv2.zip
-
-  # Install AWS CLI with update flag to ensure it updates if already installed
-  sudo ./aws/install --update
-
-  # Clean up installation files
-  rm -rf aws awscliv2.zip
-
-  # Verify installation
-  aws --version
-else
-  echo "AWS CLI already installed. Attempting update..."
-
-  # Download AWS CLI installation script
-  curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
-  unzip awscliv2.zip
-
-  # Update existing AWS CLI installation
-  sudo ./aws/install --update
-
-  # Clean up installation files
-  rm -rf aws awscliv2.zip
-
-  # Verify installation
-  aws --version
+  sudo ./aws/install
 fi
 
 # Configure AWS credentials (ensure these are set in your Render environment variables)
@@ -50,8 +25,8 @@ echo "Downloading Python wheels from S3..."
 aws s3 cp s3://number-of-things/wheels.tar.gz .
 
 # Extract the packages
-echo "Extracting Python wheels..."
-tar -xzf wheels.tar.gz
+#echo "Extracting Python wheels..."
+#tar -xzf wheels.tar.gz
 
 # Install the Python dependencies using wheel files
 echo "Installing Python dependencies from wheels..."
