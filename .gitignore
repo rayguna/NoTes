@@ -4,12 +4,20 @@
 # or operating system, you probably want to add a global ignore instead:
 #   git config --global core.excludesfile '~/.gitignore_global'
 
+# Ignore myenv
+myenv/
+wheels/
+
+#ignore .tar.gz
+*.tar.gz
+
 # Ignore bundler config.
 /.bundle
 
 #ignore myenv and wheels
 myenv/
 wheels.tar.gz
+
 
 # Ignore all logfiles and tempfiles.
 /log/*
