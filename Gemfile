@@ -6,6 +6,9 @@ ruby "3.2.1"
 #for python
 # gem 'pycall'
 
+#for aws s3
+gem 'aws-sdk-s3', require: false
+
 #needed for final deployment
 gem "simple_form"
 
