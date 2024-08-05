@@ -38,8 +38,10 @@ Rails.application.routes.draw do
   
 
   get 'tools', to: 'pages#tools'
+
+  get "/navigate" => "pages#navigate", as: :navigate
   
-  root "pages#landing"
+  root "home#index"
 
   # This is a blank app! Pick your first screen, build out the RCAV, and go from there. E.g.:
   # get "/your_first_screen" => "pages#first"
