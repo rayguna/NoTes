@@ -1,10 +1,9 @@
 class PagesController < ApplicationController
+  # Ensure users are authenticated for actions other than `landing`
+  before_action :authenticate_user!, except: [:landing, :teases]
 
-  before_action :set_devise_resource, only: [:landing] # or whatever action renders your modal
-
-  # before_action :authenticate_user!
-  # Skip authentication for the landing page
-  # skip_before_action :authenticate_user!, only: [:landing]
+  # Set Devise resource for landing page
+  before_action :set_devise_resource, only: [:landing]
 
   # Landing page action
   def landing
@@ -13,6 +12,12 @@ class PagesController < ApplicationController
 
   def navigate
     @selected_year = params[:year] ? params[:year].to_i : Date.today.year
+
+    # Ensure current_user is not nil
+    if current_user.nil?
+      redirect_to new_user_session_path, alert: "Please log in to access this page."
+      return
+    end
 
     @topics_data = (1..12).map do |month|
       Topic.where(user_id: current_user.id, created_at: Date.new(@selected_year, month).all_month).count
@@ -24,13 +29,18 @@ class PagesController < ApplicationController
 
     @months = Date::MONTHNAMES[1..12] # Extract month names for labels
   end
-  
-  
 
   def teases
+    # Publicly accessible action
   end
 
   def tools
+    # Ensure current_user is not nil
+    if current_user.nil?
+      redirect_to new_user_session_path, alert: "Please log in to access this page."
+      return
+    end
+
     if params[:user_input]
       input_text = format_notes(Note.where(user_id: current_user.id))
       question_scope = params[:question_scope]
@@ -63,5 +73,4 @@ class PagesController < ApplicationController
     self.resource_name = :user
     self.devise_mapping = Devise.mappings[:user]
   end
-
 end
