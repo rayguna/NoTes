@@ -67,10 +67,4 @@ class PagesController < ApplicationController
     end
   end
 
-  def set_devise_resource
-    # Ensures that the necessary Devise variables are available
-    self.resource = User.new
-    self.resource_name = :user
-    self.devise_mapping = Devise.mappings[:user]
-  end
 end
