@@ -3,6 +3,7 @@ class ApplicationController < ActionController::Base
   include MarkdownHelper # Include the module to make it available in controllers
   
   before_action :configure_permitted_parameters, if: :devise_controller?
+  before_action :set_devise_resource
 
   protected
 
@@ -16,4 +17,16 @@ class ApplicationController < ActionController::Base
     markdown = Redcarpet::Markdown.new(renderer, extensions = {})
     markdown.render(text).html_safe
   end
+
+
+  private
+
+  def set_devise_resource
+    if !user_signed_in?
+      @resource = User.new
+      @resource_name = :user
+      @devise_mapping = Devise.mappings[:user]
+    end
+  end
+
 end
