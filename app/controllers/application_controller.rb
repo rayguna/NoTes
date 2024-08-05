@@ -19,14 +19,5 @@ class ApplicationController < ActionController::Base
   end
 
 
-  private
-
-  def set_devise_resource
-    if !user_signed_in?
-      @resource = User.new
-      @resource_name = :user
-      @devise_mapping = Devise.mappings[:user]
-    end
-  end
 
 end

@@ -3,143 +3,55 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>noTes - Number of Things</title>
-  <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/css/bootstrap.min.css" rel="stylesheet">
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #f8f9fa;
-    }
-    .hero {
-      background-color: #343a40;
-      color: #fff;
-      padding: 100px 0;
-      text-align: center;
-    }
-    .section-title {
-      margin-bottom: 40px;
-      font-size: 32px;
-      font-weight: bold;
-      text-align: center;
-    }
-    .card img {
-      height: 200px;
-      object-fit: cover;
-    }
-    .navbar-brand {
-      font-weight: bold;
-      font-size: 24px;
-    }
-    .footer {
-      background-color: #343a40;
-      color: #fff;
-      padding: 20px 0;
-      text-align: center;
-    }
-  </style>
+  <title>Login Page</title>
+  <link rel="stylesheet" href="/assets/application.css"> <!-- Link to the external CSS file -->
 </head>
 <body>
-
-
-<!-- Hero Section -->
-<section class="hero">
   <div class="container">
-    <h1 class="display-4">Welcome to noTes</h1>
-    <p class="lead">Discover the number of things with our platform. Explore Troves, Tools, and Teases.</p>
-  </div>
-</section>
-
-<!-- Carousel -->
-<div id="mainCarousel" class="carousel slide mt-5" data-bs-ride="carousel">
-  <div class="carousel-indicators">
-    <button type="button" data-bs-target="#mainCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-    <button type="button" data-bs-target="#mainCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
-    <button type="button" data-bs-target="#mainCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
-  </div>
-  <div class="carousel-inner">
-    <div class="carousel-item active">
-      <%= image_tag("troves.jpg", class: "d-block w-100", alt: "Troves") %>
-      <div class="carousel-caption d-none d-md-block">
-        <h5>Explore Troves</h5>
-        <p>Uncover valuable insights and hidden gems.</p>
-      </div>
-    </div>
-    <div class="carousel-item">
-      <%= image_tag("tools.jpg", class: "d-block w-100", alt: "Tools") %>
-      <div class="carousel-caption d-none d-md-block">
-        <h5>Use Powerful Tools</h5>
-        <p>Enhance your productivity with our tools.</p>
-      </div>
-    </div>
-    <div class="carousel-item">
-      <%= image_tag("teases.jpg", class: "d-block w-100", alt: "Teases") %>
-      <div class="carousel-caption d-none d-md-block">
-        <h5>Engage with Teases</h5>
-        <p>Stay ahead with thought-provoking content.</p>
-      </div>
-    </div>
-  </div>
-  <button class="carousel-control-prev" type="button" data-bs-target="#mainCarousel" data-bs-slide="prev">
-    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">Previous</span>
-  </button>
-  <button class="carousel-control-next" type="button" data-bs-target="#mainCarousel" data-bs-slide="next">
-    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">Next</span>
-  </button>
-</div>
-
-<!-- Features Section -->
-<section id="features" class="my-5">
-  <div class="container">
-    <h2 class="section-title">Features</h2>
     <div class="row">
-      <div class="col-md-4 mb-4">
-        <div class="card">
-          <%= image_tag('many_troves.jpg', class: "card-img-top", alt: "Troves") %>
-          <div class="card-body">
-            <h5 class="card-title">Troves</h5>
-            <p class="card-text">Explore a vast collection of curated content and insights.</p>
-            <a href="#troves" class="btn btn-primary">Learn More</a>
+      <!-- Login Card -->
+      <div class="col-md-6 d-flex align-items-center justify-content-center">
+        <div class="card equal-card">
+          <div class="card-header text-center w-100">
+            Log in
+          </div>
+          <div class="card-body w-100">
+            <%= simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+              <div class="form-group mb-3">
+                <%= f.input :email, 
+                            required: false, 
+                            autofocus: true, 
+                            input_html: { class: 'form-control', autocomplete: "email" } %>
+              </div>
+              <div class="form-group mb-3">
+                <%= f.input :password, 
+                            required: false, 
+                            input_html: { class: 'form-control', autocomplete: "current-password" } %>
+              </div>
+              <div class="form-group form-check mb-3">
+                <%= f.input :remember_me, as: :boolean, label: "Remember me", input_html: { class: 'form-check-input' } if devise_mapping.rememberable? %>
+              </div>
+              <div class="form-group d-flex justify-content-center mb-3">
+                <%= f.button :submit, "Log in", class: "btn btn-dark w-70" %>
+              </div>
+              <div class="form-group d-flex justify-content-center flex-column align-items-center">
+                <%= render "devise/shared/links" %>
+              </div>
+            <% end %>
           </div>
         </div>
       </div>
-      <div class="col-md-4 mb-4">
-        <div class="card">
-          <%= image_tag('many_tools.jpg', class: "card-img-top", alt: "Tools") %>
-          <div class="card-body">
-            <h5 class="card-title">Tools</h5>
-            <p class="card-text">Access powerful tools designed to improve your workflow and efficiency.</p>
-            <a href="#tools" class="btn btn-primary">Learn More</a>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-4 mb-4">
-        <div class="card">
-          <%= image_tag('teases.jpg', class: "card-img-top", alt: "Teases") %>
-          <div class="card-body">
-            <h5 class="card-title">Teases</h5>
-            <p class="card-text">Stay engaged with thought-provoking and entertaining content.</p>
-            <a href="#teases" class="btn btn-primary">Learn More</a>
+
+      <!-- Carousel Card -->
+      <div class="col-md-6 d-flex align-items-center justify-content-center">
+        <div class="card equal-card">
+          <div class="card-body d-flex align-items-center justify-content-center">
+            <!-- carousel -->
+            <%= render partial: "shared/carousel" %>
           </div>
         </div>
       </div>
     </div>
   </div>
-</section>
-
-<!-- Footer -->
-<footer class="footer">
-  <div class="container">
-    <p>&copy; 2024 noTes - Number of Things</p>
-  </div>
-</footer>
-
-<!-- Bootstrap JS and dependencies -->
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/js/bootstrap.min.js"></script>
-
 </body>
 </html>
