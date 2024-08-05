@@ -4,7 +4,7 @@ class PagesController < ApplicationController
 
   # before_action :authenticate_user!
   # Skip authentication for the landing page
-  skip_before_action :authenticate_user!, only: [:landing]
+  # skip_before_action :authenticate_user!, only: [:landing]
 
   # Landing page action
   def landing
