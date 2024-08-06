@@ -94,10 +94,10 @@
             const activitiesChart = new Chart(ctx, {
               type: 'line',
               data: {
-                labels: <%= @months.to_json.html_safe %>,
+                labels: <%= months.to_json.html_safe %>,
                 datasets: [{
                   label: 'Topics',
-                  data: <%= @topics_data.to_json.html_safe %>,
+                  data: <%= topics_data.to_json.html_safe %>,
                   borderColor: 'rgba(75, 192, 192, 1)',
                   backgroundColor: 'rgba(75, 192, 192, 0.2)',
                   fill: false,
@@ -107,7 +107,7 @@
                   pointHoverRadius: 8,
                 }, {
                   label: 'Notes',
-                  data: <%= @notes_data.to_json.html_safe %>,
+                  data: <%= notes_data.to_json.html_safe %>,
                   borderColor: 'rgba(54, 162, 235, 1)',
                   backgroundColor: 'rgba(54, 162, 235, 0.2)',
                   fill: false,
@@ -166,9 +166,6 @@
     </div>
   </body>
   </html>
-
-  <% else %>
-  
+<% else %>
   <%= render "home/index" %>
-
-  <% end %>
+<% end %>

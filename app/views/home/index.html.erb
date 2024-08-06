@@ -1,5 +1,5 @@
 <% if user_signed_in? %>
-  <%= render "pages/navigate", show_chart: params[:show_chart], year: params[:year] %>
-<% else  %>
+  <%= render "pages/navigate", months: @months, topics_data: @topics_data, notes_data: @notes_data %>
+<% else %>
   <%= render "home/index" %>
 <% end %>
