@@ -41,7 +41,7 @@ Rails.application.routes.draw do
 
   get "/navigate" => "pages#navigate", as: :navigate
   
-  #root "pages#navigate"
+  # root "pages#navigate"
   #use this if you want to see the landing page, but the plotting feature will not work.
   root "home#index"
 

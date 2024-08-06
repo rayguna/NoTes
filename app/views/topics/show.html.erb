@@ -22,7 +22,13 @@
   </div>
 
   <!--Show image-->
-
+<center>
+<% if @topic.avatar.attached? %>
+  <%= image_tag url_for(@topic.avatar), alt: @topic.name %>
+<% else %>
+  <p>No cover available</p>
+<% end %>
+</center>
 
   <!-- Action Buttons -->
   <div class="d-flex justify-content-between align-items-center mb-4">
