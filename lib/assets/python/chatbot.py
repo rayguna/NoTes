@@ -37,34 +37,36 @@ def answer_question(input_text, user_question, question_scope):
     str: The response from the OpenAI model.
     """
     
-    try:
-        input_text = input_text.lower()
-        user_question = user_question.lower()
+    # try:
+    #     input_text = input_text.lower()
+    #     user_question = user_question.lower()
         
-        if question_scope == "notes":
-            # Check if the user question pertains to a topic name
-            topic_name_match = re.search(r'\btopic:?\s*(\w+)', user_question, re.IGNORECASE)
-            if topic_name_match:
-                topic_name = topic_name_match.group(1)
-                notes_content = fetch_notes_by_topic_name(topic_name, input_text)
+    #     if question_scope == "notes":
+    #         # Check if the user question pertains to a topic name
+    #         topic_name_match = re.search(r'\btopic:?\s*(\w+)', user_question, re.IGNORECASE)
+    #         if topic_name_match:
+    #             topic_name = topic_name_match.group(1)
+    #             notes_content = fetch_notes_by_topic_name(topic_name, input_text)
                 
-                if not notes_content:
-                    return "There is no data available to answer your question."
+    #             if not notes_content:
+    #                 return "There is no data available to answer your question."
 
-                input_text = notes_content
+    #             input_text = notes_content
             
-            # Create a chat completion request to OpenAI using the gpt-4 model
-            response = openai.ChatCompletion.create(
-                model="gpt-4",
-                messages=[
-                    {"role": "system", "content": "You are a helpful assistant that answers questions based on the provided text. If the question is outside the scope of the provided text, respond with: 'Your question is outside the scope of the data.'"},
-                    {"role": "user", "content": f"Here is the context: {input_text}"},
-                    {"role": "user", "content": f"Question: {user_question}"}
-                ]
-            )
+    #         # Create a chat completion request to OpenAI using the gpt-4 model
+    #         response = openai.ChatCompletion.create(
+    #             model="gpt-4",
+    #             messages=[
+    #                 {"role": "system", "content": "You are a helpful assistant that answers questions based on the provided text. If the question is outside the scope of the provided text, respond with: 'Your question is outside the scope of the data.'"},
+    #                 {"role": "user", "content": f"Here is the context: {input_text}"},
+    #                 {"role": "user", "content": f"Question: {user_question}"}
+    #             ]
+    #         )
 
-            # Extract the message content from the response
-            response_content = response['choices'][0]['message']['content']
+    #         # Extract the message content from the response
+    #         response_content = response['choices'][0]['message']['content']
+
+    print("Feature is temporarily disabled. Return: ")
 
         elif question_scope == "any":
             response = openai.ChatCompletion.create(
