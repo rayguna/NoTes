@@ -160,3 +160,12 @@ h1, p {
   height: 500px; /* Set a fixed height */
   object-fit: cover; /* Maintain aspect ratio while covering the set height */
 }
+
+.navbar-brand {
+  color: black;
+  text-decoration: none; /* To remove underline */
+}
+
+.navbar-brand .gold {
+  color: gold;
+}
