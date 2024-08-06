@@ -37,6 +37,19 @@
       padding: 20px 0;
       text-align: center;
     }
+
+.display-4 {
+    color: black; /* Sets the default color for the entire heading */
+}
+
+.display-4 .gold {
+    color: gold; /* Sets the color of the "e" to gold */
+}
+
+.cursive {
+  font-family: 'Brush Script MT', cursive; /* Use a common cursive font */
+  font-size: 2.5rem; /* Increase font size to make it bigger */
+}
   </style>
 </head>
 <body>
@@ -45,10 +58,16 @@
 <!-- Hero Section -->
 <section class="hero">
   <div class="container">
-    <h1 class="display-4">Welcome to noTes</h1>
-    <p class="lead">Discover the number of things with our platform. Explore Troves, Tools, and Teases.</p>
+    <h1>Welcome to <span class="display-4">noT<span class="gold">e</span>s</span></h1>
+    <p class="features">
+      ● Capture ideas effortlessly with noTes ● Turn thoughts into opportunities ● Collect Troves, use Tools, and create Teases to inspire
+    </p>
+    <p class="cursive">
+      Discover noTes, your go-to app for turning ideas into reality.
+    </p>
   </div>
 </section>
+
 
 <!-- Carousel -->
 <div id="mainCarousel" class="carousel slide mt-5" data-bs-ride="carousel">
