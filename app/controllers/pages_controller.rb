@@ -1,23 +1,8 @@
 class PagesController < ApplicationController
-  # Ensure users are authenticated for actions other than `landing`
-  before_action :authenticate_user!, except: [:landing, :teases]
-
-  # Set Devise resource for landing page
-  before_action :set_devise_resource, only: [:landing]
-
-  # Landing page action
-  def landing
-    render "pages/landing"
-  end
+  before_action :authenticate_user!, except: [:landing]
 
   def navigate
     @selected_year = params[:year] ? params[:year].to_i : Date.today.year
-
-    # Ensure current_user is not nil
-    if current_user.nil?
-      redirect_to new_user_session_path, alert: "Please log in to access this page."
-      return
-    end
 
     @topics_data = (1..12).map do |month|
       Topic.where(user_id: current_user.id, created_at: Date.new(@selected_year, month).all_month).count
@@ -35,12 +20,6 @@ class PagesController < ApplicationController
   end
 
   def tools
-    # Ensure current_user is not nil
-    if current_user.nil?
-      redirect_to new_user_session_path, alert: "Please log in to access this page."
-      return
-    end
-
     if params[:user_input]
       input_text = format_notes(Note.where(user_id: current_user.id))
       question_scope = params[:question_scope]
@@ -66,5 +45,4 @@ class PagesController < ApplicationController
       nil
     end
   end
-
 end
