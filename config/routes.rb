@@ -41,7 +41,9 @@ Rails.application.routes.draw do
 
   get "/navigate" => "pages#navigate", as: :navigate
   
-  root "home#index"
+  root "pages#navigate"
+  #use this if you want to see the landing page, but the plotting feature will not work.
+  #root "home#index"
 
   # This is a blank app! Pick your first screen, build out the RCAV, and go from there. E.g.:
   # get "/your_first_screen" => "pages#first"

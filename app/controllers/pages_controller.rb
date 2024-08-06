@@ -1,18 +1,23 @@
 class PagesController < ApplicationController
   before_action :authenticate_user!, except: [:landing]
 
+  before_action :authenticate_user!, only: [:navigate]
+
   def navigate
-    @selected_year = params[:year] ? params[:year].to_i : Date.today.year
-
-    @topics_data = (1..12).map do |month|
-      Topic.where(user_id: current_user.id, created_at: Date.new(@selected_year, month).all_month).count
+    @months = (1..12).map { |m| Date::MONTHNAMES[m] }
+    
+    if params[:show_chart] == "true"
+      selected_year = params[:year] ? params[:year].to_i : Date.today.year
+      @topics_data = (1..12).map do |month|
+        Topic.where(user_id: current_user.id, created_at: Date.new(selected_year, month).all_month).count
+      end
+      @notes_data = (1..12).map do |month|
+        Note.where(user_id: current_user.id, created_at: Date.new(selected_year, month).all_month).count
+      end
+    else
+      @topics_data = []
+      @notes_data = []
     end
-
-    @notes_data = (1..12).map do |month|
-      Note.where(user_id: current_user.id, created_at: Date.new(@selected_year, month).all_month).count
-    end
-
-    @months = Date::MONTHNAMES[1..12] # Extract month names for labels
   end
 
   def teases
