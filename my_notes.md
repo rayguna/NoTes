@@ -473,6 +473,10 @@ Type in the termnal: q.result. You will see the list of notes that meet the crit
 1. For python to work on render, I had to access the shell and manually installed the dependencies using the command, e.g., pip3 install matplotlib.
 2. Use Bokeh in place of matplotlib for a dynamic plotting. 
 
+## Q. Landing and signed in page
+
+1. Made the sign in page to work using if-else conditions. Pass data to signed in page partials via the index controller.
+
 # Appendix:
 
 ## A. References
