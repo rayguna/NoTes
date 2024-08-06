@@ -5,6 +5,10 @@ try:
     import sys
     import re
 
+except:
+    print("This feature is temporarily disabled.")
+
+
     # Set your OpenAI API key
     openai.api_key = os.getenv('MY_GPT2_KEY')  # Ensure this environment variable is set correctly
 
@@ -79,22 +83,22 @@ try:
         except Exception as e:
             return f"An error occurred: {str(e)}"
 
-        #return print("This feature is temporarily disabled for monetary reason. Response: ")
+
+try:
+    # Example usage
+    if __name__ == "__main__":
+        if len(sys.argv) > 3:
+            user_question = str(sys.argv[1])
+            input_text = str(sys.argv[2])
+            question_scope = str(sys.argv[3])
+        else:
+            user_question = "No question provided."
+            input_text = "No input text provided."
+            question_scope = "any"
+
+        # Get the answer to the question based on the provided text
+        response = answer_question(input_text, user_question, question_scope)
+        print(response)
+
 except:
     print("This feature is temporarily disabled due to low credits. Response: ")
-
-
-# Example usage
-if __name__ == "__main__":
-    if len(sys.argv) > 3:
-        user_question = str(sys.argv[1])
-        input_text = str(sys.argv[2])
-        question_scope = str(sys.argv[3])
-    else:
-        user_question = "No question provided."
-        input_text = "No input text provided."
-        question_scope = "any"
-
-    # Get the answer to the question based on the provided text
-    response = answer_question(input_text, user_question, question_scope)
-    print(response)
