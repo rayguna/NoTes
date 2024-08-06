@@ -1,33 +1,23 @@
 class PagesController < ApplicationController
-  # Ensure users are authenticated for actions other than `landing`
-  before_action :authenticate_user!, except: [:landing, :teases]
+  before_action :authenticate_user!, except: [:landing]
 
-  # Set Devise resource for landing page
-  before_action :set_devise_resource, only: [:landing]
-
-  # Landing page action
-  def landing
-    render "pages/landing"
-  end
+  before_action :authenticate_user!, only: [:navigate]
 
   def navigate
-    @selected_year = params[:year] ? params[:year].to_i : Date.today.year
-
-    # Ensure current_user is not nil
-    if current_user.nil?
-      redirect_to new_user_session_path, alert: "Please log in to access this page."
-      return
+    @months = (1..12).map { |m| Date::MONTHNAMES[m] }
+    
+    if params[:show_chart] == "true"
+      selected_year = params[:year] ? params[:year].to_i : Date.today.year
+      @topics_data = (1..12).map do |month|
+        Topic.where(user_id: current_user.id, created_at: Date.new(selected_year, month).all_month).count
+      end
+      @notes_data = (1..12).map do |month|
+        Note.where(user_id: current_user.id, created_at: Date.new(selected_year, month).all_month).count
+      end
+    else
+      @topics_data = []
+      @notes_data = []
     end
-
-    @topics_data = (1..12).map do |month|
-      Topic.where(user_id: current_user.id, created_at: Date.new(@selected_year, month).all_month).count
-    end
-
-    @notes_data = (1..12).map do |month|
-      Note.where(user_id: current_user.id, created_at: Date.new(@selected_year, month).all_month).count
-    end
-
-    @months = Date::MONTHNAMES[1..12] # Extract month names for labels
   end
 
   def teases
@@ -35,12 +25,6 @@ class PagesController < ApplicationController
   end
 
   def tools
-    # Ensure current_user is not nil
-    if current_user.nil?
-      redirect_to new_user_session_path, alert: "Please log in to access this page."
-      return
-    end
-
     if params[:user_input]
       input_text = format_notes(Note.where(user_id: current_user.id))
       question_scope = params[:question_scope]
@@ -66,5 +50,4 @@ class PagesController < ApplicationController
       nil
     end
   end
-
 end
