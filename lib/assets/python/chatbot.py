@@ -81,7 +81,7 @@ try:
 
         #return print("This feature is temporarily disabled for monetary reason. Response: ")
 except:
-    print("This feature is temporarily disabled for monetary reason. Response: ")
+    print("This feature is temporarily disabled due to low credits. Response: ")
 
 
 # Example usage
