@@ -1,15 +1,18 @@
+<%= javascript_include_tag 'application', 'data-turbo-track': 'reload' %>
+
 <div class="table-responsive">
   <table class="table">
     <thead class="thead-dark">
       <tr>
-        <th scope="col"><%= sort_link(@q, :id, "ID") %></th>
-        <th scope="col"><%= sort_link(@q, :name, "Name") %></th>
-        <th scope="col"><%= sort_link(@q, :created_at, "Created At") %></th>
+        <!-- Using data-turbo-frame for faster navigation without full page reload -->
+        <th scope="col"><%= link_to "Id", :sort => "id"%>
+        <th scope="col"><%= link_to "Name", :sort => "name"%></th>
+        <th scope="col"><%= link_to "Created At", :sort => "created_at"%></th>
         <th scope="col">Action</th>
       </tr>
     </thead>
     <tbody>
-      <% @topics.each do |topic| %>
+      <% @sort_topics.each do |topic| %>
         <tr>
           <th scope="row"><%= topic.id %></th>
           <td><%= topic.name %></td>
@@ -23,4 +26,10 @@
       <% end %>
     </tbody>
   </table>
+</div>
+
+<div class="col-md-4 d-flex justify-content-end align-items-center">
+  <!-- Using data-turbo-frame for faster navigation without full page reload -->
+  <a href="<%= url_for(params.to_unsafe_h.merge(view_as: 'cards')) %>" class="mx-2" data-turbo-frame="_top">Cards</a> | 
+  <a href="<%= url_for(params.to_unsafe_h.merge(view_as: 'table')) %>" class="mx-2" data-turbo-frame="_top">Table</a>
 </div>

@@ -7,12 +7,14 @@ class TopicsController < ApplicationController
     @view_as = params[:view_as] || 'table' # Default view to 'table'
   
     @topics = Topic.where(user_id: current_user.id, topic_type: @topic_type)
-                   .order(name: :asc)
                    .page(params[:page])
                    .per(6)
     
     @q = Note.where(user_id: current_user.id).ransack(params[:q])
     @notes = @q.result(distinct: true)
+
+    #sort table
+    @sort_topics = @topics.order(params[:sort])
   end
 
   # GET /topics/1 or /topics/1.json
