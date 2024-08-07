@@ -15,6 +15,17 @@
 
     <!-- Font Awesome -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+
+    <style>
+      .dropdown-menu {
+        z-index: 1050; /* Ensures the dropdown appears on top */
+        position: absolute; /* Positions it relative to the button */
+      }
+
+      .dropdown:hover .dropdown-menu {
+        display: block; /* Shows the dropdown on hover */
+      }
+    </style>
   </head>
 
   <body>
@@ -22,94 +33,60 @@
 
     <div class="container mt-4">
       <!-- Heading -->
-      <% if params[:topic_type]=='note' %>
-        <h1> My Troves </h1>
-      <%else%>
-        <h1> My Teases </h1>
-      <%end%>
+      <h1> <%= params[:topic_type] == 'note' ? 'My Troves' : 'My Teases' %> </h1>
 
-      <!-- Search Form in Dropdown -->
-      <div class="col-md-4">
-        <div class="dropdown">
-          <button class="btn btn-secondary dropdown-toggle" type="button" id="searchDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Search
-          </button>
-          <div class="dropdown-menu p-3" aria-labelledby="searchDropdown">
-            <%= search_form_for @q, url: notes_path, method: :get, html: { class: "form-inline" } do |f| %>
-              <div class="form-group">
-                <%= f.label :topic_name_cont, "Topic contains", class: "sr-only" %>
-                <%= f.search_field :topic_name_cont, class: "form-control mr-2", placeholder: "Topic" %>
-              </div>
-              <div class="form-group">
-                <%= f.label :title_cont, "Title contains", class: "sr-only" %>
-                <%= f.search_field :title_cont, class: "form-control mr-2", placeholder: "Title" %>
-              </div>
-              <div class="form-group">
-                <%= f.label :content_cont, "Content contains", class: "sr-only" %>
-                <%= f.search_field :content_cont, class: "form-control mr-2", placeholder: "Content" %>
-              </div>
-              <%= f.submit "Search", class: "btn btn-primary" %>
-            <% end %>
+      <div class="row mt-4">
+        <!-- Left column with Search Form in Dropdown -->
+        <div class="col-md-4">
+          <div class="dropdown">
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="searchDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Search
+            </button>
+            <div class="dropdown-menu p-3" aria-labelledby="searchDropdown">
+              <%= search_form_for @q, url: notes_path, method: :get, html: { class: "form-inline" } do |f| %>
+                <div class="form-group">
+                  <%= f.label :topic_name_cont, "Topic contains", class: "sr-only" %>
+                  <%= f.search_field :topic_name_cont, class: "form-control mr-2", placeholder: "Topic" %>
+                </div>
+                <div class="form-group">
+                  <%= f.label :title_cont, "Title contains", class: "sr-only" %>
+                  <%= f.search_field :title_cont, class: "form-control mr-2", placeholder: "Title" %>
+                </div>
+                <div class="form-group">
+                  <%= f.label :content_cont, "Content contains", class: "sr-only" %>
+                  <%= f.search_field :content_cont, class: "form-control mr-2", placeholder: "Content" %>
+                </div>
+                <%= f.submit "Search", class: "btn btn-primary" %>
+              <% end %>
+            </div>
           </div>
         </div>
-      </div>
 
-      <!-- Pagination -->
-      <nav aria-label="Page navigation example" class="mt-4">
-        <ul class="pagination justify-content-center">
-          <%= paginate @topics, theme: 'bootstrap-4' %>
-        </ul>
-      </nav>
+        <!-- Center column for pagination -->
+        <div class="col-md-4 d-flex justify-content-center">
+          <nav aria-label="Page navigation example">
+            <ul class="pagination mb-0">
+              <%= paginate @topics, theme: 'bootstrap-4' %>
+            </ul>
+          </nav>
+        </div>
 
-      <!-- Topic Cards -->
-      <% if view_as == "cards"%>
-        <div class="row">
-          <% @topics.each do |topic| %>
-            <div class="col-md-4 mb-4">
-              <div class="card h-100">
-                <div class="card-body">
-                  <h5 class="card-title"><span class="highlight"><%= topic.name %></span></h5>
-                  <p class="card-text"><small class="text-muted">Topic: <%= topic.name %></small></p>
-                  <p class="card-text"><small class="text-muted">Created At: <%= topic.created_at.strftime("%B %d, %Y") %></small></p>
-                  <a href="<%= topic_path(topic, topic_type: topic.topic_type) %>" class="position-absolute" style="top: 10px; right: 10px;">
-                    <i class="fa-solid fa-eye"></i>
-                  </a>
-                </div>
-              </div>
-            </div>
-          <% end %>
-        <% elsif view_as=="table" %>
-          <div class="container">
-            <table class="table">
-              <thead class="thead-dark">
-                <tr>
-                  <th scope="col">#</th>
-                  <th scope="col">Name</th>
-                  <th scope="col">Topic Type</th>
-                  <th scope="col">Created At</th>
-                  <th scope="col">Action</th>
-                </tr>
-              </thead>
-              <tbody>
-                <% @topics.each_with_index do |topic, index| %>
-                  <tr>
-                    <th scope="row"><%= index + 1 %></th>
-                    <td><%= topic.name %></td>
-                    <td><%= topic.topic_type %></td>
-                    <td><%= topic.created_at.strftime("%B %d, %Y") %></td>
-                    <td>
-                      <a href="<%= topic_path(topic, topic_type: topic.topic_type) %>" class="btn btn-primary btn-sm">
-                        <i class="fa-solid fa-eye"></i> View
-                      </a>
-                    </td>
-                  </tr>
-                <% end %>
-              </tbody>
-            </table>
-          </div>
-        <%end%>
+        <!-- Right column for links -->
+        <div class="col-md-4 d-flex justify-content-end align-items-center">
+          <a href="<%= url_for(params.to_unsafe_h.merge(view_as: 'cards')) %>" class="mx-2" data-turbolinks="true">Cards</a> | 
+          <a href="<%= url_for(params.to_unsafe_h.merge(view_as: 'table')) %>" class="mx-2" data-turbolinks="true">Table</a>
+        </div>
 
       </div>
+
+      <br>
+
+      <% if @view_as == 'cards' %>
+        <%= render "shared/view_cards", q: @q, notes: @notes, topics: @topics, topic_type: @topic_type %>
+      <% else %>
+        <%= render "shared/view_table", q: @q, notes: @notes, topics: @topics, topic_type: @topic_type%>
+      <% end %>
+
     </div>
 
     <!-- Bootstrap 4.0 JS -->

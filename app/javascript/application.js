@@ -9,3 +9,7 @@ window.jQuery = jquery;
 window.$ = jquery;
 import Rails from "@rails/ujs"
 Rails.start();
+
+// For page re-load when a link is pressed
+import Turbolinks from "turbolinks";
+Turbolinks.start();

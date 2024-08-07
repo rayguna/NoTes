@@ -1,0 +1,26 @@
+<div class="table-responsive">
+  <table class="table">
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col"><%= sort_link(@q, :id, "ID") %></th>
+        <th scope="col"><%= sort_link(@q, :name, "Name") %></th>
+        <th scope="col"><%= sort_link(@q, :created_at, "Created At") %></th>
+        <th scope="col">Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @topics.each do |topic| %>
+        <tr>
+          <th scope="row"><%= topic.id %></th>
+          <td><%= topic.name %></td>
+          <td><%= topic.created_at.strftime("%B %d, %Y") %></td>
+          <td>
+            <a href="<%= topic_path(topic) %>" class="btn btn-primary btn-sm">
+              <i class="fa-solid fa-eye"></i> View
+            </a>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
