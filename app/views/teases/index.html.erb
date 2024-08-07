@@ -1,43 +1,43 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Teases Portal</title>
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-  <%= stylesheet_link_tag 'teases_index' %>
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teases Portal</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <%= stylesheet_link_tag 'teases_index' %>
+  </head>
+  <body>
 
-<h1 class="text-center">Teases Portal</h1>
+    <h1 class="text-center">Teases Portal</h1>
 
-<div class="card-container">
-  <div class="card">
-    <div class="card-header">
-      Create Teases
+    <div class="card-container">
+      <div class="card">
+        <div class="card-header">
+          Create Teases
+        </div>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item" style="padding: 0;">
+            <a href="teases/create_teases">
+              <img src="https://cdn.pixabay.com/photo/2016/09/20/18/49/brushes-1683134_1280.jpg" alt="Create">
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          View Teases
+        </div>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item" style="padding: 0;">
+            <a href="teases/view_teases">
+              <img src="https://images.pexels.com/photos/12920835/pexels-photo-12920835.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="View">
+            </a>
+          </li>
+        </ul>
+      </div>
     </div>
-    <ul class="list-group list-group-flush">
-      <li class="list-group-item" style="padding: 0;">
-      <a href="teases/create_teases">
-          <img src="https://cdn.pixabay.com/photo/2016/09/20/18/49/brushes-1683134_1280.jpg" alt="Create">
-      </a>
-      </li>
-    </ul>
-  </div>
 
-  <div class="card">
-    <div class="card-header">
-      View Teases
-    </div>
-    <ul class="list-group list-group-flush">
-      <li class="list-group-item" style="padding: 0;">
-        <a href="teases/view_teases">
-          <img src="https://images.pexels.com/photos/12920835/pexels-photo-12920835.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="View">
-        </a>
-      </li>
-    </ul>
-  </div>
-</div>
-
-</body>
+  </body>
 </html>
