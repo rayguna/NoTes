@@ -71,7 +71,7 @@
           </nav>
         </div>
 
-
+        <!-- Right column with Search Form in Dropdown --> 
         <div class="col-md-4 d-flex justify-content-end align-items-center">
           <%= link_to 'Cards', url_for(params.to_unsafe_h.merge(display_as: 'cards')), class: 'mx-2', data: { turbolinks: true } %> |
           <%= link_to 'Table', url_for(params.to_unsafe_h.merge(display_as: 'table')), class: 'mx-2', data: { turbolinks: true } %>
@@ -81,12 +81,14 @@
       <br>
 
       <% if @view_mode == 'cards' %>
-        <%= render 'shared/display_cards' %>
+        <%= render 'shared/display_cards', table_name: @sort_topics  %>
       <% else %>
-        <%= render 'shared/display_table' %>
+        <%= render 'shared/display_table', table_name: @sort_topics %>
       <% end %>
 
     </div>
+
+    <%debugger%>
 
     <!-- Bootstrap 4.0 JS -->
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
