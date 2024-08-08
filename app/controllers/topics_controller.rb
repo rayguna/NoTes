@@ -20,6 +20,8 @@ class TopicsController < ApplicationController
 
   # GET /topics/1 or /topics/1.json
   def show
+    @view_mode = params[:display_as] || 'default' # Default view mode if not provided
+
     @q = @topic.notes.ransack(params[:q])
     per_page = params[:per_page] || 6
     @notes = @q.result(distinct: true)
