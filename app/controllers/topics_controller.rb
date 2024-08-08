@@ -5,12 +5,14 @@ class TopicsController < ApplicationController
   def index
     @topic_type = params[:topic_type] || 'note' # Default topic type if not provided
     @topics = Topic.where(user_id: current_user.id, topic_type: @topic_type)
-                   .order(name: :asc)
                    .page(params[:page])
                    .per(6)
     
     @q = Note.where(user_id: current_user.id).ransack(params[:q])
     @notes = @q.result(distinct: true)
+
+    #    #sort table
+    @sort_topics = @topics.order(params[:sort])
   end
 
   # GET /topics/1 or /topics/1.json
@@ -18,7 +20,6 @@ class TopicsController < ApplicationController
     @q = @topic.notes.ransack(params[:q])
     per_page = params[:per_page] || 6
     @notes = @q.result(distinct: true)
-               .order(title: :asc)
                .page(params[:page])
                .per(per_page)
   end

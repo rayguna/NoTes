@@ -1,89 +1,97 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Notes</title>
-  <%= csrf_meta_tags %>
-  <%= csp_meta_tag %>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notes</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
 
-  <%= stylesheet_link_tag 'application', media: 'all', 'data-turbo-track': 'reload' %>
-  <%= javascript_include_tag 'application', 'data-turbo-track': 'reload' %>
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbo-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbo-track': 'reload' %>
 
-  <!-- Bootstrap 4.0 CSS -->
-  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
-  
-  <!-- Font Awesome -->
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-</head>
+    <!-- Bootstrap 4.0 CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
 
-<body>
-  <p class="text-success"><%= notice %></p>
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 
-  <div class="container mt-4">
-    <!-- Heading -->
-    <% if params[:topic_type]=='note' %>
-      <h1> My Troves </h1>
-    <%else%>
-      <h1> My Teases </h1>
-    <%end%>
+    <style>
+      .dropdown-menu {
+        z-index: 1050; /* Ensures the dropdown appears on top */
+        position: absolute; /* Positions it relative to the button */
+      }
 
-    <!-- Search Form in Dropdown -->
-    <div class="col-md-4">
-      <div class="dropdown">
-        <button class="btn btn-secondary dropdown-toggle" type="button" id="searchDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Search
-        </button>
-        <div class="dropdown-menu p-3" aria-labelledby="searchDropdown">
-          <%= search_form_for @q, url: notes_path, method: :get, html: { class: "form-inline" } do |f| %>
-            <div class="form-group">
-              <%= f.label :topic_name_cont, "Topic contains", class: "sr-only" %>
-              <%= f.search_field :topic_name_cont, class: "form-control mr-2", placeholder: "Topic" %>
-            </div>
-            <div class="form-group">
-              <%= f.label :title_cont, "Title contains", class: "sr-only" %>
-              <%= f.search_field :title_cont, class: "form-control mr-2", placeholder: "Title" %>
-            </div>
-            <div class="form-group">
-              <%= f.label :content_cont, "Content contains", class: "sr-only" %>
-              <%= f.search_field :content_cont, class: "form-control mr-2", placeholder: "Content" %>
-            </div>
-            <%= f.submit "Search", class: "btn btn-primary" %>
-          <% end %>
-        </div>
-      </div>
-    </div>
-    
-    <!-- Pagination -->
-    <nav aria-label="Page navigation example" class="mt-4">
-      <ul class="pagination justify-content-center">
-        <%= paginate @topics, theme: 'bootstrap-4' %>
-      </ul>
-    </nav>
+      .dropdown:hover .dropdown-menu {
+        display: block; /* Shows the dropdown on hover */
+      }
+    </style>
+  </head>
 
-    <!-- Topic Cards -->
-    <div class="row">
-      <% @topics.each do |topic| %>
-        <div class="col-md-4 mb-4">
-          <div class="card h-100">
-            <div class="card-body">
-              <h5 class="card-title"><span class="highlight"><%= topic.name %></span></h5>
-              <p class="card-text"><small class="text-muted">Topic: <%= topic.name %></small></p>
-              <p class="card-text"><small class="text-muted">Created At: <%= topic.created_at.strftime("%B %d, %Y") %></small></p>
-              <a href="<%= topic_path(topic, topic_type: topic.topic_type) %>" class="position-absolute" style="top: 10px; right: 10px;">
-                <i class="fa-solid fa-eye"></i>
-              </a>
+  <body>
+    <p class="text-success"><%= notice %></p>
+
+    <div class="container mt-4">
+      <!-- Heading -->
+      <h1> <%= params[:topic_type] == 'note' ? 'My Troves' : 'My Teases' %> </h1>
+
+      <div class="row mt-4">
+        <!-- Left column with Search Form in Dropdown -->
+        <div class="col-md-4">
+          <div class="dropdown">
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="searchDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Search
+            </button>
+            <div class="dropdown-menu p-3" aria-labelledby="searchDropdown">
+              <%= search_form_for @q, url: notes_path, method: :get, html: { class: "form-inline" } do |f| %>
+                <div class="form-group">
+                  <%= f.label :topic_name_cont, "Topic contains", class: "sr-only" %>
+                  <%= f.search_field :topic_name_cont, class: "form-control mr-2", placeholder: "Topic" %>
+                </div>
+                <div class="form-group">
+                  <%= f.label :title_cont, "Title contains", class: "sr-only" %>
+                  <%= f.search_field :title_cont, class: "form-control mr-2", placeholder: "Title" %>
+                </div>
+                <div class="form-group">
+                  <%= f.label :content_cont, "Content contains", class: "sr-only" %>
+                  <%= f.search_field :content_cont, class: "form-control mr-2", placeholder: "Content" %>
+                </div>
+                <%= f.submit "Search", class: "btn btn-primary" %>
+              <% end %>
             </div>
           </div>
         </div>
+
+        <!-- Center column for pagination -->
+        <div class="col-md-4 d-flex justify-content-center">
+          <nav aria-label="Page navigation example">
+            <ul class="pagination mb-0">
+              <%= paginate @topics, theme: 'bootstrap-4' %>
+            </ul>
+          </nav>
+        </div>
+
+        <!-- Right column for links -->
+        <div class="col-md-4 d-flex justify-content-end align-items-center">
+          <a href="<%= url_for(params.to_unsafe_h.merge(view_as: 'cards')) %>" class="mx-2" data-turbolinks="true">Cards</a> | 
+          <a href="<%= url_for(params.to_unsafe_h.merge(view_as: 'table')) %>" class="mx-2" data-turbolinks="true">Table</a>
+        </div>
+
+      </div>
+
+      <br>
+
+      <% if @view_as == 'cards' %>
+        <%= render "shared/display_cards", q: @q, notes: @notes, topics: @topics, topic_type: @topic_type %>
+      <% else %>
+        <%= render "shared/display_table", q: @q, notes: @notes, topics: @topics, topic_type: @topic_type%>
       <% end %>
 
     </div>
-  </div>
 
-  <!-- Bootstrap 4.0 JS -->
-  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-</body>
+    <!-- Bootstrap 4.0 JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+  </body>
 </html>

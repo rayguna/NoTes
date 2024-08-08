@@ -1,0 +1,35 @@
+<%= javascript_include_tag 'application', 'data-turbo-track': 'reload' %>
+
+<div class="table-responsive">
+  <table class="table">
+    <thead class="thead-dark">
+      <tr>
+        <!-- Adding inline styles for white font color and sort links with icons -->
+        <th scope="col" style="color: white;">
+          <%= link_to "Id".html_safe + (params[:sort] == 'id' && params[:direction] == 'asc' ? ' ▼' : ''), { sort: 'id', direction: (params[:sort] == 'id' && params[:direction] == 'asc' ? 'desc' : 'asc') }, data: { turbo_frame: "_top" } %>
+        </th>
+        <th scope="col" style="color: white;">
+          <%= link_to "Name".html_safe + (params[:sort] == 'name' && params[:direction] == 'asc' ? ' ▼' : ''), { sort: 'name', direction: (params[:sort] == 'name' && params[:direction] == 'asc' ? 'desc' : 'asc') }, data: { turbo_frame: "_top" } %>
+        </th>
+        <th scope="col" style="color: white;">
+          <%= link_to "Created At".html_safe + (params[:sort] == 'created_at' && params[:direction] == 'asc' ? ' ▼' : ''), { sort: 'created_at', direction: (params[:sort] == 'created_at' && params[:direction] == 'asc' ? 'desc' : 'asc') }, data: { turbo_frame: "_top" } %>
+        </th>
+        <th scope="col" style="color: white;">Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @sort_topics.each do |topic| %>
+        <tr>
+          <th scope="row"><%= topic.id %></th>
+          <td><%= topic.name %></td>
+          <td><%= topic.created_at.strftime("%B %d, %Y") %></td>
+          <td>
+            <a href="<%= topic_path(topic) %>" class="btn btn-primary btn-sm">
+              <i class="fa-solid fa-eye"></i> View
+            </a>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
