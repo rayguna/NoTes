@@ -24,8 +24,9 @@
           <td><%= topic.name %></td>
           <td><%= topic.created_at.strftime("%B %d, %Y") %></td>
           <td>
-            <a href="<%= topic_path(topic) %>" class="btn btn-primary btn-sm">
+            <a href="<%= url_for([topic, { topic_type: params[:topic_type] }]) %>" class="btn btn-primary btn-sm">
               <i class="fa-solid fa-eye"></i> View
+            </a>
             </a>
           </td>
         </tr>
