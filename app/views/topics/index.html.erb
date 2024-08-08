@@ -73,18 +73,17 @@
 
         <!-- Right column for links -->
         <div class="col-md-4 d-flex justify-content-end align-items-center">
-          <a href="<%= url_for(params.to_unsafe_h.merge(view_as: 'cards')) %>" class="mx-2" data-turbolinks="true">Cards</a> | 
-          <a href="<%= url_for(params.to_unsafe_h.merge(view_as: 'table')) %>" class="mx-2" data-turbolinks="true">Table</a>
+          <%= link_to 'Cards', url_for(params.to_unsafe_h.merge(view_as: 'cards')), class: 'mx-2', data: { turbolinks: true } %> |
+          <%= link_to 'Table', url_for(params.to_unsafe_h.merge(view_as: 'table')), class: 'mx-2', data: { turbolinks: true } %>
         </div>
-
       </div>
 
       <br>
 
-      <% if @view_as == 'cards' %>
-        <%= render "shared/display_cards", q: @q, notes: @notes, topics: @topics, topic_type: @topic_type %>
+      <% if @view_mode == 'cards' %>
+        <%= render 'shared/display_cards' %>
       <% else %>
-        <%= render "shared/display_table", q: @q, notes: @notes, topics: @topics, topic_type: @topic_type%>
+        <%= render 'shared/display_table' %>
       <% end %>
 
     </div>
