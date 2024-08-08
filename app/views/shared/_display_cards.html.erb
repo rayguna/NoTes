@@ -6,7 +6,7 @@
           <h5 class="card-title"><span class="highlight"><%= topic.name %></span></h5>
           <p class="card-text"><small class="text-muted">Topic: <%= topic.name %></small></p>
           <p class="card-text"><small class="text-muted">Created At: <%= topic.created_at.strftime("%B %d, %Y") %></small></p>
-          <a href="<%= url_for([topic, { topic_type: params[:topic_type] }]) %>" class="position-absolute" style="top: 10px; right: 10px;">
+          <a href="<%= url_for([topic, { topic_type: params[:topic_type], display_as: params[:display_as] }]) %>" class="position-absolute" style="top: 10px; right: 10px;">
             <i class="fa-solid fa-eye"></i>
           </a>
         </div>

@@ -4,7 +4,7 @@ class TopicsController < ApplicationController
   # GET /topics or /topics.json
   def index
     @topic_type = params[:topic_type] || 'note' # Default topic type if not provided
-    @view_mode = params[:view_as] || 'default' # Default view mode if not provided
+    @view_mode = params[:display_as] || 'default' # Default view mode if not provided
   
     @topics = Topic.where(user_id: current_user.id, topic_type: @topic_type)
                    .page(params[:page])
