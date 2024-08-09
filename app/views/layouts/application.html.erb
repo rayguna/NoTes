@@ -13,13 +13,19 @@
 
     <%= javascript_include_tag "note_preview" %>
 
+    <style>
+      .flash-message {
+        z-index: 1000; /* Lower than the dropdown menu */
+        position: relative; /* Ensure z-index is applied */
+      }
+    </style>
+
   </head>
 
   <body>
     <%= render partial: "shared/navbar" %>
 
-    <div class="container">
-      
+    <div class="container flash-message">
       <% if notice.present? %>
         <%= render partial: "shared/flash", locals: { message: notice, css_class: "success" } %>
       <% end %>

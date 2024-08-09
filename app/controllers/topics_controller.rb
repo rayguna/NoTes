@@ -4,23 +4,31 @@ class TopicsController < ApplicationController
   # GET /topics or /topics.json
   def index
     @topic_type = params[:topic_type] || 'note' # Default topic type if not provided
+    @view_mode = params[:display_as] || 'default' # Default view mode if not provided
+  
     @topics = Topic.where(user_id: current_user.id, topic_type: @topic_type)
-                   .order(name: :asc)
                    .page(params[:page])
                    .per(6)
     
     @q = Note.where(user_id: current_user.id).ransack(params[:q])
     @notes = @q.result(distinct: true)
+  
+    # Sort table
+    @sort_topics = @topics.order(params[:sort])
   end
+  
 
   # GET /topics/1 or /topics/1.json
   def show
+    @view_mode = params[:display_as] || 'default' # Default view mode if not provided
+
     @q = @topic.notes.ransack(params[:q])
     per_page = params[:per_page] || 6
     @notes = @q.result(distinct: true)
-               .order(title: :asc)
                .page(params[:page])
                .per(per_page)
+        # Sort table
+    @sort_notes = @notes.order(params[:sort]) 
   end
 
   # GET /topics/new
