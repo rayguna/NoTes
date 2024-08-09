@@ -27,6 +27,8 @@ class TopicsController < ApplicationController
     @notes = @q.result(distinct: true)
                .page(params[:page])
                .per(per_page)
+        # Sort table
+    @sort_notes = @notes.order(params[:sort]) 
   end
 
   # GET /topics/new

@@ -39,41 +39,34 @@
     </div>
 
     <div class="row mt-4">
-      <!-- Left column with Search Form in Dropdown -->
-      <div class="row mt-4">
-        <!-- Left column (Empty) -->
-        <div class="col-md-4">
-          <!-- Empty column -->
-        </div>
-
-        <!-- Center column for pagination -->
-        <div class="col-md-4 d-flex justify-content-center">
-          <nav aria-label="Page navigation example">
-            <ul class="pagination justify-content-center">
-              <%= paginate @notes, theme: 'bootstrap-4' %>
-            </ul>
-          </nav>
-        </div>
-
-        <!-- Right column with Search Form in Dropdown -->
-        <div class="col-md-4 d-flex justify-content-end align-items-center">
-          <%= link_to 'Cards', url_for(params.to_unsafe_h.merge(display_as: 'cards')), class: 'mx-2', data: { turbolinks: true } %> |
-          <%= link_to 'Table', url_for(params.to_unsafe_h.merge(display_as: 'table')), class: 'mx-2', data: { turbolinks: true } %>
-        </div>
+      <!-- Left column for pagination -->
+      <div class="col-md-6 d-flex justify-content-center">
+        <nav aria-label="Page navigation example">
+          <ul class="pagination justify-content-center">
+            <%= paginate @notes, theme: 'bootstrap-4' %>
+          </ul>
+        </nav>
       </div>
 
-      <!-- Notes Section -->
-      <div class="row">
+      <!-- Right column with Search Form in Dropdown -->
+      <div class="col-md-6 d-flex justify-content-end align-items-center">
+        <%= link_to 'Cards', url_for(params.to_unsafe_h.merge(display_as: 'cards')), class: 'mx-2', data: { turbolinks: true } %> |
+        <%= link_to 'Table', url_for(params.to_unsafe_h.merge(display_as: 'table')), class: 'mx-2', data: { turbolinks: true } %>
+      </div>
+    </div>
 
-        <% if @view_mode == 'cards' %>
-          <%= render "shared/display_note_cards",  notes: @notes %>
-        <% else %>
-          <%= render 'shared/display_table', table_name: @sort_topics %>
-        <% end %>
+    <!-- Notes Section -->
+    <div class="row">
+      <%@view_mode == 'cards'%>
+      <% if @view_mode == 'cards' %>
+        <%= render "shared/display_note_cards",  notes: @sort_notes %>
+      <% else %>
+        <%= render "shared/display_note_table", notes: @sort_notes %>
+      <% end %>
 
-        <!-- Bootstrap 4.0 JS -->
-        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-      </body>
-    </html>
+      <!-- Bootstrap 4.0 JS -->
+      <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
+      <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    </body>
+  </html>
