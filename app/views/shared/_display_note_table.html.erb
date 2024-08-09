@@ -21,7 +21,11 @@
           <td><%= note.created_at.strftime("%B %d, %Y") %></td>
           <td>
             <a href="<%= url_for([note, { topic_type: params[:topic_type], display_as: params[:display_as] }]) %>" class="btn btn-primary btn-sm">
-              <i class="fa-solid fa-eye"></i> View
+              <i class="fa-solid fa-eye"></i> 
+            <a href="#" class="btn btn-primary btn-sm">
+              <i class="fa-solid fa-pen-to-square"></i> 
+            <a href="#" class="btn btn-primary btn-sm">
+              <i class="fa-solid fa-trash"></i> 
             </a>
           </td>
         </tr>
