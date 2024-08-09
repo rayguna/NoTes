@@ -21,6 +21,17 @@
 #  fk_rails_...  (user_id => users.id)
 #
 class Note < ApplicationRecord
+
+  include PgSearch::Model
+
+  #for custom search
+  pg_search_scope :search_by_content,
+                  against: [:title, :content], # Adjust the fields according to your model
+                  using: {
+                    tsearch: { prefix: true },  # Full-text search
+                    trigram: { threshold: 0.3 } # Fuzzy search with typo tolerance
+                  }
+
   belongs_to :user
   belongs_to :topic
   has_many :favorites, dependent: :destroy

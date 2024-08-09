@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
   devise_for :users
 
+  resources :articles
+
   resources :favorites
   resources :users
   resources :notes

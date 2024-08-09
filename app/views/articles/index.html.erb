@@ -1,0 +1,29 @@
+<!-- app/views/articles/index.html.erb -->
+<h1>Search Articles</h1>
+
+<%= form_with url: articles_path, method: :get, local: true do |form| %>
+  <%= form.text_field :query, placeholder: "Enter your search query..." %>
+  <%= form.submit "Search" %>
+<% end %>
+
+<%= form_with url: articles_path, method: :get, local: true do |f| %>
+  <%= f.label :title_cont, "Title contains:" %>
+  <%= f.text_field :q, name: 'q[title_cont]' %>
+
+  <%= f.label :content_cont, "Content contains:" %>
+  <%= f.text_field :q, name: 'q[content_cont]' %>
+
+  <%= f.submit "Search" %>
+<% end %>
+
+<h2>Results:</h2>
+<% if @articles.any? %>
+  <ul>
+    <% @articles.each do |article| %>
+      <li><%= article.title %></li>
+      <li><%= article.content %></li>
+    <% end %>
+  </ul>
+<% else %>
+  <p>No results found</p>
+<% end %>
