@@ -11,7 +11,7 @@
           <%= link_to edit_note_path(@note), class: "text-primary me-2" do %>
             <i class="fa-solid fa-pen-to-square"></i>
           <% end %>
-        </div>name
+        </div>
         <div class="d-inline-block">
           <%= link_to @note, method: :delete, data: { turbo_confirm: "Are you sure?" }, class: "text-primary me-2" do %>
             <i class="fa-solid fa-trash"></i>
