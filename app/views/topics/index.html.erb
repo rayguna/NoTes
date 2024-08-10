@@ -71,7 +71,7 @@
           </nav>
         </div>
 
-        <!-- Right column with Search Form in Dropdown --> 
+        <!-- Right column with toggle --> 
         <div class="col-md-4 d-flex justify-content-end align-items-center">
           <%= link_to 'Cards', url_for(params.to_unsafe_h.merge(display_as: 'cards')), class: 'mx-2', data: { turbolinks: true } %> |
           <%= link_to 'Table', url_for(params.to_unsafe_h.merge(display_as: 'table')), class: 'mx-2', data: { turbolinks: true } %>
