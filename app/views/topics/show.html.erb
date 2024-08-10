@@ -12,16 +12,53 @@
 
     <!-- Bootstrap 4.0 CSS -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Bootstrap Toggle CSS -->
+    <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+
+    <!-- Custom CSS for 3D Toggle Button -->
+    <style>
+      .toggle-group .toggle-on {
+        background: linear-gradient(145deg, #4CAF50, #388E3C);
+        border-color: #388E3C;
+        box-shadow: inset 0 2px 4px rgba(0,0,0,.2);
+      }
+
+      .toggle-group .toggle-off {
+        background: linear-gradient(145deg, #D32F2F, #B71C1C);
+        border-color: #B71C1C;
+        box-shadow: inset 0 2px 4px rgba(0,0,0,.2);
+      }
+
+      .toggle-group label {
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+        transition: all 0.2s ease-in-out;
+      }
+
+      .toggle-group label:hover {
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+      }
+
+      .toggle-group .toggle-handle {
+        background-color: #fff;
+        border-radius: 50%;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+      }
+
+      .toggle-group {
+        border-radius: 30px;
+      }
+    </style>
   </head>
   <body>
     <p class="text-success"><%= notice %></p>
 
     <!-- Render the topic -->
     <div class="mb-4">
-      <h1><%=@topic.name %></h1>
+      <h1><%= @topic.name %></h1>
     </div>
 
-    <!--Show image-->
+    <!-- Show image -->
     <center>
       <% if @topic.avatar.attached? %>
         <%= image_tag url_for(@topic.avatar), alt: @topic.name %>
@@ -33,7 +70,7 @@
     <div class="row">
       <!-- Left Column: Back to Topics Button -->
       <div class="col-md-3">
-        <%= link_to "Back to topics", topics_path(topic_type:  params[:topic_type], display_as: params[:display_as]) %>
+        <%= link_to "Back to topics", topics_path(topic_type: params[:topic_type], display_as: params[:display_as]) %>
       </div>
 
       <!-- Center Column: Pagination -->
@@ -47,23 +84,29 @@
 
       <!-- Right Column: Cards or Table Toggle -->
       <div class="col-md-3 d-flex justify-content-end align-items-center">
-        <%= link_to 'Cards', url_for(params.to_unsafe_h.merge(display_as: 'cards')), class: 'mx-2', data: { turbolinks: true } %> |
-        <%= link_to 'Table', url_for(params.to_unsafe_h.merge(display_as: 'table')), class: 'mx-2', data: { turbolinks: true } %>
+        <%= form_with url: url_for(params.permit(:topic_type, :page, :sort).merge(display_as: @view_mode == 'cards' ? 'table' : 'cards')), method: :get, local: true, class: "toggle-form" do %>
+          <input type="checkbox" id="viewToggle" name="display_as" value="cards" <%= 'checked' if @view_mode == 'cards' %> onchange="this.form.submit()" data-toggle="toggle" data-on="Cards" data-off="Table" data-onstyle="primary" data-offstyle="secondary">
+        <% end %>
       </div>
     </div>
 
+    <br>
+
     <!-- Notes Section -->
     <div class="row">
-      <%@view_mode == 'cards'%>
       <% if @view_mode == 'cards' %>
-        <%= render "shared/display_note_cards",  notes: @sort_notes %>
+        <%= render "shared/display_note_cards", notes: @sort_notes %>
       <% else %>
         <%= render "shared/display_note_table", notes: @sort_notes %>
       <% end %>
+    </div>
 
-      <!-- Bootstrap 4.0 JS -->
-      <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
-      <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-    </body>
-  </html>
+    <!-- Bootstrap 4.0 JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+    <!-- Bootstrap Toggle JS -->
+    <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+  </body>
+</html>
