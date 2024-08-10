@@ -81,9 +81,9 @@
       <br>
 
       <% if @view_mode == 'cards' %>
-        <%= render 'shared/display_cards', table_name: @sort_topics  %>
+        <%= render 'shared/display_cards', table_name: @sort_topics, data_type: "topic" %>
       <% else %>
-        <%= render 'shared/display_table', table_name: @sort_topics %>
+        <%= render 'shared/display_table', table_name: @sort_topics, data_type: "topic" %>
       <% end %>
 
     </div>

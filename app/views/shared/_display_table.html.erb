@@ -16,19 +16,38 @@
     </thead>
     <tbody>
       <% table_name.each do |row| %>
+        <% if data_type == "topic" %>
         <tr>
           <td><%= row.name %></td>
           <td><%= row.created_at.strftime("%B %d, %Y") %></td>
           <td>
-            <a href="<%= url_for([row, { topic_type: params[:topic_type], display_as: params[:display_as] }]) %>" class="btn btn-primary btn-sm">
-              <i class="fa-solid fa-eye"></i> 
-            <a href="#" class="btn btn-primary btn-sm">
-              <i class="fa-solid fa-pen-to-square"></i> 
-            <a href="#" class="btn btn-primary btn-sm">
-              <i class="fa-solid fa-trash"></i> 
-            </a>
+            <%= link_to url_for([row, { topic_type: params[:topic_type], display_as: params[:display_as] }]), class: "btn" do %>
+              <i class="fa-solid fa-eye"></i>
+            <% end %>
+            <%= link_to edit_topic_path(row), class: "btn" do %>
+              <i class="fa-solid fa-pen-to-square"></i>
+            <% end %>
+            <%= link_to row, method: :delete, data: { turbo_confirm: "Are you sure?" }, class: "btn" do %>
+              <i class="fa-solid fa-trash"></i>
+            <% end %>
           </td>
         </tr>
+        <%else%>
+        <tr>
+          <td><%= row.title %></td>
+          <td><%= row.created_at.strftime("%B %d, %Y") %></td>
+          <td>
+            <a href="<%= url_for([row, { topic_type: params[:topic_type], display_as: params[:display_as] }]) %>" class="btn">
+              <i class="fa-solid fa-eye"></i> 
+            <a href="<%= edit_note_path(row) %>" class="btn">
+              <i class="fa-solid fa-pen-to-square"></i>
+            </a>
+            <%= link_to row, method: :delete, data: { turbo_confirm: "Are you sure?" }, class: "b" do %>
+              <i class="fa-solid fa-trash"></i>
+            <% end %>
+          </td>
+        </tr>  
+        <%end%>
       <% end %>
     </tbody>
   </table>
