@@ -33,6 +33,12 @@ class NotesController < ApplicationController
 
   # GET /notes/1 or /notes/1.json
   def show
+    @note = Note.find(params[:id])
+
+    respond_to do |format|
+      format.html # Renders the default show view
+      format.js   # Renders the show.js.erb file
+    end
   end
 
   # GET /notes/new

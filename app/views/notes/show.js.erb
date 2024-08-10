@@ -1,0 +1,10 @@
+// Inject the modal HTML into a specific div or directly into the body
+$('body').append('<%= j render "modal" %>');
+
+// Show the modal
+$('#noteModal').modal('show');
+
+// Optional: Clean up the modal after it's closed to avoid duplicates
+$('#noteModal').on('hidden.bs.modal', function () {
+  $(this).remove();
+});

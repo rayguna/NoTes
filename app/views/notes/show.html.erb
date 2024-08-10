@@ -1,7 +1,7 @@
 <p style="color: green"><%= notice %></p>
 
-<div class="container mt-4">
-  <div class="card position-relative border-success mb-3" style="max-width: 18rem;">
+<div class="container mt-4 d-flex justify-content-center">
+  <div class="card position-relative border-success mb-3" style="width: 75%;">
     <div class="card-body">
       <%= render @note %>
 
@@ -22,9 +22,7 @@
 
     <!-- Footer with back arrow -->
     <div class="card-footer bg-transparent border-top">
-      <%= link_to notes_path, class: "text-secondary" do %>
-        <i class="fa-solid fa-arrow-left"></i>
-      <% end %>
+      <%= link_to 'Back to Notes', topic_path(@note.topic_id) %>
     </div>
   </div>
 </div>

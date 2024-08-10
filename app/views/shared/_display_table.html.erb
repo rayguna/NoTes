@@ -11,43 +11,47 @@
         <th scope="col" style="color: white;">
           <%= link_to "Created At".html_safe + (params[:sort] == 'created_at' && params[:direction] == 'asc' ? ' ▼' : ''), { sort: 'created_at', direction: (params[:sort] == 'created_at' && params[:direction] == 'asc' ? 'desc' : 'asc') }, data: { turbo_frame: "_top" } %>
         </th>
+        <th scope="col" style="color: white;">
+          <%= link_to "Modified At".html_safe + (params[:sort] == 'updated_at' && params[:direction] == 'asc' ? ' ▼' : ''), { sort: 'updated_at', direction: (params[:sort] == 'updated_at' && params[:direction] == 'asc' ? 'desc' : 'asc') }, data: { turbo_frame: "_top" } %>
+        </th>
         <th scope="col" style="color: white;">Action</th>
       </tr>
     </thead>
     <tbody>
       <% table_name.each do |row| %>
-        <% if data_type == "topic" %>
         <tr>
-          <td><%= row.name %></td>
-          <td><%= row.created_at.strftime("%B %d, %Y") %></td>
-          <td>
-            <%= link_to url_for([row, { topic_type: params[:topic_type], display_as: params[:display_as] }]), class: "btn" do %>
-              <i class="fa-solid fa-eye"></i>
-            <% end %>
-            <%= link_to edit_topic_path(row), class: "btn" do %>
-              <i class="fa-solid fa-pen-to-square"></i>
-            <% end %>
-            <%= link_to row, method: :delete, data: { turbo_confirm: "Are you sure?" }, class: "btn" do %>
-              <i class="fa-solid fa-trash"></i>
-            <% end %>
-          </td>
+          <% if data_type == "topic" %>
+            <td><%= row.name %></td>
+            <td><%= row.created_at.strftime("%B %d, %Y") %></td>
+            <td><%= row.updated_at.strftime("%B %d, %Y") %></td>
+            <td>
+              <%= link_to url_for([row, { topic_type: params[:topic_type], display_as: params[:display_as] }]), class: "btn" do %>
+                <i class="fa-solid fa-eye"></i>
+              <% end %>
+              <%= link_to edit_topic_path(row), class: "btn" do %>
+                <i class="fa-solid fa-pen-to-square"></i>
+              <% end %>
+              <%= link_to row, method: :delete, data: { turbo_confirm: "Are you sure?" }, class: "btn" do %>
+                <i class="fa-solid fa-trash"></i>
+              <% end %>
+            </td>
+          <% else %>
+            <td><%= row.title %></td>
+            <td><%= row.created_at.strftime("%B %d, %Y") %></td>
+            <td><%= row.updated_at.strftime("%B %d, %Y") %></td>
+            <td>
+              <%= link_to url_for([row, { topic_type: params[:topic_type], display_as: params[:display_as] }]), class: "btn" do %>
+                <i class="fa-solid fa-eye"></i>
+              <% end %>
+              <%= link_to edit_topic_path(row), class: "btn" do %>
+                <i class="fa-solid fa-pen-to-square"></i>
+              <% end %>
+              <%= link_to row, method: :delete, data: { turbo_confirm: "Are you sure?" }, class: "btn" do %>
+                <i class="fa-solid fa-trash"></i>
+              <% end %>
+            </td>
+          <% end %>
         </tr>
-        <%else%>
-        <tr>
-          <td><%= row.title %></td>
-          <td><%= row.created_at.strftime("%B %d, %Y") %></td>
-          <td>
-            <a href="<%= url_for([row, { topic_type: params[:topic_type], display_as: params[:display_as] }]) %>" class="btn">
-              <i class="fa-solid fa-eye"></i> 
-            <a href="<%= edit_topic_path(row) %>" class="btn">
-              <i class="fa-solid fa-pen-to-square"></i>
-            </a>
-            <%= link_to row, method: :delete, data: { turbo_confirm: "Are you sure?" }, class: "b" do %>
-              <i class="fa-solid fa-trash"></i>
-            <% end %>
-          </td>
-        </tr>  
-        <%end%>
       <% end %>
     </tbody>
   </table>
