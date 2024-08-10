@@ -20,9 +20,6 @@
           <td><%= note.title %></td>
           <td><%= note.created_at.strftime("%B %d, %Y") %></td>
           <td>
-            <a href="<%= url_for([note, { topic_type: params[:topic_type], display_as: params[:display_as] }]) %>" class="btn">
-              <i class="fa-solid fa-eye"></i> 
-            </a>
             <%= link_to edit_note_path(note), method: :get, class: "btn" do %>
               <i class="fa-solid fa-pen-to-square"></i>
             <% end %>
