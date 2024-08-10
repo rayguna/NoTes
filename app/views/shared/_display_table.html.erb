@@ -39,7 +39,7 @@
           <td>
             <a href="<%= url_for([row, { topic_type: params[:topic_type], display_as: params[:display_as] }]) %>" class="btn">
               <i class="fa-solid fa-eye"></i> 
-            <a href="<%= edit_note_path(row) %>" class="btn">
+            <a href="<%= edit_topic_path(row) %>" class="btn">
               <i class="fa-solid fa-pen-to-square"></i>
             </a>
             <%= link_to row, method: :delete, data: { turbo_confirm: "Are you sure?" }, class: "b" do %>

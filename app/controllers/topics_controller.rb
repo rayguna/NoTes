@@ -61,7 +61,7 @@ class TopicsController < ApplicationController
   def update
     respond_to do |format|
       if @topic.update(topic_params)
-        format.html { redirect_to topic_url(@topic, topic_type: @topic.topic_type), notice: "Topic was successfully updated." }
+        format.html { redirect_to topics_path(topic_type: @topic.topic_type), notice: "Topic was successfully updated." }
         format.json { render :show, status: :ok, location: @topic }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -69,6 +69,7 @@ class TopicsController < ApplicationController
       end
     end
   end
+  
 
   # DELETE /topics/1 or /topics/1.json
   def destroy
