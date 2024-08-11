@@ -136,7 +136,7 @@ class NotesController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def note_params
-    params.require(:note).permit(:title, :content, :user_id, :topic_id)
+    params.require(:note).permit(:title, :content, :user_id, :topic_id, :note_image)
   end
 
   # Clear existing breadcrumbs to prevent duplication

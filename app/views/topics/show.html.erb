@@ -28,15 +28,6 @@
       <h1><%= @topic.name %></h1>
     </div>
 
-    <!-- Show image -->
-    <center>
-      <% if @topic.avatar.attached? %>
-        <%= image_tag url_for(@topic.avatar), alt: @topic.name %>
-      <% else %>
-        <p>No cover available</p>
-      <% end %>
-    </center>
-
     <div class="row">
       <!-- Left Column: Back to Topics Button -->
       <div class="col-md-3">

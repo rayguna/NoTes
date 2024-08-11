@@ -29,6 +29,15 @@
   <%= form.hidden_field :user_id, value: current_user.id %>
   <%= form.hidden_field :topic_id, value: @note.topic_id %>
 
+  <!-- Add an image -->
+  <div class="mb-3">
+    <%= form.label :image, class: 'form-label' %>
+    <%= form.file_field :note_image, class: "form-control" %>
+    <div class="invalid-feedback">
+      Please upload a valid image file.
+    </div>
+  </div>
+
   <div class="form-group">
     <%= form.submit 'Save', class: 'btn btn-primary' %>
   </div>
