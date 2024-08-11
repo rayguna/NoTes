@@ -1,4 +1,5 @@
 class TopicsController < ApplicationController
+  VALID_SORT_COLUMNS = %w[name created_at updated_at].freeze
   before_action :set_topic, only: %i[show edit update destroy]
 
   # GET /topics or /topics.json
@@ -14,7 +15,15 @@ class TopicsController < ApplicationController
     @notes = @q.result(distinct: true)
   
     # Sort table
-    @sort_topics = @topics.order(params[:sort])
+    sort_column = VALID_SORT_COLUMNS.include?(params[:sort]) ? params[:sort] : 'name'
+    sort_direction = params[:direction] == 'desc' ? 'desc' : 'asc'
+
+    if sort_column == 'name'
+      @sort_topics = @topics.order(Arel.sql("LOWER(#{sort_column}) #{sort_direction}"))
+    else
+      @sort_topics = @topics.order("#{sort_column} #{sort_direction}")
+    end
+
 
     # Add breadcrumbs
     add_breadcrumb "Home", root_path
