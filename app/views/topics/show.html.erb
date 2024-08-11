@@ -17,38 +17,8 @@
     <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
 
     <!-- Custom CSS for 3D Toggle Button -->
-    <style>
-      .toggle-group .toggle-on {
-        background: linear-gradient(145deg, #4CAF50, #388E3C);
-        border-color: #388E3C;
-        box-shadow: inset 0 2px 4px rgba(0,0,0,.2);
-      }
-
-      .toggle-group .toggle-off {
-        background: linear-gradient(145deg, #D32F2F, #B71C1C);
-        border-color: #B71C1C;
-        box-shadow: inset 0 2px 4px rgba(0,0,0,.2);
-      }
-
-      .toggle-group label {
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
-        transition: all 0.2s ease-in-out;
-      }
-
-      .toggle-group label:hover {
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
-      }
-
-      .toggle-group .toggle-handle {
-        background-color: #fff;
-        border-radius: 50%;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-      }
-
-      .toggle-group {
-        border-radius: 30px;
-      }
-    </style>
+    <link rel="stylesheet" href="<%= asset_path('topics_show.css') %>">
+   
   </head>
   <body>
     <p class="text-success"><%= notice %></p>
