@@ -15,6 +15,10 @@ class TopicsController < ApplicationController
   
     # Sort table
     @sort_topics = @topics.order(params[:sort])
+
+    # Add breadcrumbs
+    add_breadcrumb "Home", root_path
+    add_breadcrumb "Topics", topics_path(topic_type: @topic_type)
   end
   
 
@@ -28,17 +32,32 @@ class TopicsController < ApplicationController
                .page(params[:page])
                .per(per_page)
     # Sort table
-    @sort_notes = @notes.order(params[:sort]) 
+    @sort_notes = @notes.order(params[:sort])
+
+    # Add breadcrumbs
+    add_breadcrumb "Home", root_path
+    add_breadcrumb "Topics", topics_path(topic_type: @topic.topic_type)
+    add_breadcrumb @topic.name, topic_path(@topic)
   end
 
   # GET /topics/new
   def new
     @topic_type = params[:topic_type] || 'note'
     @topic = Topic.new(topic_type: @topic_type)
+
+    # Add breadcrumbs
+    add_breadcrumb "Home", root_path
+    add_breadcrumb "Topics", topics_path(topic_type: @topic_type)
+    add_breadcrumb "New Topic", new_topic_path
   end
 
   # GET /topics/1/edit
   def edit
+    # Add breadcrumbs
+    add_breadcrumb "Home", root_path
+    add_breadcrumb "Topics", topics_path(topic_type: @topic.topic_type)
+    add_breadcrumb @topic.name, topic_path(@topic)
+    add_breadcrumb "Edit", edit_topic_path(@topic)
   end
 
   # POST /topics or /topics.json

@@ -20,6 +20,8 @@
       }
     </style>
 
+    <%= stylesheet_link_tag 'application_breadcrumb' %>
+
   </head>
 
   <body>
@@ -33,8 +35,12 @@
       <% if alert.present? %>
         <%= render partial: "shared/flash", locals: { message: alert, css_class: "danger" } %>
       <% end %>
-
-      <%= yield %>
     </div>
+
+    <div class="container">
+      <%= render_breadcrumbs %> <!-- Breadcrumbs are rendered here -->
+      <%= yield %> <!-- Main content is rendered here -->
+    </div>
+
   </body>
 </html>
