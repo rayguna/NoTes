@@ -101,6 +101,10 @@ class NotesController < ApplicationController
 
   # PATCH/PUT /notes/1 or /notes/1.json
   def update
+    if params[:note][:remove_image] == '1'
+      @note.note_image.purge
+    end
+  
     respond_to do |format|
       if @note.update(note_params)
         format.html { redirect_to topic_path(@note.topic_id), notice: "Note was successfully updated." }
@@ -110,7 +114,7 @@ class NotesController < ApplicationController
         format.json { render json: @note.errors, status: :unprocessable_entity }
       end
     end
-  end
+  end  
 
   # DELETE /notes/1 or /notes/1.json
   def destroy
