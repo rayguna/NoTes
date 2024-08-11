@@ -21,7 +21,7 @@
         <% if user_signed_in? %>
         <ul class="navbar-nav mr-auto">
           <li class="nav-item">
-            <a class= "nav-link" href="/friends"> 
+            <a class= "nav-link" href="follow_requests"> 
               <i class="fa-solid fa-people-group"></i>  
               Friends 
             </a>
@@ -44,6 +44,11 @@
               <a class="nav-link" href="<%= new_topic_path(topic_type: params[:topic_type]) %>">
                 <i class="fa-regular fa-square-plus"></i>
                 Add Topics
+              </a>
+            <% elsif (params["controller"] == "follow_requests") %>
+              <a class="nav-link" href="<%= new_follow_request_path %>">
+                <i class="fa-regular fa-square-plus"></i>
+                New Follow Request
               </a>
             <% end %>
           </li>

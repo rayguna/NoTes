@@ -1,14 +1,29 @@
-<p style="color: green"><%= notice %></p>
+<p class="text-success"><%= notice %></p>
 
-<h1>Follow requests</h1>
+<h1 class="text-center mb-4">Follow Requests</h1>
 
-<div id="follow_requests">
-  <% @follow_requests.each do |follow_request| %>
-    <%= render follow_request %>
-    <p>
-      <%= link_to "Show this follow request", follow_request %>
-    </p>
-  <% end %>
+<div class="d-flex justify-content-center mb-4">
+  <ul class="nav nav-tabs">
+    <li class="nav-item">
+      <a class="nav-link active" aria-current="page" href="#">Sent Requests</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="#">Received Requests</a>
+    </li>
+  </ul>
 </div>
 
-<%= link_to "New follow request", new_follow_request_path %>
+<div id="follow_requests" class="d-flex justify-content-center">
+  <div class="w-75">
+    <% @follow_requests.each do |follow_request| %>
+      <div class="card shadow-sm mb-4">
+        <div class="card-body">
+          <%= render follow_request %>
+          <p class="mt-3">
+            <%= link_to "Show this follow request", follow_request, class: "btn btn-primary btn-sm" %>
+          </p>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
