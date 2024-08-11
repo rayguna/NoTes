@@ -1,5 +1,48 @@
 <head>
   <link rel="stylesheet" href="<%= asset_path('notes_form.css') %>">
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      const fileInput = document.querySelector('input[type="file"]');
+      const form = document.getElementById('note-form');
+      const fileSizeLabel = document.createElement('span');
+      const maxFileSize = 1 * 1024 * 1024; // 1 MB
+      const validImageTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'];
+
+      fileSizeLabel.style.color = 'gray';
+      fileSizeLabel.style.marginLeft = '10px';
+      fileInput.parentNode.appendChild(fileSizeLabel);
+
+      fileInput.addEventListener('change', function(event) {
+        const file = event.target.files[0];
+
+        if (file) {
+          const fileSize = file.size;
+          const fileType = file.type;
+
+          // Check if file is a valid image type
+          if (!validImageTypes.includes(fileType)) {
+            fileSizeLabel.style.color = 'red';
+            fileSizeLabel.textContent = 'Invalid file type! Please upload a valid image (JPEG, PNG, GIF, or WebP).';
+            alert('Invalid file type! Please upload a valid image (JPEG, PNG, GIF, or WebP).');
+            form.querySelector('input[type="submit"]').disabled = true;
+            return;
+          }
+
+          // Check if file size exceeds 1 MB
+          fileSizeLabel.textContent = `File size: ${(fileSize / 1024 / 1024).toFixed(2)} MB`;
+          if (fileSize > maxFileSize) {
+            fileSizeLabel.style.color = 'red';
+            fileSizeLabel.textContent += ' - File exceeds 1 MB limit!';
+            alert('The uploaded image exceeds the 1 MB size limit. Please upload a smaller file.');
+            form.querySelector('input[type="submit"]').disabled = true;
+          } else {
+            fileSizeLabel.style.color = 'gray';
+            form.querySelector('input[type="submit"]').disabled = false;
+          }
+        }
+      });
+    });
+  </script>
 </head>
 
 <%= form_with(model: @note, local: true, id: 'note-form') do |form| %>

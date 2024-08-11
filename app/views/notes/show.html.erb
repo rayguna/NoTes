@@ -8,7 +8,7 @@
       <!-- Show image -->
       <center>
         <% if @note.note_image.attached? %>
-          <%= image_tag url_for(@note.note_image), alt: @note.title %>
+          <%= image_tag url_for(@note.note_image), alt: @note.title, class: "img-fluid", style: "max-width: 100%; padding: 10px;" %>
         <% else %>
           <p>No image available</p>
         <% end %>
@@ -29,3 +29,4 @@
       </div>
     </div>
   </div>
+</div>
