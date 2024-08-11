@@ -1,0 +1,8 @@
+/* app/assets/stylesheets/application_breadcrumb.css */
+.breadcrumb {
+  background-color: transparent;
+}
+
+.breadcrumb-item + .breadcrumb-item::before {
+  content: ">";
+}

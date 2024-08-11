@@ -11,6 +11,9 @@
         <th scope="col" style="color: white;">
           <%= link_to "Created At".html_safe + (params[:sort] == 'created_at' && params[:direction] == 'asc' ? ' ▼' : ''), { sort: 'created_at', direction: (params[:sort] == 'created_at' && params[:direction] == 'asc' ? 'desc' : 'asc') }, data: { turbo_frame: "_top" } %>
         </th>
+        <th scope="col" style="color: white;">
+          <%= link_to "Modified At".html_safe + (params[:sort] == 'updated_at' && params[:direction] == 'asc' ? ' ▼' : ''), { sort: 'updated_at', direction: (params[:sort] == 'updated_at' && params[:direction] == 'asc' ? 'desc' : 'asc') }, data: { turbo_frame: "_top" } %>
+        </th>
         <th scope="col" style="color: white;">Action</th>
       </tr>
     </thead>
@@ -19,10 +22,17 @@
         <tr>
           <td><%= note.title %></td>
           <td><%= note.created_at.strftime("%B %d, %Y") %></td>
+          <td><%= note.updated_at.strftime("%B %d, %Y") %></td>
           <td>
-            <a href="<%= url_for([note, { topic_type: params[:topic_type], display_as: params[:display_as] }]) %>" class="btn btn-primary btn-sm">
-              <i class="fa-solid fa-eye"></i> View
-            </a>
+            <%= link_to url_for([note, { display_as: params[:display_as] }]), class: "btn" do %>
+              <i class="fa-solid fa-eye"></i>
+            <% end %>
+            <%= link_to edit_note_path(note, topic_type: params[:topic_type]), method: :get, class: "btn" do %>
+              <i class="fa-solid fa-pen-to-square"></i>
+            <% end %>
+            <%= link_to note, method: :delete, data: { turbo_confirm: "Are you sure?" }, class: "btn" do %>
+              <i class="fa-solid fa-trash"></i>
+            <% end %>
           </td>
         </tr>
       <% end %>

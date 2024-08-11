@@ -16,25 +16,14 @@
     <!-- Font Awesome -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 
-    <style>
-      .dropdown-menu {
-        z-index: 1050; /* Ensures the dropdown appears on top */
-        position: absolute; /* Positions it relative to the button */
-      }
-
-      .dropdown:hover .dropdown-menu {
-        display: block; /* Shows the dropdown on hover */
-      }
-    </style>
-  </head>
+    <!-- Bootstrap Toggle CSS -->
+    <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
 
   <body>
+
     <p class="text-success"><%= notice %></p>
 
     <div class="container mt-4">
-      <!-- Heading -->
-      <h1> <%= params[:topic_type] == 'note' ? 'My Troves' : 'My Teases' %> </h1>
-
       <div class="row mt-4">
         <!-- Left column with Search Form in Dropdown -->
         <div class="col-md-4">
@@ -71,20 +60,10 @@
           </nav>
         </div>
 
-        <!-- Right column with Search Form in Dropdown --> 
-        <div class="col-md-4 d-flex justify-content-end align-items-center">
-          <%= link_to 'Cards', url_for(params.to_unsafe_h.merge(display_as: 'cards')), class: 'mx-2', data: { turbolinks: true } %> |
-          <%= link_to 'Table', url_for(params.to_unsafe_h.merge(display_as: 'table')), class: 'mx-2', data: { turbolinks: true } %>
-        </div>
-      </div>
-
+      <br>
       <br>
 
-      <% if @view_mode == 'cards' %>
-        <%= render 'shared/display_cards', table_name: @sort_topics  %>
-      <% else %>
-        <%= render 'shared/display_table', table_name: @sort_topics %>
-      <% end %>
+      <%= render 'shared/display_table', table_name: @sort_topics, data_type: "topic", topic_type: params[:topic_type] %>
 
     </div>
 
@@ -92,5 +71,6 @@
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
   </body>
 </html>

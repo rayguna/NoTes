@@ -4,7 +4,7 @@ class TopicsController < ApplicationController
   # GET /topics or /topics.json
   def index
     @topic_type = params[:topic_type] || 'note' # Default topic type if not provided
-    @view_mode = params[:display_as] || 'default' # Default view mode if not provided
+    @view_mode = params[:display_as] || 'table' # Default to 'table' view if not provided
   
     @topics = Topic.where(user_id: current_user.id, topic_type: @topic_type)
                    .page(params[:page])
@@ -15,30 +15,49 @@ class TopicsController < ApplicationController
   
     # Sort table
     @sort_topics = @topics.order(params[:sort])
+
+    # Add breadcrumbs
+    add_breadcrumb "Home", root_path
+    add_breadcrumb "Topics", topics_path(topic_type: @topic_type)
   end
   
 
   # GET /topics/1 or /topics/1.json
   def show
-    @view_mode = params[:display_as] || 'default' # Default view mode if not provided
+    @view_mode = params[:display_as] || 'table' # Default to 'table' view if not provided
 
     @q = @topic.notes.ransack(params[:q])
     per_page = params[:per_page] || 6
     @notes = @q.result(distinct: true)
                .page(params[:page])
                .per(per_page)
-        # Sort table
-    @sort_notes = @notes.order(params[:sort]) 
+    # Sort table
+    @sort_notes = @notes.order(params[:sort])
+
+    # Add breadcrumbs
+    add_breadcrumb "Home", root_path
+    add_breadcrumb "Topics", topics_path(topic_type: @topic.topic_type)
+    add_breadcrumb @topic.name, topic_path(@topic)
   end
 
   # GET /topics/new
   def new
     @topic_type = params[:topic_type] || 'note'
     @topic = Topic.new(topic_type: @topic_type)
+
+    # Add breadcrumbs
+    add_breadcrumb "Home", root_path
+    add_breadcrumb "Topics", topics_path(topic_type: @topic_type)
+    add_breadcrumb "New Topic", new_topic_path
   end
 
   # GET /topics/1/edit
   def edit
+    # Add breadcrumbs
+    add_breadcrumb "Home", root_path
+    add_breadcrumb "Topics", topics_path(topic_type: @topic.topic_type)
+    add_breadcrumb @topic.name, topic_path(@topic)
+    add_breadcrumb "Edit", edit_topic_path(@topic)
   end
 
   # POST /topics or /topics.json
@@ -61,7 +80,7 @@ class TopicsController < ApplicationController
   def update
     respond_to do |format|
       if @topic.update(topic_params)
-        format.html { redirect_to topic_url(@topic, topic_type: @topic.topic_type), notice: "Topic was successfully updated." }
+        format.html { redirect_to topics_path(topic_type: @topic.topic_type), notice: "Topic was successfully updated." }
         format.json { render :show, status: :ok, location: @topic }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -69,6 +88,7 @@ class TopicsController < ApplicationController
       end
     end
   end
+  
 
   # DELETE /topics/1 or /topics/1.json
   def destroy
