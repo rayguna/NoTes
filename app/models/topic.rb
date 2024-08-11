@@ -15,6 +15,7 @@
 #  index_topics_on_user_id           (user_id)
 #
 class Topic < ApplicationRecord
+  encrypts :name
 
   has_many :notes, dependent: :destroy
   belongs_to :user  
