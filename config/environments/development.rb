@@ -65,6 +65,9 @@ Rails.application.configure do
   # Tell Active Support which deprecation messages to disallow.
   config.active_support.disallowed_deprecation_warnings = []
 
+  #encryption
+  config.active_record.encryption.support_unencrypted_data = true
+
   # Raise an error on page load if there are pending migrations.
   config.active_record.migration_error = :page_load
 
