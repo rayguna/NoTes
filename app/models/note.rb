@@ -21,6 +21,8 @@
 #  fk_rails_...  (user_id => users.id)
 #
 class Note < ApplicationRecord
+  has_one_attached :note_image
+
   belongs_to :user
   belongs_to :topic
   has_many :favorites, dependent: :destroy

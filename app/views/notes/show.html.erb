@@ -5,6 +5,13 @@
     <div class="card-body">
       <%= render @note %>
 
+      <!-- Show image -->
+      <center>
+        <% if @note.note_image.attached? %>
+          <%= image_tag url_for(@note.note_image), alt: @note.title, class: "img-fluid", style: "max-width: 100%; padding: 10px;" %>
+        <% end %>
+      </center>
+
       <!-- Top right corner buttons -->
       <div class="position-absolute" style="top: 10px; right: 10px;">
         <div class="d-inline-block">
@@ -19,4 +26,5 @@
         </div>
       </div>
     </div>
+  </div>
 </div>

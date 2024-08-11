@@ -1,5 +1,71 @@
 <head>
   <link rel="stylesheet" href="<%= asset_path('notes_form.css') %>">
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      const fileInput = document.querySelector('input[type="file"]');
+      const form = document.getElementById('note-form');
+      const fileSizeLabel = document.createElement('span');
+      const previewContainer = document.createElement('div');
+      const maxFileSize = 1 * 1024 * 1024; // 1 MB
+      const validImageTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'];
+
+      fileSizeLabel.style.color = 'gray';
+      fileSizeLabel.style.marginLeft = '10px';
+      previewContainer.style.marginTop = '10px';
+
+      fileInput.parentNode.appendChild(fileSizeLabel);
+      fileInput.parentNode.appendChild(previewContainer);
+
+      fileInput.addEventListener('change', function(event) {
+        const file = event.target.files[0];
+        previewContainer.innerHTML = ''; // Clear previous previews
+
+        if (file) {
+          const fileSize = file.size;
+          const fileType = file.type;
+
+          // Check if file is a valid image type
+          if (!validImageTypes.includes(fileType)) {
+            fileSizeLabel.style.color = 'red';
+            fileSizeLabel.textContent = 'Invalid file type! Please upload a valid image (JPEG, PNG, GIF, or WebP).';
+            alert('Invalid file type! Please upload a valid image (JPEG, PNG, GIF, or WebP).');
+            form.querySelector('input[type="submit"]').disabled = true;
+            return;
+          }
+
+          // Check if file size exceeds 1 MB
+          fileSizeLabel.textContent = `File size: ${(fileSize / 1024 / 1024).toFixed(2)} MB`;
+          if (fileSize > maxFileSize) {
+            fileSizeLabel.style.color = 'red';
+            fileSizeLabel.textContent += ' - File exceeds 1 MB limit!';
+            alert('The uploaded image exceeds the 1 MB size limit. Please upload a smaller file.');
+            form.querySelector('input[type="submit"]').disabled = true;
+          } else {
+            fileSizeLabel.style.color = 'gray';
+            form.querySelector('input[type="submit"]').disabled = false;
+
+            // Create and display image preview
+            const reader = new FileReader();
+            reader.onload = function(e) {
+              const img = document.createElement('img');
+              img.src = e.target.result;
+              img.style.maxWidth = '100%';
+              img.style.height = 'auto';
+              img.style.padding = '10px';
+              img.style.border = '1px solid #ddd';
+              previewContainer.appendChild(img);
+            };
+            reader.readAsDataURL(file);
+          }
+        }
+      });
+
+      // Hide file input if an image already exists
+      <% if @note.note_image.attached? %>
+        fileInput.style.display = 'none';
+      <% end %>
+    });
+  </script>
 </head>
 
 <%= form_with(model: @note, local: true, id: 'note-form') do |form| %>
@@ -28,6 +94,31 @@
 
   <%= form.hidden_field :user_id, value: current_user.id %>
   <%= form.hidden_field :topic_id, value: @note.topic_id %>
+
+  <!-- Existing Image Preview and Delete Option -->
+  <% if @note.note_image.attached? %>
+    <div class="mb-3">
+      <%= image_tag url_for(@note.note_image), class: "img-fluid", style: "max-width: 100%; padding: 10px; border: 1px solid #ddd;" %>
+      <div class="d-flex align-items-center mt-2">
+        <div class="me-2">
+          <%= check_box_tag 'note[remove_image]', '1', false, class: 'form-check-input' %>
+          <%= label_tag 'note_remove_image', "Remove image", class: 'form-check-label' %>
+        </div>
+        <div class="ms-3 text-muted">
+          <strong>Current Image:</strong> <%= @note.note_image.filename.to_s %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+
+  <!-- Add an image -->
+  <div class="mb-3">
+    <% form.label :image, class: 'form-label' %>
+    <%= form.file_field :note_image, class: "form-control" %>
+    <div class="invalid-feedback">
+      Please upload a valid image file.
+    </div>
+  </div>
 
   <div class="form-group">
     <%= form.submit 'Save', class: 'btn btn-primary' %>
