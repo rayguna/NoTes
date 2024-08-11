@@ -12,28 +12,39 @@ class NotesController < ApplicationController
 
       conditions = [title_condition, content_condition, topic_condition].compact.join(' AND ')
 
-      #sort by title
+      # Sort by title
       @notes = Note.joins(:topic)
-      .where(user_id: current_user.id)
-      .where(conditions, 
-             title: "%#{params[:q][:title_cont]&.downcase}%", 
-             content: "%#{params[:q][:content_cont]&.downcase}%", 
-             topic_name: "%#{params[:q][:topic_name_cont]&.downcase}%")
-      .distinct
-      .order(title: :asc)  # Sort by title in ascending order
-      .page(params[:page])
-      .per(6)  # Adjust per page as needed
+                   .where(user_id: current_user.id)
+                   .where(conditions, 
+                          title: "%#{params[:q][:title_cont]&.downcase}%", 
+                          content: "%#{params[:q][:content_cont]&.downcase}%", 
+                          topic_name: "%#{params[:q][:topic_name_cont]&.downcase}%")
+                   .distinct
+                   .order(title: :asc)  # Sort by title in ascending order
+                   .page(params[:page])
+                   .per(6)  # Adjust per page as needed
     else
       @notes = Note.where(user_id: current_user.id)
-             .order(title: :asc)  # Sort by title in ascending order
-             .page(params[:page])
-             .per(6)  # Adjust per page as needed
+                   .order(title: :asc)  # Sort by title in ascending order
+                   .page(params[:page])
+                   .per(6)  # Adjust per page as needed
     end
+
+    # Add breadcrumbs
+    add_breadcrumb "Home", root_path
+    add_breadcrumb "Notes", notes_path
   end
 
   # GET /notes/1 or /notes/1.json
   def show
-    @note = Note.find(params[:id])
+    # Clear existing breadcrumbs
+    clear_breadcrumbs
+
+    # Add breadcrumbs
+    add_breadcrumb "Home", root_path
+    add_breadcrumb "Topics", topics_path(topic_type: @note.topic.topic_type)
+    add_breadcrumb @note.topic.name, topic_path(@note.topic)
+    add_breadcrumb @note.title, note_path(@note)
 
     respond_to do |format|
       format.html # Renders the default show view
@@ -48,10 +59,28 @@ class NotesController < ApplicationController
       @markdown_preview = render_markdown(params[:content])
       @note.content = params[:content]
     end
+
+    # Clear existing breadcrumbs
+    clear_breadcrumbs
+
+    # Add breadcrumbs
+    add_breadcrumb "Home", root_path
+    add_breadcrumb "Topics", topics_path(topic_type: params[:topic_type])
+    add_breadcrumb Topic.find(params[:topic_id]).name, topic_path(params[:topic_id])
+    add_breadcrumb "New Note", new_note_path
   end
 
   # GET /notes/1/edit
   def edit
+    # Clear existing breadcrumbs
+    clear_breadcrumbs
+
+    # Add breadcrumbs
+    add_breadcrumb "Home", root_path
+    add_breadcrumb "Topics", topics_path(topic_type: @note.topic.topic_type)
+    add_breadcrumb @note.topic.name, topic_path(@note.topic)
+    add_breadcrumb @note.title, note_path(@note)
+    add_breadcrumb "Edit", edit_note_path(@note)
   end
 
   # POST /notes or /notes.json
@@ -110,4 +139,8 @@ class NotesController < ApplicationController
     params.require(:note).permit(:title, :content, :user_id, :topic_id)
   end
 
+  # Clear existing breadcrumbs to prevent duplication
+  def clear_breadcrumbs
+    @breadcrumbs = []
+  end
 end
