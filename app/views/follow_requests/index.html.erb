@@ -36,7 +36,7 @@
           <span class="badge bg-success rounded-pill" style="width: 100%; display: inline-block;">Friends</span>
         </h3>
         <% @follow_requests.each do |follow_request| %>
-          <% if follow_request.status == "Accepted" %>
+          <% if follow_request.status == "Accepted" && (follow_request.sender_username == current_user.username || follow_request.recipient_username == current_user.username) %>
             <%= render partial: 'sent_request', locals: { follow_request: follow_request, follow_request_type: "friends" } %>
           <% end %>
         <% end %>
