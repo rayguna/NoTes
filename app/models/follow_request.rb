@@ -25,4 +25,13 @@ class FollowRequest < ApplicationRecord
   # You can add validations if needed
   validates :recipient_id, presence: true
   validates :sender_id, presence: true
+
+def recipient_username
+  recipient.username
+end
+
+def sender_username
+  sender.username
+end
+
 end
