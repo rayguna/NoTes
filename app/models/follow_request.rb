@@ -6,6 +6,7 @@ class FollowRequest < ApplicationRecord
   validates :sender_id, presence: true
   validate :recipient_and_sender_cannot_be_same
   validate :no_duplicate_follow_request
+  validate :no_reverse_duplicate_follow_request
 
   def recipient_username
     recipient.username
@@ -26,6 +27,12 @@ class FollowRequest < ApplicationRecord
   def no_duplicate_follow_request
     if FollowRequest.exists?(sender_id: sender_id, recipient_id: recipient_id)
       errors.add(:base, "A follow request already exists between these users")
+    end
+  end
+
+  def no_reverse_duplicate_follow_request
+    if FollowRequest.exists?(sender_id: recipient_id, recipient_id: sender_id)
+      errors.add(:base, "A follow request already exists between these users in the reverse order")
     end
   end
 end
