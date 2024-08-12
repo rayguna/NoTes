@@ -22,14 +22,24 @@ class FollowRequestsController < ApplicationController
   # POST /follow_requests or /follow_requests.json
   def create
     @follow_request = FollowRequest.new(follow_request_params)
+    recipient = User.find_by(email: params[:follow_request][:recipient_email])
 
-    respond_to do |format|
-      if @follow_request.save
-        format.html { redirect_to follow_request_url(@follow_request), notice: "Follow request was successfully created." }
-        format.json { render :show, status: :created, location: @follow_request }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @follow_request.errors, status: :unprocessable_entity }
+    if recipient
+      @follow_request.recipient_id = recipient.id
+
+      respond_to do |format|
+        if @follow_request.save
+          format.html { redirect_to follow_request_url(@follow_request), notice: "Follow request was successfully created." }
+          format.json { render :show, status: :created, location: @follow_request }
+        else
+          format.html { render :new, status: :unprocessable_entity }
+          format.json { render json: @follow_request.errors, status: :unprocessable_entity }
+        end
+      end
+    else
+      respond_to do |format|
+        format.html { render :new, status: :unprocessable_entity, alert: "Recipient not found" }
+        format.json { render json: { error: "Recipient not found" }, status: :unprocessable_entity }
       end
     end
   end
@@ -73,6 +83,6 @@ class FollowRequestsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def follow_request_params
-      params.require(:follow_request).permit(:recipient_id, :sender_id, :status)
+      params.require(:follow_request).permit(:sender_id, :status) # Exclude recipient_id as it is set via email
     end
 end

@@ -15,8 +15,8 @@
   <% end %>
 
   <div class="mb-3">
-    <%= form.label "Recipient Id", class: "form-label" %>
-    <%= form.number_field :recipient_id, class: "form-control" %>
+    <%= form.label "Recipient Email", class: "form-label" %>
+    <%= form.email_field :recipient_email, class: "form-control" %>
   </div>
 
   <div class="mb-3">
@@ -26,7 +26,6 @@
   <div class="mb-3">
     <%= form.hidden_field :status, value: "Pending" %>
   </div>
-  
 
   <div class="mb-3">
     <%= form.submit "Submit", class: "btn btn-primary" %>
