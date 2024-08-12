@@ -1,16 +1,16 @@
 <p class="text-success"><%= notice %></p>
 
 <h1 class="text-center mb-4"><%= current_user.username %>'s Friends</h1>
-
+<hr>
 <center>
-  <a href="#">Friends</a> | <a href="#">Sent Requests</a> | <a href="#">Received Requests</a>
-  <br><br>
 
   <div class="container">
     <div class="row">
       <!-- Column for Received Requests -->
       <div class="col-md-4">
-        <h3 class="text-center">Received Requests</h3>
+        <h3 class="text-center">
+          <span class="badge bg-primary rounded-pill" style="width: 100%; display: inline-block;">Received Requests</span>
+        </h3>
         <% @follow_requests.each do |follow_request| %>
           <% if follow_request.status == "Pending" && follow_request.recipient_username == current_user.username %>
             <%= render partial: 'received_request', locals: { follow_request: follow_request } %>
@@ -20,7 +20,9 @@
 
       <!-- Column for Sent Requests -->
       <div class="col-md-4">
-        <h3 class="text-center">Sent Requests</h3>
+        <h3 class="text-center">
+          <span class="badge bg-secondary rounded-pill" style="width: 100%; display: inline-block;">Sent Requests</span>
+        </h3>
         <% @follow_requests.each do |follow_request| %>
           <% if follow_request.status == "Pending" && follow_request.sender_username == current_user.username %>
             <%= render partial: 'sent_request', locals: { follow_request: follow_request, follow_request_type: "sent_request" } %>
@@ -30,7 +32,9 @@
 
       <!-- Column for Friends -->
       <div class="col-md-4">
-        <h3 class="text-center">Friends</h3>
+        <h3 class="text-center">
+          <span class="badge bg-success rounded-pill" style="width: 100%; display: inline-block;">Friends</span>
+        </h3>
         <% @follow_requests.each do |follow_request| %>
           <% if follow_request.status == "Accepted" %>
             <%= render partial: 'sent_request', locals: { follow_request: follow_request, follow_request_type: "friends" } %>
