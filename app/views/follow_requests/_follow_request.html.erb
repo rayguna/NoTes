@@ -1,12 +1,28 @@
-<div id="<%= dom_id follow_request %>">
-  <p>
-    <strong>Recipient:</strong>
-    <%= follow_request.recipient_id %>
-  </p>
+<% if follow_request.recipient_username == current_user.username || follow_request.sender_username == current_user.username %>
+  <div id="<%= dom_id follow_request %>">
 
-  <p>
-    <strong>Sender:</strong>
-    <%= follow_request.sender_id %>
-  </p>
+    <%= print(follow_request.recipient_username == current_user.username ? "received request" : "sent request") %>
 
-</div>
+    <p>
+      <strong>Recipient:</strong>
+      <%= follow_request.recipient_username %>
+    </p>
+
+    <p>
+      <strong>Sender:</strong>
+      <%= follow_request.sender_username %>
+    </p>
+
+    <!--show details-->
+    <p class="mt-3">
+      <%= link_to "Show this follow request", follow_request, class: "btn btn-primary btn-sm" %>
+    </p>
+
+    <% if follow_request.recipient_username == current_user.username %>
+      <a href="#">Accept</a> | <a href="#">Reject</a>
+    <% else %>
+      <%= link_to "Unrequest", follow_request, method: :delete, data: { turbo_confirm: "Are you sure?" }, class: "text-primary me-2" %>
+    <% end %>
+
+  </div>
+<% end %>

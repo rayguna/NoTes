@@ -22,16 +22,23 @@ class FollowRequest < ApplicationRecord
   belongs_to :recipient, class_name: 'User'
   belongs_to :sender, class_name: 'User'
 
-  # You can add validations if needed
   validates :recipient_id, presence: true
   validates :sender_id, presence: true
+  validate :recipient_and_sender_cannot_be_same
 
-def recipient_username
-  recipient.username
-end
+  def recipient_username
+    recipient.username
+  end
 
-def sender_username
-  sender.username
-end
+  def sender_username
+    sender.username
+  end
 
+  private
+
+  def recipient_and_sender_cannot_be_same
+    if recipient_id == sender_id
+      errors.add(:recipient_id, "cannot be the same as the sender")
+    end
+  end
 end
