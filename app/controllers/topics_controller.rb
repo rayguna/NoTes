@@ -40,8 +40,12 @@ class TopicsController < ApplicationController
     @notes = @q.result(distinct: true)
                .page(params[:page])
                .per(per_page)
-    # Sort table
-    @sort_notes = @notes.order(params[:sort])
+
+  allowed_sorts = %w[name created_at updated_at] # List of allowed columns
+  sort_column = allowed_sorts.include?(params[:sort]) ? params[:sort] : "title"
+  sort_direction = %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
+  
+  @sort_notes = @notes.order("#{sort_column} #{sort_direction}")
 
     # Add breadcrumbs
     add_breadcrumb "Home", root_path
