@@ -5,17 +5,12 @@
 <center>
   <a href="#"> Friends </a> | <a href="#">Sent Requests</a> | <a href="#">Received Requests</a>
 
-<br>
-<br>
+  <br>
+  <br>
 
-
-  <div class="card" style="width: 18rem; d-flex justify-content-center">
-    <div class="card-body">
-      <% @follow_requests.each do |follow_request| %>
-        <p class="card-text">
-          <%= render follow_request %>
-        </p>
-      <% end %>
-    </div>
-  </div>
+  <% @follow_requests.each do |follow_request| %>
+    <p class="card-text">
+      <%= render follow_request %>
+    </p>
+  <% end %>
 </center>

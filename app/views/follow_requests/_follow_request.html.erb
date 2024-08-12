@@ -1,35 +1,14 @@
-<% if follow_request.recipient_username == current_user.username || follow_request.sender_username == current_user.username %>
+<% if follow_request.status == "Pending" %>
+  <!-- Received Request -->
   <% if follow_request.recipient_username == current_user.username %>
-    <div id="<%= dom_id follow_request %>">
+    <%= render partial: 'received_request', locals: { follow_request: follow_request } %>
+  
+  <!-- Sent Request -->
+  <% elsif follow_request.sender_username == current_user.username %>
+    <%= render partial: 'sent_request', locals: { follow_request: follow_request, follow_request_type: "sent_request" } %>
+  <% end %>
 
-      <%= print(follow_request.recipient_username == current_user.username ? "received request" : "sent request")%>
-
-      <p>
-        <strong>Sender:</strong>
-        <%= follow_request.sender_username %>
-      </p>
-
-    <% elsif follow_request.sender_username == current_user.username%>
-      <%= print(follow_request.recipient_username == current_user.username ? "received request" : "sent request") %>
-
-      <p>
-        <strong>Recipient:</strong>
-        <%= follow_request.recipient_username %>
-      </p>
-
-    <% end %>
-
-    <!--show details-->
-    <p class="mt-3">
-      <%= link_to "Show this follow request", follow_request, class: "btn btn-primary btn-sm" %>
-    </p>
-
-    <% if follow_request.recipient_username == current_user.username %>
-      <a href="#">Accept</a> | 
-      <%= link_to "Reject", follow_request, method: :delete, data: { turbo_confirm: "Are you sure?" }, class: "text-primary me-2" %>
-    <% else %>
-      <%= link_to "Unrequest", follow_request, method: :delete, data: { turbo_confirm: "Are you sure?" }, class: "text-primary me-2" %>
-    <% end %>
-
-  </div>
+<!-- Friends -->
+<% elsif follow_request.status == "Accepted" %>
+  <%= render partial: 'sent_request', locals: { follow_request: follow_request, follow_request_type: "friends" } %>
 <% end %>

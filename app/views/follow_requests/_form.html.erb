@@ -24,6 +24,11 @@
   </div>
 
   <div class="mb-3">
+    <%= form.hidden_field :status, value: "Pending" %>
+  </div>
+  
+
+  <div class="mb-3">
     <%= form.submit "Submit", class: "btn btn-primary" %>
   </div>
 <% end %>

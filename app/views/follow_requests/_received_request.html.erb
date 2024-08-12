@@ -1,0 +1,12 @@
+<div id="<%= dom_id(follow_request) %>" class="card" style="width: 30%;">
+  <div class="card-body">
+    <h5 class="card-title">Received Request</h5>
+
+    <p class="card-text">
+      <strong>Sender:</strong> <%= follow_request.sender_username %>
+    </p>
+
+    <a href="#" class="btn btn-success">Accept</a> 
+    <%= link_to "Reject", follow_request, method: :delete, data: { turbo_confirm: "Are you sure?" }, class: "btn btn-danger ms-2" %>
+  </div>
+</div>

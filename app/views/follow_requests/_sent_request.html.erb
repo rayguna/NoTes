@@ -1,0 +1,25 @@
+<div id="<%= dom_id(follow_request) %>" class="card" style="width: 30%;">
+  <% if follow_request_type == "sent_request" %>
+    <div class="card-body">
+      <h5 class="card-title">Sent Request</h5>
+      <p class="card-text">
+        <strong>Recipient:</strong> <%= follow_request.recipient_username %>
+      </p>
+      <%= link_to "Unrequest", follow_request, method: :delete, data: { turbo_confirm: "Are you sure?" }, class: "btn btn-danger" %>
+    </div>
+
+  <% elsif follow_request_type == "friends" %>
+    <div class="card-body">
+      <h5 class="card-title">Friend</h5>
+      <p class="card-text">
+        <strong>Friend:</strong> 
+        <% if follow_request.recipient_username == current_user.username %>
+          <%= follow_request.sender_username %>
+        <% else %>
+          <%= follow_request.recipient_username %>
+        <% end %>
+      </p>
+      <%= link_to "Unfriend", follow_request, method: :delete, data: { turbo_confirm: "Are you sure?" }, class: "btn btn-danger" %>
+    </div>
+  <% end %>
+</div>
