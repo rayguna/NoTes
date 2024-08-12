@@ -6,7 +6,8 @@
       <strong>Sender:</strong> <%= follow_request.sender_username %>
     </p>
 
-    <a href="#" class="btn btn-success">Accept</a> 
+    <%= link_to "Accept", accept_follow_request_path(follow_request), method: :patch, class: "btn btn-success", data: { turbo_confirm: "Are you sure you want to accept this follow request?" } %>
+
     <%= link_to "Reject", follow_request, method: :delete, data: { turbo_confirm: "Are you sure?" }, class: "btn btn-danger ms-2" %>
   </div>
 </div>

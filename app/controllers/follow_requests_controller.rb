@@ -1,5 +1,5 @@
 class FollowRequestsController < ApplicationController
-  before_action :set_follow_request, only: %i[ show edit update destroy ]
+  before_action :set_follow_request, only: %i[ show edit update destroy accept]
 
   # GET /follow_requests or /follow_requests.json
   def index
@@ -54,6 +54,14 @@ class FollowRequestsController < ApplicationController
     respond_to do |format|
       format.html { redirect_to follow_requests_url, notice: "Follow request was successfully destroyed." }
       format.json { head :no_content }
+    end
+  end
+
+  def accept
+    if @follow_request.update(status: "Accepted")
+      redirect_to follow_requests_path, notice: "Follow request was successfully accepted."
+    else
+      redirect_to follow_requests_path, alert: "Unable to accept the follow request."
     end
   end
 

@@ -28,4 +28,12 @@ Rails.application.routes.draw do
   root "home#index"
 
   resources :follow_requests
+
+  # config/routes.rb
+  resources :follow_requests do
+    member do
+      patch :accept
+    end
+  end
+
 end
