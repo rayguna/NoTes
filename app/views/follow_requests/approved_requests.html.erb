@@ -4,12 +4,11 @@
   <%= link_to "Back to topics", topics_path(topic_type: params[:topic_type], display_as: params[:display_as]) %>
 </div>
 
-<!--order by usernames-->
+<!-- Order friends by usernames -->
 <% friends = FollowRequest.where(status: "Accepted")
                            .where("sender_id = ? OR recipient_id = ?", current_user.id, current_user.id)
                            .joins("INNER JOIN users ON users.id = CASE WHEN sender_id = #{current_user.id} THEN recipient_id ELSE sender_id END")
                            .order("users.username ASC") %>
-
 
 <div class="container mt-4">
   <div class="row">
@@ -37,12 +36,13 @@
             <tbody>
               <% friends.each do |request| %>
                 <% friend = request.sender_id == current_user.id ? User.find(request.recipient_id) : User.find(request.sender_id) %>
+                <% shared = SharedTopic.exists?(topic_id: @topic.to_i, user_id: current_user.id, shared_user_id: friend.id) %>
                 <tr>
                   <td><%= friend.username %></td>
                   <td><%= friend.email %></td>
                   <td><%= friend.created_at.strftime("%B %d, %Y") %></td>
                   <td><%= friend.updated_at.strftime("%B %d, %Y") %></td>
-                  <td><%= f.check_box :shared_user_ids, { multiple: true }, friend.id, nil %></td>
+                  <td><%= f.check_box :shared_user_ids, { multiple: true, checked: shared }, friend.id, nil %></td>
                 </tr>
               <% end %>
             </tbody>
