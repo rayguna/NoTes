@@ -1,6 +1,6 @@
 class TopicsController < ApplicationController
   VALID_SORT_COLUMNS = %w[name created_at updated_at].freeze
-  before_action :set_topic, only: %i[show edit update destroy]
+  before_action :set_topic, only: %i[show edit update destroy share]
 
   # GET /topics or /topics.json
   def index
@@ -24,24 +24,23 @@ class TopicsController < ApplicationController
       @sort_topics = @topics.order("#{sort_column} #{sort_direction}")
     end
 
-  
-    def share
-      @topic = Topic.find(params[:id])
-      user_to_share_with = User.find(params[:user_id])
-  
-      if current_user.share_topic_with(@topic, user_to_share_with)
-        redirect_to @topic, notice: "Topic shared successfully."
-      else
-        redirect_to @topic, alert: "Unable to share topic."
-      end
-    end
-  
-
     # Add breadcrumbs
     add_breadcrumb "Home", root_path
     add_breadcrumb "Topics", topics_path(topic_type: @topic_type)
   end
   
+  def share
+    shared_user_ids = params[:shared_user_ids] # Capture the selected user IDs
+
+    if shared_user_ids.present?
+      shared_user_ids.each do |user_id|
+        SharedTopic.create(topic_id: @topic.id, user_id: current_user.id, shared_user_id: user_id)
+      end
+      redirect_to @topic, notice: "Topic shared successfully."
+    else
+      redirect_to @topic, alert: "No users selected to share the topic with."
+    end
+  end
 
   # GET /topics/1 or /topics/1.json
   def show
@@ -53,11 +52,11 @@ class TopicsController < ApplicationController
                .page(params[:page])
                .per(per_page)
 
-  allowed_sorts = %w[name created_at updated_at] # List of allowed columns
-  sort_column = allowed_sorts.include?(params[:sort]) ? params[:sort] : "title"
-  sort_direction = %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
+    allowed_sorts = %w[name created_at updated_at] # List of allowed columns
+    sort_column = allowed_sorts.include?(params[:sort]) ? params[:sort] : "title"
+    sort_direction = %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
   
-  @sort_notes = @notes.order("#{sort_column} #{sort_direction}")
+    @sort_notes = @notes.order("#{sort_column} #{sort_direction}")
 
     # Add breadcrumbs
     add_breadcrumb "Home", root_path
@@ -114,7 +113,6 @@ class TopicsController < ApplicationController
     end
   end
   
-
   # DELETE /topics/1 or /topics/1.json
   def destroy
     @topic.destroy!
@@ -134,5 +132,4 @@ class TopicsController < ApplicationController
   def topic_params
     params.require(:topic).permit(:name, :user_id, :topic_type)
   end
-  
 end

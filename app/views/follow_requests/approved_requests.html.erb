@@ -10,39 +10,42 @@
 <div class="container mt-4">
   <div class="row">
     <div class="col-12">
-      <div class="table-responsive">
-        <table id="friends-table" class="table table-striped table-bordered table-hover">
-          <thead class="thead-dark">
-            <tr>
-              <th scope="col">
-                <%= link_to "Username".html_safe + (params[:sort] == 'username' && params[:direction] == 'asc' ? ' ▼' : ' ▲'), { sort: 'username', direction: (params[:sort] == 'username' && params[:direction] == 'asc' ? 'desc' : 'asc') }, data: { turbo_frame: "_top" } %>
-              </th>
-              <th scope="col">
-                <%= link_to "Email".html_safe + (params[:sort] == 'email' && params[:direction] == 'asc' ? ' ▼' : ' ▲'), { sort: 'email', direction: (params[:sort] == 'email' && params[:direction] == 'asc' ? 'desc' : 'asc') }, data: { turbo_frame: "_top" } %>
-              </th>
-              <th scope="col">
-                <%= link_to "Created At".html_safe + (params[:sort] == 'created_at' && params[:direction] == 'asc' ? ' ▼' : ' ▲'), { sort: 'created_at', direction: (params[:sort] == 'created_at' && params[:direction] == 'asc' ? 'desc' : 'asc') }, data: { turbo_frame: "_top" } %>
-              </th>
-              <th scope="col">
-                <%= link_to "Modified At".html_safe + (params[:sort] == 'updated_at' && params[:direction] == 'asc' ? ' ▼' : ' ▲'), { sort: 'updated_at', direction: (params[:sort] == 'updated_at' && params[:direction] == 'asc' ? 'desc' : 'asc') }, data: { turbo_frame: "_top" } %>
-              </th>
-              <th scope="col">Select</th>
-            </tr>
-          </thead>
-          <tbody>
-            <% friends.each do |request| %>
-              <% friend = request.sender_id == current_user.id ? User.find(request.recipient_id) : User.find(request.sender_id) %>
+      <%= form_with url: share_topic_path(@topic), method: :post do |f| %>
+        <div class="table-responsive">
+          <table id="friends-table" class="table table-striped table-bordered table-hover">
+            <thead class="thead-dark">
               <tr>
-                <td><%= friend.username %></td>
-                <td><%= friend.email %></td>
-                <td><%= friend.created_at.strftime("%B %d, %Y") %></td>
-                <td><%= friend.updated_at.strftime("%B %d, %Y") %></td>
-                <td><input type="checkbox" name="friend_ids[]" value="<%= friend.id %>"></td>
+                <th scope="col">
+                  <%= link_to "Username".html_safe + (params[:sort] == 'username' && params[:direction] == 'asc' ? ' ▼' : ' ▲'), { sort: 'username', direction: (params[:sort] == 'username' && params[:direction] == 'asc' ? 'desc' : 'asc') }, data: { turbo_frame: "_top" } %>
+                </th>
+                <th scope="col">
+                  <%= link_to "Email".html_safe + (params[:sort] == 'email' && params[:direction] == 'asc' ? ' ▼' : ' ▲'), { sort: 'email', direction: (params[:sort] == 'email' && params[:direction] == 'asc' ? 'desc' : 'asc') }, data: { turbo_frame: "_top" } %>
+                </th>
+                <th scope="col">
+                  <%= link_to "Created At".html_safe + (params[:sort] == 'created_at' && params[:direction] == 'asc' ? ' ▼' : ' ▲'), { sort: 'created_at', direction: (params[:sort] == 'created_at' && params[:direction] == 'asc' ? 'desc' : 'asc') }, data: { turbo_frame: "_top" } %>
+                </th>
+                <th scope="col">
+                  <%= link_to "Modified At".html_safe + (params[:sort] == 'updated_at' && params[:direction] == 'asc' ? ' ▼' : ' ▲'), { sort: 'updated_at', direction: (params[:sort] == 'updated_at' && params[:direction] == 'asc' ? 'desc' : 'asc') }, data: { turbo_frame: "_top" } %>
+                </th>
+                <th scope="col">Select</th>
               </tr>
-            <% end %>
-          </tbody>
-        </table>
-      </div>
+            </thead>
+            <tbody>
+              <% friends.each do |request| %>
+                <% friend = request.sender_id == current_user.id ? User.find(request.recipient_id) : User.find(request.sender_id) %>
+                <tr>
+                  <td><%= friend.username %></td>
+                  <td><%= friend.email %></td>
+                  <td><%= friend.created_at.strftime("%B %d, %Y") %></td>
+                  <td><%= friend.updated_at.strftime("%B %d, %Y") %></td>
+                  <td><%= f.check_box :shared_user_ids, { multiple: true }, friend.id, nil %></td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+        <%= f.submit "Share Selected", class: "btn btn-primary" %>
+      <% end %>
     </div>
   </div>
 </div>
@@ -60,6 +63,3 @@
     background-color: #f8f9fa; /* Light background on hover */
   }
 </style>
-
-
-<%=@topic_name%>

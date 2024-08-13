@@ -39,5 +39,11 @@ Rails.application.routes.draw do
       post :share
     end
   end
+
+  resources :topics do
+    member do
+      post :share
+    end
+  end  
   
 end
