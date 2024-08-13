@@ -1,0 +1,14 @@
+<% if follow_request.status == "Pending" %>
+  <!-- Received Request -->
+  <% if follow_request.recipient_username == current_user.username %>
+    <%= render partial: 'received_request', locals: { follow_request: follow_request } %>
+  
+  <!-- Sent Request -->
+  <% elsif follow_request.sender_username == current_user.username %>
+    <%= render partial: 'sent_request', locals: { follow_request: follow_request, follow_request_type: "sent_request" } %>
+  <% end %>
+
+<!-- Friends -->
+<% elsif follow_request.status == "Accepted" %>
+  <%= render partial: 'sent_request', locals: { follow_request: follow_request, follow_request_type: "friends" } %>
+<% end %>

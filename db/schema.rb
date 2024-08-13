@@ -10,8 +10,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_08_06_030357) do
+ActiveRecord::Schema[7.1].define(version: 2024_08_12_214005) do
   # These are extensions that must be enabled in order to support this database
+  enable_extension "pg_trgm"
   enable_extension "plpgsql"
 
   create_table "active_storage_attachments", force: :cascade do |t|
@@ -49,6 +50,16 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_06_030357) do
     t.datetime "updated_at", null: false
     t.index ["note_id"], name: "index_favorites_on_note_id"
     t.index ["user_id"], name: "index_favorites_on_user_id"
+  end
+
+  create_table "follow_requests", force: :cascade do |t|
+    t.bigint "recipient_id", null: false
+    t.bigint "sender_id", null: false
+    t.string "status"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["recipient_id"], name: "index_follow_requests_on_recipient_id"
+    t.index ["sender_id"], name: "index_follow_requests_on_sender_id"
   end
 
   create_table "notes", force: :cascade do |t|
@@ -90,6 +101,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_06_030357) do
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "favorites", "notes"
   add_foreign_key "favorites", "users"
+  add_foreign_key "follow_requests", "users", column: "recipient_id"
+  add_foreign_key "follow_requests", "users", column: "sender_id"
   add_foreign_key "notes", "topics"
   add_foreign_key "notes", "users"
 end

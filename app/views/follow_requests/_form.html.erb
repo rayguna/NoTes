@@ -1,0 +1,33 @@
+<head>
+  <link rel="stylesheet" href="<%= asset_path('notes_form.css') %>">
+</head>
+
+<%= form_with(model: follow_request, local: true, html: { class: "p-4 rounded border shadow-sm" }) do |form| %>
+  <% if follow_request.errors.any? %>
+    <div class="alert alert-danger">
+      <h4 class="alert-heading"><%= pluralize(follow_request.errors.count, "error") %> prohibited this follow request from being saved:</h4>
+      <ul>
+        <% follow_request.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="mb-3">
+    <%= form.label "Recipient Email", class: "form-label" %>
+    <%= form.email_field :recipient_email, class: "form-control" %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.hidden_field :sender_id, value: current_user.id %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.hidden_field :status, value: "Pending" %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.submit "Submit", class: "btn btn-primary" %>
+  </div>
+<% end %>
