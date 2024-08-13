@@ -30,17 +30,36 @@ class TopicsController < ApplicationController
   end
   
   def share
-    shared_user_ids = params[:shared_user_ids] # Capture the selected user IDs
-
-    if shared_user_ids.present?
-      shared_user_ids.each do |user_id|
-        SharedTopic.create(topic_id: @topic.id, user_id: current_user.id, shared_user_id: user_id)
+    # Ensure shared_user_ids are integers, fallback to an empty array if none are selected
+    shared_user_ids = (params[:shared_user_ids] || []).map(&:to_i)
+  
+    # Fetch the current shared_user_ids from the database for this topic and current user
+    existing_shared_user_ids = SharedTopic.where(topic_id: @topic.id, user_id: current_user.id).pluck(:shared_user_id)
+  
+    # Determine which user IDs need to be added and which need to be removed
+    user_ids_to_add = shared_user_ids - existing_shared_user_ids
+    user_ids_to_remove = existing_shared_user_ids - shared_user_ids
+  
+    # Add new records for selected users that are not already in the shared topics
+    user_ids_to_add.each do |user_id|
+      begin
+        SharedTopic.create!(topic_id: @topic.id, user_id: current_user.id, shared_user_id: user_id)
+      rescue ActiveRecord::RecordNotUnique
+        # Ignore duplicate entries and skip to the next iteration
+        Rails.logger.info "Duplicate entry ignored for topic_id: #{@topic.id}, user_id: #{current_user.id}, shared_user_id: #{user_id}"
       end
-      redirect_to @topic, notice: "Topic shared successfully."
-    else
-      redirect_to @topic, alert: "No users selected to share the topic with."
     end
+  
+    # Remove records for users that were deselected
+    user_ids_to_remove.each do |user_id|
+      SharedTopic.where(topic_id: @topic.id, user_id: current_user.id, shared_user_id: user_id).destroy_all
+    end
+  
+    redirect_to @topic, notice: "Topic sharing updated successfully."
   end
+  
+  
+  
 
   # GET /topics/1 or /topics/1.json
   def show
