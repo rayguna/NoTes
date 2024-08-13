@@ -28,8 +28,26 @@ class User < ApplicationRecord
   has_many :favorites, dependent: :destroy
   has_many :topics
 
+  has_many :shared_topics
+  has_many :shared_with_me_topics, through: :shared_topics, source: :topic
+
   validates :email, presence: true, uniqueness: true
 
   validates :username, presence: true, uniqueness: true
+
+    # Check if a topic is shared with this user
+    def can_access?(topic)
+      topic.user == self || topic.shared_users.include?(self)
+    end
+  
+    # Share a topic with another user
+    def share_topic_with(topic, other_user)
+      if FollowRequest.exists?(sender_id: self.id, recipient_id: other_user.id, status: 'accepted') || 
+         FollowRequest.exists?(sender_id: other_user.id, recipient_id: self.id, status: 'accepted')
+        topic.share_with(other_user)
+      else
+        raise "You can only share topics with users who have accepted your follow request."
+      end
+    end
 
 end

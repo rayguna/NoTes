@@ -24,6 +24,18 @@ class TopicsController < ApplicationController
       @sort_topics = @topics.order("#{sort_column} #{sort_direction}")
     end
 
+  
+    def share
+      @topic = Topic.find(params[:id])
+      user_to_share_with = User.find(params[:user_id])
+  
+      if current_user.share_topic_with(@topic, user_to_share_with)
+        redirect_to @topic, notice: "Topic shared successfully."
+      else
+        redirect_to @topic, alert: "Unable to share topic."
+      end
+    end
+  
 
     # Add breadcrumbs
     add_breadcrumb "Home", root_path

@@ -15,6 +15,9 @@
 #  index_topics_on_user_id           (user_id)
 #
 class Topic < ApplicationRecord
+  has_many :shared_topics
+  has_many :shared_users, through: :shared_topics, source: :user
+
   encrypts :name
 
   has_many :notes, dependent: :destroy
@@ -23,6 +26,10 @@ class Topic < ApplicationRecord
   validates :name, uniqueness: { scope: :user_id, message: "has already been taken for this user" }
   validates :name, presence: { message: "can't be blank. Please provide a topic name." }
   validates :user_id, presence: true
+
+  def share_with(user)
+    self.shared_users << user unless self.shared_users.include?(user)
+  end
 
   # For searching purposes
   def self.ransackable_attributes(auth_object = nil)
