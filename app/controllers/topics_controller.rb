@@ -7,9 +7,21 @@ class TopicsController < ApplicationController
     @topic_type = params[:topic_type] || 'note' # Default topic type if not provided
     @view_mode = params[:display_as] || 'table' # Default to 'table' view if not provided
   
-    @topics = Topic.where(user_id: current_user.id, topic_type: @topic_type)
-                   .page(params[:page])
-                   .per(6)
+    # Display user table only
+    # @topics = Topic.where(user_id: current_user.id, topic_type: @topic_type)
+    #                .page(params[:page])
+    #                .per(6)
+    
+    # Display user and shared_user table       
+    @topics = Topic.select('topics.*, LOWER(topics.name) as lower_name')
+    .joins("LEFT JOIN shared_topics ON topics.id = shared_topics.topic_id")
+    .where("topics.user_id = :user_id OR shared_topics.shared_user_id = :user_id", user_id: current_user.id)
+    .where(topic_type: @topic_type)
+    .distinct
+    .order('lower_name ASC')
+    .page(params[:page])
+    .per(6)
+
     
     @q = Note.where(user_id: current_user.id).ransack(params[:q])
     @notes = @q.result(distinct: true)
