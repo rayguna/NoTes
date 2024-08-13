@@ -2,12 +2,13 @@
 #
 # Table name: topics
 #
-#  id         :bigint           not null, primary key
-#  name       :string
-#  topic_type :string
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
-#  user_id    :integer
+#  id           :bigint           not null, primary key
+#  author_email :string
+#  name         :string
+#  topic_type   :string
+#  created_at   :datetime         not null
+#  updated_at   :datetime         not null
+#  user_id      :integer
 #
 # Indexes
 #

@@ -1,10 +1,7 @@
-<%= javascript_include_tag 'application', 'data-turbo-track': 'reload' %>
-
 <div class="table-responsive">
   <table class="table">
     <thead class="thead-dark">
       <tr>
-        <!-- Adding inline styles for white font color and sort links with icons -->
         <th scope="col" style="color: white;">
           <%= link_to "Name".html_safe + (params[:sort] == 'name' && params[:direction] == 'asc' ? ' ▼' : ' ▲'), { sort: 'name', direction: (params[:sort] == 'name' && params[:direction] == 'asc' ? 'desc' : 'asc') }, data: { turbo_frame: "_top" } %>
         </th>
@@ -13,6 +10,9 @@
         </th>
         <th scope="col" style="color: white;">
           <%= link_to "Modified At".html_safe + (params[:sort] == 'updated_at' && params[:direction] == 'asc' ? ' ▼' : ' ▲'), { sort: 'updated_at', direction: (params[:sort] == 'updated_at' && params[:direction] == 'asc' ? 'desc' : 'asc') }, data: { turbo_frame: "_top" } %>
+        </th>
+        <th scope="col" style="color: white;">
+          <%= link_to "Author Email".html_safe + (params[:sort] == 'author_email' && params[:direction] == 'asc' ? ' ▼' : ' ▲'), { sort: 'author_email', direction: (params[:sort] == 'author_email' && params[:direction] == 'asc' ? 'desc' : 'asc') }, data: { turbo_frame: "_top" } %>
         </th>
         <th scope="col" style="color: white;">Action</th>
       </tr>
@@ -24,6 +24,7 @@
             <td><%= row.name %></td>
             <td><%= row.created_at.strftime("%B %d, %Y") %></td>
             <td><%= row.updated_at.strftime("%B %d, %Y") %></td>
+            <td><%= row.author_email %></td>
             <td>
               <%= link_to url_for([row, { topic_type: params[:topic_type], display_as: params[:display_as] }]), class: "btn" do %>
                 <i class="fa-solid fa-eye"></i>
