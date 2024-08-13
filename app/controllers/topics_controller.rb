@@ -1,15 +1,34 @@
 class TopicsController < ApplicationController
   VALID_SORT_COLUMNS = %w[name created_at updated_at].freeze
-  before_action :set_topic, only: %i[show edit update destroy]
+  before_action :set_topic, only: %i[show edit update destroy share]
 
   # GET /topics or /topics.json
   def index
     @topic_type = params[:topic_type] || 'note' # Default topic type if not provided
     @view_mode = params[:display_as] || 'table' # Default to 'table' view if not provided
   
-    @topics = Topic.where(user_id: current_user.id, topic_type: @topic_type)
-                   .page(params[:page])
-                   .per(6)
+    # Display user table only
+    # @topics = Topic.where(user_id: current_user.id, topic_type: @topic_type)
+    #                .page(params[:page])
+    #                .per(6)
+    
+    # Display user and shared_user table       
+    @topics = Topic.joins("LEFT JOIN shared_topics ON topics.id = shared_topics.topic_id AND shared_topics.shared_user_id = #{current_user.id}")
+    .joins("LEFT JOIN users AS topic_owners ON topics.user_id = topic_owners.id")
+    .joins("LEFT JOIN users AS shared_users ON shared_topics.user_id = shared_users.id")
+    .select('topics.*, 
+             CASE 
+               WHEN shared_topics.id IS NOT NULL THEN topic_owners.email 
+               ELSE topic_owners.email 
+             END AS author_email, 
+             LOWER(topics.name) AS lower_name')
+    .where("topics.user_id = :user_id OR shared_topics.shared_user_id = :user_id", user_id: current_user.id)
+    .where(topic_type: @topic_type)
+    .distinct
+    .order(Arel.sql("#{params[:sort] || 'lower_name'} #{params[:direction] || 'asc'}"))
+    .page(params[:page])
+    .per(6)
+
     
     @q = Note.where(user_id: current_user.id).ransack(params[:q])
     @notes = @q.result(distinct: true)
@@ -24,11 +43,35 @@ class TopicsController < ApplicationController
       @sort_topics = @topics.order("#{sort_column} #{sort_direction}")
     end
 
-
     # Add breadcrumbs
     add_breadcrumb "Home", root_path
     add_breadcrumb "Topics", topics_path(topic_type: @topic_type)
   end
+  
+  def share
+    shared_user_ids = (params[:shared_user_ids] || []).map(&:to_i)
+  
+    user_ids_to_add = shared_user_ids - SharedTopic.where(topic_id: @topic.id).pluck(:shared_user_id)
+    user_ids_to_remove = SharedTopic.where(topic_id: @topic.id, user_id: current_user.id).pluck(:shared_user_id) - shared_user_ids
+  
+    ActiveRecord::Base.transaction do
+      user_ids_to_add.each do |user_id|
+        begin
+          SharedTopic.find_or_create_by!(topic_id: @topic.id, shared_user_id: user_id) do |shared_topic|
+            shared_topic.user_id = current_user.id
+          end
+        rescue ActiveRecord::RecordInvalid => e
+          Rails.logger.info "Skipping invalid entry: #{e.message}"
+        end
+      end
+  
+      user_ids_to_remove.each do |user_id|
+        SharedTopic.where(topic_id: @topic.id, user_id: current_user.id, shared_user_id: user_id).destroy_all
+      end
+    end
+  
+    redirect_to @topic, notice: "Topic sharing updated successfully."
+  end  
   
 
   # GET /topics/1 or /topics/1.json
@@ -41,11 +84,11 @@ class TopicsController < ApplicationController
                .page(params[:page])
                .per(per_page)
 
-  allowed_sorts = %w[name created_at updated_at] # List of allowed columns
-  sort_column = allowed_sorts.include?(params[:sort]) ? params[:sort] : "title"
-  sort_direction = %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
+    allowed_sorts = %w[name created_at updated_at] # List of allowed columns
+    sort_column = allowed_sorts.include?(params[:sort]) ? params[:sort] : "title"
+    sort_direction = %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
   
-  @sort_notes = @notes.order("#{sort_column} #{sort_direction}")
+    @sort_notes = @notes.order("#{sort_column} #{sort_direction}")
 
     # Add breadcrumbs
     add_breadcrumb "Home", root_path
@@ -102,7 +145,6 @@ class TopicsController < ApplicationController
     end
   end
   
-
   # DELETE /topics/1 or /topics/1.json
   def destroy
     @topic.destroy!
@@ -122,5 +164,4 @@ class TopicsController < ApplicationController
   def topic_params
     params.require(:topic).permit(:name, :user_id, :topic_type)
   end
-  
 end

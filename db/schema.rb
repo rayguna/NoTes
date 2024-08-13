@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_08_12_214005) do
+ActiveRecord::Schema[7.1].define(version: 2024_08_13_211927) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
   enable_extension "plpgsql"
@@ -73,12 +73,24 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_12_214005) do
     t.index ["user_id"], name: "index_notes_on_user_id"
   end
 
+  create_table "shared_topics", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "topic_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "shared_user_id"
+    t.index ["topic_id", "shared_user_id"], name: "index_shared_topics_on_topic_id_and_shared_user_id", unique: true
+    t.index ["topic_id"], name: "index_shared_topics_on_topic_id"
+    t.index ["user_id"], name: "index_shared_topics_on_user_id"
+  end
+
   create_table "topics", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "user_id"
     t.string "topic_type"
+    t.string "author_email"
     t.index ["name", "user_id"], name: "index_topics_on_name_and_user_id", unique: true
     t.index ["user_id"], name: "index_topics_on_user_id"
   end
@@ -105,4 +117,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_12_214005) do
   add_foreign_key "follow_requests", "users", column: "sender_id"
   add_foreign_key "notes", "topics"
   add_foreign_key "notes", "users"
+  add_foreign_key "shared_topics", "topics"
+  add_foreign_key "shared_topics", "users"
 end

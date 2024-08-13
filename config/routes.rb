@@ -17,7 +17,7 @@ Rails.application.routes.draw do
   resources :topics do
     resources :notes, only: [:index, :show, :new, :create, :edit, :update, :destroy]
   end
-  
+
 
   resources :follow_requests do
     member do
@@ -33,4 +33,17 @@ Rails.application.routes.draw do
   get 'navigate', to: 'pages#navigate', as: :navigate
   
   root "home#index"
+
+  resources :topics do
+    member do
+      post :share
+    end
+  end
+
+  resources :topics do
+    member do
+      post :share
+    end
+  end  
+  
 end

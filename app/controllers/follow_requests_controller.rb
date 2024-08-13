@@ -77,6 +77,8 @@ class FollowRequestsController < ApplicationController
 
   def approved_requests
     @approved_requests = FollowRequest.where(status: 'Accepted')
+    @topic = params[:topic] # Capture the topic from the URL parameters
+
   end
 
   private
