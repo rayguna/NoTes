@@ -20,16 +20,16 @@
             <thead class="thead-dark">
               <tr>
                 <th scope="col">
-                  <%= link_to "Username".html_safe + (params[:sort] == 'username' && params[:direction] == 'asc' ? ' ▼' : ' ▲'), { sort: 'username', direction: (params[:sort] == 'username' && params[:direction] == 'asc' ? 'desc' : 'asc') }, data: { turbo_frame: "_top" } %>
+                  Username
                 </th>
                 <th scope="col">
-                  <%= link_to "Email".html_safe + (params[:sort] == 'email' && params[:direction] == 'asc' ? ' ▼' : ' ▲'), { sort: 'email', direction: (params[:sort] == 'email' && params[:direction] == 'asc' ? 'desc' : 'asc') }, data: { turbo_frame: "_top" } %>
+                  Email
                 </th>
                 <th scope="col">
-                  <%= link_to "Created At".html_safe + (params[:sort] == 'created_at' && params[:direction] == 'asc' ? ' ▼' : ' ▲'), { sort: 'created_at', direction: (params[:sort] == 'created_at' && params[:direction] == 'asc' ? 'desc' : 'asc') }, data: { turbo_frame: "_top" } %>
+                  Created At
                 </th>
                 <th scope="col">
-                  <%= link_to "Modified At".html_safe + (params[:sort] == 'updated_at' && params[:direction] == 'asc' ? ' ▼' : ' ▲'), { sort: 'updated_at', direction: (params[:sort] == 'updated_at' && params[:direction] == 'asc' ? 'desc' : 'asc') }, data: { turbo_frame: "_top" } %>
+                  Modified At
                 </th>
                 <th scope="col">Select</th>
               </tr>
