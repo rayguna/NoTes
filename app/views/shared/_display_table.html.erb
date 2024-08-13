@@ -34,7 +34,7 @@
               <%= link_to row, method: :delete, data: { turbo_confirm: "Are you sure?" }, class: "btn" do %>
                 <i class="fa-solid fa-trash"></i>
               <% end %>
-              <%= link_to approved_requests_follow_requests_path, class: "btn" do %>
+              <%= link_to approved_requests_follow_requests_path(topic_name: row.name), class: "btn" do %>
                 <i class="fa-solid fa-share-nodes"></i>
               <% end %>
             </td>
