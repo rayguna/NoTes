@@ -4,8 +4,12 @@
   <%= link_to "Back to topics", topics_path(topic_type: params[:topic_type], display_as: params[:display_as]) %>
 </div>
 
+<!--order by usernames-->
 <% friends = FollowRequest.where(status: "Accepted")
-                           .where("sender_id = ? OR recipient_id = ?", current_user.id, current_user.id) %>
+                           .where("sender_id = ? OR recipient_id = ?", current_user.id, current_user.id)
+                           .joins("INNER JOIN users ON users.id = CASE WHEN sender_id = #{current_user.id} THEN recipient_id ELSE sender_id END")
+                           .order("users.username ASC") %>
+
 
 <div class="container mt-4">
   <div class="row">
