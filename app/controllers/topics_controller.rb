@@ -30,35 +30,29 @@ class TopicsController < ApplicationController
   end
   
   def share
-    # Ensure shared_user_ids are integers, fallback to an empty array if none are selected
     shared_user_ids = (params[:shared_user_ids] || []).map(&:to_i)
   
-    # Fetch the current shared_user_ids from the database for this topic and current user
-    existing_shared_user_ids = SharedTopic.where(topic_id: @topic.id, user_id: current_user.id).pluck(:shared_user_id)
+    user_ids_to_add = shared_user_ids - SharedTopic.where(topic_id: @topic.id).pluck(:shared_user_id)
+    user_ids_to_remove = SharedTopic.where(topic_id: @topic.id, user_id: current_user.id).pluck(:shared_user_id) - shared_user_ids
   
-    # Determine which user IDs need to be added and which need to be removed
-    user_ids_to_add = shared_user_ids - existing_shared_user_ids
-    user_ids_to_remove = existing_shared_user_ids - shared_user_ids
+    ActiveRecord::Base.transaction do
+      user_ids_to_add.each do |user_id|
+        begin
+          SharedTopic.find_or_create_by!(topic_id: @topic.id, shared_user_id: user_id) do |shared_topic|
+            shared_topic.user_id = current_user.id
+          end
+        rescue ActiveRecord::RecordInvalid => e
+          Rails.logger.info "Skipping invalid entry: #{e.message}"
+        end
+      end
   
-    # Add new records for selected users that are not already in the shared topics
-    user_ids_to_add.each do |user_id|
-      begin
-        SharedTopic.create!(topic_id: @topic.id, user_id: current_user.id, shared_user_id: user_id)
-      rescue ActiveRecord::RecordNotUnique
-        # Ignore duplicate entries and skip to the next iteration
-        Rails.logger.info "Duplicate entry ignored for topic_id: #{@topic.id}, user_id: #{current_user.id}, shared_user_id: #{user_id}"
+      user_ids_to_remove.each do |user_id|
+        SharedTopic.where(topic_id: @topic.id, user_id: current_user.id, shared_user_id: user_id).destroy_all
       end
     end
   
-    # Remove records for users that were deselected
-    user_ids_to_remove.each do |user_id|
-      SharedTopic.where(topic_id: @topic.id, user_id: current_user.id, shared_user_id: user_id).destroy_all
-    end
-  
     redirect_to @topic, notice: "Topic sharing updated successfully."
-  end
-  
-  
+  end  
   
 
   # GET /topics/1 or /topics/1.json

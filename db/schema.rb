@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_08_13_162646) do
+ActiveRecord::Schema[7.1].define(version: 2024_08_13_205607) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
   enable_extension "plpgsql"
@@ -79,8 +79,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_13_162646) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "shared_user_id"
+    t.index ["topic_id", "shared_user_id"], name: "index_shared_topics_on_topic_id_and_shared_user_id", unique: true
     t.index ["topic_id"], name: "index_shared_topics_on_topic_id"
-    t.index ["user_id", "topic_id"], name: "index_shared_topics_on_user_id_and_topic_id", unique: true
     t.index ["user_id"], name: "index_shared_topics_on_user_id"
   end
 
