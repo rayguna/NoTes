@@ -6,13 +6,13 @@
       <tr>
         <!-- Adding inline styles for white font color and sort links with icons -->
         <th scope="col" style="color: white;">
-          <%= link_to "Name".html_safe + (params[:sort] == 'name' && params[:direction] == 'asc' ? ' ▼' : ''), { sort: 'name', direction: (params[:sort] == 'name' && params[:direction] == 'asc' ? 'desc' : 'asc') }, data: { turbo_frame: "_top" } %>
+          <%= link_to "Name".html_safe + (params[:sort] == 'name' && params[:direction] == 'asc' ? ' ▼' : ' ▲'), { sort: 'name', direction: (params[:sort] == 'name' && params[:direction] == 'asc' ? 'desc' : 'asc') }, data: { turbo_frame: "_top" } %>
         </th>
         <th scope="col" style="color: white;">
-          <%= link_to "Created At".html_safe + (params[:sort] == 'created_at' && params[:direction] == 'asc' ? ' ▼' : ''), { sort: 'created_at', direction: (params[:sort] == 'created_at' && params[:direction] == 'asc' ? 'desc' : 'asc') }, data: { turbo_frame: "_top" } %>
+          <%= link_to "Created At".html_safe + (params[:sort] == 'created_at' && params[:direction] == 'asc' ? ' ▼' : ' ▲'), { sort: 'created_at', direction: (params[:sort] == 'created_at' && params[:direction] == 'asc' ? 'desc' : 'asc') }, data: { turbo_frame: "_top" } %>
         </th>
         <th scope="col" style="color: white;">
-          <%= link_to "Modified At".html_safe + (params[:sort] == 'updated_at' && params[:direction] == 'asc' ? ' ▼' : ''), { sort: 'updated_at', direction: (params[:sort] == 'updated_at' && params[:direction] == 'asc' ? 'desc' : 'asc') }, data: { turbo_frame: "_top" } %>
+          <%= link_to "Modified At".html_safe + (params[:sort] == 'updated_at' && params[:direction] == 'asc' ? ' ▼' : ' ▲'), { sort: 'updated_at', direction: (params[:sort] == 'updated_at' && params[:direction] == 'asc' ? 'desc' : 'asc') }, data: { turbo_frame: "_top" } %>
         </th>
         <th scope="col" style="color: white;">Action</th>
       </tr>
@@ -34,9 +34,9 @@
               <%= link_to row, method: :delete, data: { turbo_confirm: "Are you sure?" }, class: "btn" do %>
                 <i class="fa-solid fa-trash"></i>
               <% end %>
-              <%= link_to "#", class: "btn" do %>
+              <%= link_to approved_requests_follow_requests_path, class: "btn" do %>
                 <i class="fa-solid fa-share-nodes"></i>
-              <%end%>
+              <% end %>
             </td>
           <% else %>
             <td><%= row.title %></td>

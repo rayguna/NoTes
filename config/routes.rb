@@ -17,12 +17,17 @@ Rails.application.routes.draw do
   resources :topics do
     resources :notes, only: [:index, :show, :new, :create, :edit, :update, :destroy]
   end
+  
 
   resources :follow_requests do
     member do
       patch :accept
     end
+    collection do
+      get :approved_requests
+    end
   end
+  
 
   get 'tools', to: 'pages#tools'
   get 'navigate', to: 'pages#navigate', as: :navigate

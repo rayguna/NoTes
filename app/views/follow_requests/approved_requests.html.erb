@@ -1,0 +1,16 @@
+<h1><%= current_user.username %>'s Friends</h1>
+
+<% friends = FollowRequest.where(status: "Accepted")
+                           .where("sender_id = ? OR recipient_id = ?", current_user.id, current_user.id) %>
+
+<ul>
+  <% friends.each do |request| %>
+    <li>
+      <% if request.sender_id == current_user.id %>
+        <%= User.find(request.recipient_id).username %>
+      <% else %>
+        <%= User.find(request.sender_id).username %>
+      <% end %>
+    </li>
+  <% end %>
+</ul>

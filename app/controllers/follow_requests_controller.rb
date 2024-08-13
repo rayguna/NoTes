@@ -75,6 +75,10 @@ class FollowRequestsController < ApplicationController
     end
   end
 
+  def approved_requests
+    @approved_requests = FollowRequest.where(status: 'Accepted')
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_follow_request
@@ -85,4 +89,5 @@ class FollowRequestsController < ApplicationController
     def follow_request_params
       params.require(:follow_request).permit(:sender_id, :status) # Exclude recipient_id as it is set via email
     end
+  
 end
