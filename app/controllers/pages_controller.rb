@@ -30,6 +30,10 @@ class PagesController < ApplicationController
       question_scope = params[:question_scope]
       @chatbot = render_markdown(run_python_script("lib/assets/python/chatbot.py", params[:user_input], input_text, question_scope))
     end
+
+    # Use Ransack
+    @q = Note.where(user_id: current_user.id).ransack(params[:q])
+    @notes = @q.result(distinct: true)
   end
 
   private
