@@ -48,4 +48,7 @@ Rails.application.routes.draw do
   
   get 'search', to: 'search#index'
 
+  get 'tools', to: 'pages#tools'
+
+
 end

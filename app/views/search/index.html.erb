@@ -1,25 +1,50 @@
 <!-- app/views/search/index.html.erb -->
-<h1>Search Results</h1>
+<div class="container mt-4">
+  <div class="row align-items-center mb-4">
+    <!-- Back Button -->
+    <div class="col-auto">
+      <%= link_to 'Back to Tools', tools_path, class: 'btn btn-secondary' %>
+    </div>
+    <!-- Search Results Heading -->
+    <div class="col">
+      <h1 class="mb-0">Search Results</h1>
+    </div>
+  </div>
 
-<h2>Notes</h2>
-<% if @search_results[:notes].any? %>
-  <% @search_results[:notes].each do |note| %>
-    <div>
-      <h3><%= link_to note.title, note_path(note) %></h3>
-      <p><%= truncate(note.content, length: 100) %></p>
+  <!-- Notes Section -->
+  <h2 class="mb-3">Notes</h2>
+  <% if @search_results[:notes].any? %>
+    <div class="list-group">
+      <% @search_results[:notes].each do |note| %>
+        <div class="list-group-item">
+          <h4 class="mb-2">
+            <%= link_to note.title, note_path(note), class: 'text-primary' %>
+          </h4>
+          <p><%= truncate(note.content, length: 150) %></p>
+        </div>
+      <% end %>
+    </div>
+  <% else %>
+    <div class="alert alert-info" role="alert">
+      No matching notes found.
     </div>
   <% end %>
-<% else %>
-  <p>No matching notes found.</p>
-<% end %>
 
-<h2>Topics</h2>
-<% if @search_results[:topics].any? %>
-  <% @search_results[:topics].each do |topic| %>
-    <div>
-      <h3><%= link_to topic.name, topic_path(topic) %></h3>
+  <!-- Topics Section -->
+  <h2 class="mb-3">Topics</h2>
+  <% if @search_results[:topics].any? %>
+    <div class="list-group">
+      <% @search_results[:topics].each do |topic| %>
+        <div class="list-group-item">
+          <h4 class="mb-2">
+            <%= link_to topic.name, topic_path(topic), class: 'text-primary' %>
+          </h4>
+        </div>
+      <% end %>
+    </div>
+  <% else %>
+    <div class="alert alert-info" role="alert">
+      No matching topics found.
     </div>
   <% end %>
-<% else %>
-  <p>No matching topics found.</p>
-<% end %>
+</div>
