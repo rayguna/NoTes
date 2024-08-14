@@ -3,40 +3,53 @@ class SearchController < ApplicationController
   def index
     @search_results = { notes: [], topics: [] }
 
-    if params[:all_fields].present?
+    search_words = params[:all_fields].to_s.split(' ')
+    case_sensitive = params[:match_case] == '1' # Assuming '1' indicates match case enabled
+
+    if search_words.present?
       decrypted_notes = Note.all.select do |note|
-        decrypted_title = note.decrypt(:title)
-        decrypted_content = note.decrypt(:content)
-        decrypted_topic_name = note.topic.decrypt(:name)
+        decrypted_title = decrypt_and_search(note, :title, search_words, case_sensitive)
+        decrypted_content = decrypt_and_search(note, :content, search_words, case_sensitive)
+        decrypted_topic_name = decrypt_and_search(note.topic, :name, search_words, case_sensitive)
         
-        decrypted_title.include?(params[:all_fields]) ||
-        decrypted_content.include?(params[:all_fields]) ||
-        decrypted_topic_name.include?(params[:all_fields])
+        decrypted_title || decrypted_content || decrypted_topic_name
       end
 
       decrypted_topics = Topic.all.select do |topic|
-        decrypted_name = topic.decrypt(:name)
-        # Remove description if it doesn't exist
-        # decrypted_description = topic.decrypt(:description) if topic.respond_to?(:description)
-        
-        decrypted_name.include?(params[:all_fields])
+        decrypted_name = decrypt_and_search(topic, :name, search_words, case_sensitive)
+        decrypted_name
       end
 
       @search_results[:notes] = decrypted_notes
       @search_results[:topics] = decrypted_topics
     else
       if params[:topic_name_cont].present?
-        @search_results[:topics] = Topic.all.select do |topic|
-          decrypted_name = topic.decrypt(:name)
-          decrypted_name.include?(params[:topic_name_cont])
+        decrypted_topics = Topic.all.select do |topic|
+          decrypted_name = decrypt_and_search(topic, :name, [params[:topic_name_cont]], case_sensitive)
+          decrypted_name
         end
+        @search_results[:topics] = decrypted_topics
       end
 
       if params[:content_cont].present?
-        @search_results[:notes] = Note.all.select do |note|
-          decrypted_content = note.decrypt(:content)
-          decrypted_content.include?(params[:content_cont])
+        decrypted_notes = Note.all.select do |note|
+          decrypted_content = decrypt_and_search(note, :content, [params[:content_cont]], case_sensitive)
+          decrypted_content
         end
+        @search_results[:notes] = decrypted_notes
+      end
+    end
+  end
+
+  private
+
+  def decrypt_and_search(record, attribute, words, case_sensitive)
+    decrypted_text = record.decrypt(attribute)
+    words.all? do |word|
+      if case_sensitive
+        decrypted_text.include?(word)
+      else
+        decrypted_text.downcase.include?(word.downcase)
       end
     end
   end

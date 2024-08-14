@@ -25,6 +25,13 @@
         <%= text_field_tag :content_cont, params[:content_cont], class: "form-control", placeholder: "Enter content..." %>
       </div>
       
+      <div class="col-12 mb-3">
+        <div class="form-check">
+          <%= check_box_tag :match_case, '1', params[:match_case].present?, class: "form-check-input" %>
+          <%= label_tag :match_case, "Match Case", class: "form-check-label" %>
+        </div>
+      </div>
+
       <div class="col-12 text-center">
         <%= submit_tag "Search", class: "btn btn-primary btn-block font-weight-bold mr-2" %>
         <%= button_tag "Clear", type: 'button', class: "btn btn-secondary btn-block font-weight-bold", onclick: "clearForm()" %>
