@@ -8,6 +8,7 @@ ruby "3.2.1"
 
 gem 'chatterbot'
 
+gem 'searchkick'
 
 #for aws s3
 gem 'aws-sdk-s3', require: false
