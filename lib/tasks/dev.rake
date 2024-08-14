@@ -37,7 +37,7 @@ if Rails.env.development?
       name = Faker::Name.first_name
       user = User.create(
         email: "#{name}@example.com",
-        password: "password",
+        password: Rails.application.credentials.dig(:rake, :sample_user),
         username: name,
       )
 
