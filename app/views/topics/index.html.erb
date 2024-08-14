@@ -1,57 +1,21 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Notes</title>
-    <%= csrf_meta_tags %>
-    <%= csp_meta_tag %>
-
-    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbo-track': 'reload' %>
-    <%= javascript_include_tag 'application', 'data-turbo-track': 'reload' %>
-
-    <!-- Bootstrap 4.0 CSS -->
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- Font Awesome -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-
-    <!-- Bootstrap Toggle CSS -->
-    <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
-
-    <body>
-
-      <p class="text-success"><%= notice %></p>
-
-      <div class="container mt-4">
-        <div class="row mt-4">
-          <!-- Left column with Search Form in Dropdown -->
-          <div class="col-md-4">
-
-          </div>
-        </div>
-      </div>
-
-      <!-- Center column for pagination -->
-      <div class="col-md-4 d-flex justify-content-center">
-        <nav aria-label="Page navigation example">
-          <ul class="pagination mb-0">
-            <%= paginate @topics, theme: 'bootstrap-4' %>
-          </ul>
-        </nav>
-      </div>
-
-      <br>
-      <br>
-
-      <%= render 'shared/display_table', table_name: @sort_topics, data_type: "topic", topic_type: params[:topic_type] %>
-
+<div class="col-md-4">
+  <%= form_with url: search_path, method: :get, local: true, class: "form-inline" do %>
+    <div class="form-group mr-2">
+      <%= label_tag :all_fields, "All Fields", class: "sr-only" %>
+      <%= text_field_tag :all_fields, params[:all_fields], class: "form-control mr-2", placeholder: "All Fields" %>
     </div>
-
-    <!-- Bootstrap 4.0 JS -->
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-
-  </body>
-</html>
+    <div class="form-group mr-2">
+      <%= label_tag :topic_name_cont, "Topic contains", class: "sr-only" %>
+      <%= text_field_tag :topic_name_cont, params[:topic_name_cont], class: "form-control mr-2", placeholder: "Topic" %>
+    </div>
+    <div class="form-group mr-2">
+      <%= label_tag :title_cont, "Title contains", class: "sr-only" %>
+      <%= text_field_tag :title_cont, params[:title_cont], class: "form-control mr-2", placeholder: "Title" %>
+    </div>
+    <div class="form-group mr-2">
+      <%= label_tag :content_cont, "Content contains", class: "sr-only" %>
+      <%= text_field_tag :content_cont, params[:content_cont], class: "form-control mr-2", placeholder: "Content" %>
+    </div>
+    <%= submit_tag "Search", class: "btn btn-primary" %>
+  <% end %>
+</div>

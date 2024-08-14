@@ -34,6 +34,13 @@ class Note < ApplicationRecord
 
   validates :title, uniqueness: { scope: [:user_id, :topic_id], message: "has already been taken for this topic and user" }
 
+  belongs_to :topic
+
+  def decrypt(attribute)
+    # Assuming you're using Active Record Encryption
+    self.public_send(attribute) # This assumes automatic decryption by Active Record Encryption
+  end
+
   def self.ransackable_attributes(auth_object = nil)
     # Return an array of attributes that can be searched
     %w[title content created_at updated_at]
