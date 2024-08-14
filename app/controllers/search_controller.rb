@@ -4,8 +4,7 @@ class SearchController < ApplicationController
   def index
     @search_results = { notes: [], topics: [] }
 
-    search_words = params[:all_fields].to_s.split(' ')
-    case_sensitive = params[:match_case] == '1' # Assuming '1' indicates match case enabled
+    search_query = params[:all_fields].to_s
 
     # Fetch all topics owned by the current user
     user_topics = current_user.topics
@@ -18,53 +17,22 @@ class SearchController < ApplicationController
     accessible_topic_ids = (user_topics.pluck(:id) + shared_topic_ids).uniq
     accessible_topics = Topic.where(id: accessible_topic_ids)
 
-    # For debugging: list all accessible topics
-    @accessible_topics = accessible_topics
+    if search_query.present?
+      # Search for topics using pg_search
+      @search_results[:topics] = Topic.search_by_name(search_query)
 
-    if search_words.present?
-      decrypted_notes = Note.where(topic: accessible_topics).select do |note|
-        decrypted_title = decrypt_and_search(note, :title, search_words, case_sensitive)
-        decrypted_content = decrypt_and_search(note, :content, search_words, case_sensitive)
-        decrypted_topic_name = decrypt_and_search(note.topic, :name, search_words, case_sensitive)
-        
-        decrypted_title || decrypted_content || decrypted_topic_name
-      end
-
-      decrypted_topics = accessible_topics.select do |topic|
-        decrypted_name = decrypt_and_search(topic, :name, search_words, case_sensitive)
-        decrypted_name
-      end
-
-      @search_results[:notes] = decrypted_notes.uniq { |note| note.id }
-      @search_results[:topics] = decrypted_topics.uniq { |topic| topic.id }
+      # Search for notes within accessible topics
+      @search_results[:notes] = Note.joins(:topic).where(topic: accessible_topics)
+                                   .where('notes.title ILIKE :query OR notes.content ILIKE :query', query: "%#{search_query}%")
     else
+      # Handle case when there is no search query
       if params[:topic_name_cont].present?
-        decrypted_topics = accessible_topics.select do |topic|
-          decrypted_name = decrypt_and_search(topic, :name, [params[:topic_name_cont]], case_sensitive)
-          decrypted_name
-        end
-        @search_results[:topics] = decrypted_topics.uniq { |topic| topic.id }
+        @search_results[:topics] = Topic.search_by_name(params[:topic_name_cont])
       end
 
       if params[:content_cont].present?
-        decrypted_notes = Note.where(topic: accessible_topics).select do |note|
-          decrypted_content = decrypt_and_search(note, :content, [params[:content_cont]], case_sensitive)
-          decrypted_content
-        end
-        @search_results[:notes] = decrypted_notes.uniq { |note| note.id }
-      end
-    end
-  end
-
-  private
-
-  def decrypt_and_search(record, attribute, words, case_sensitive)
-    decrypted_text = record.decrypt(attribute)
-    words.all? do |word|
-      if case_sensitive
-        decrypted_text.include?(word)
-      else
-        decrypted_text.downcase.include?(word.downcase)
+        @search_results[:notes] = Note.joins(:topic).where(topic: accessible_topics)
+                                      .where('notes.content ILIKE ?', "%#{params[:content_cont]}%")
       end
     end
   end

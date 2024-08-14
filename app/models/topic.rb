@@ -30,6 +30,18 @@ class Topic < ApplicationRecord
 
   has_many :notes
 
+  include PgSearch::Model
+
+  pg_search_scope :search_by_name,
+    against: :name,
+    using: {
+      tsearch: { prefix: true, any_word: true },  # Prefix allows for partial matching
+      trigram: { threshold: 0.3 }                 # Fuzzy matching threshold
+    }
+
+  has_many :notes
+  belongs_to :user
+
   def decrypt(attribute)
     # Assuming you're using Active Record Encryption
     self.public_send(attribute) # This assumes automatic decryption by Active Record Encryption
