@@ -19,7 +19,7 @@ class Topic < ApplicationRecord
   has_many :shared_topics
   has_many :shared_users, through: :shared_topics, source: :user
 
-  encrypts :name
+  #encrypts :name
 
   has_many :notes, dependent: :destroy
   belongs_to :user  
