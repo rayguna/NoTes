@@ -6,6 +6,9 @@ ruby "3.2.1"
 #for python
 # gem 'pycall'
 
+gem 'chatterbot'
+
+
 #for aws s3
 gem 'aws-sdk-s3', require: false
 

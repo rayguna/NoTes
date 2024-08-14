@@ -476,6 +476,9 @@ Type in the termnal: q.result. You will see the list of notes that meet the crit
 ## Q. Landing and signed in page
 
 1. Made the sign in page to work using if-else conditions. Pass data to signed in page partials via the index controller.
+2. 
+## Alternatives to openai
+1. cinch required irc server. looking at chatterbot once made by twitter.
 
 # Appendix:
 
