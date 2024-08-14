@@ -481,6 +481,11 @@ Type in the termnal: q.result. You will see the list of notes that meet the crit
 
 1. Discovered that ransack search display search results for every user and resulted in duplicated outputs. Solved the issue by adding a constraint to search only within the current user datasets. 
 
+## S. Rake Sample Data
+
+1. Got foreign_key violation error when deploying rake sample_data.
+2. The issue was found to be due to the sequence of tables deletion. Make sure to delete the dependent tables first before finally deleting the parent tables. The error emerge due to dependency violations.
+
 # Appendix:
 
 ## A. References
