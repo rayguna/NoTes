@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :tools
   devise_for :users
 
   resources :users do
@@ -38,5 +39,7 @@ Rails.application.routes.draw do
   get 'tools', to: 'pages#tools'
   get 'navigate', to: 'pages#navigate', as: :navigate
   
+  resources :tools, only: [:index]
+
   root "home#index"
 end

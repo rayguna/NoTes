@@ -9,6 +9,10 @@ ruby "3.2.1"
 gem 'chatterbot'
 
 gem 'searchkick'
+gem 'elasticsearch', '~> 7.0'
+gem 'opensearch-ruby', '~> 2.0'
+
+
 
 #for aws s3
 gem 'aws-sdk-s3', require: false

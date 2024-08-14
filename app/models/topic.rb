@@ -16,6 +16,8 @@
 #  index_topics_on_user_id           (user_id)
 #
 class Topic < ApplicationRecord
+  searchkick word_start: [:name]
+  
   has_many :shared_topics
   has_many :shared_users, through: :shared_topics, source: :user
 
