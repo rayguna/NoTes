@@ -34,6 +34,25 @@ class Note < ApplicationRecord
 
   validates :title, uniqueness: { scope: [:user_id, :topic_id], message: "has already been taken for this topic and user" }
 
+  belongs_to :topic
+
+  include PgSearch::Model
+
+  pg_search_scope :search_by_content_and_title,
+    against: [:title, :content],
+    using: {
+      tsearch: { prefix: true, any_word: true },  # Prefix allows for partial matching
+      trigram: { threshold: 0.3 }                 # Fuzzy matching threshold
+    }
+
+  belongs_to :topic
+  belongs_to :user
+
+  def decrypt(attribute)
+    # Assuming you're using Active Record Encryption
+    self.public_send(attribute) # This assumes automatic decryption by Active Record Encryption
+  end
+
   def self.ransackable_attributes(auth_object = nil)
     # Return an array of attributes that can be searched
     %w[title content created_at updated_at]

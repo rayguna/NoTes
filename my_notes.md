@@ -477,6 +477,10 @@ Type in the termnal: q.result. You will see the list of notes that meet the crit
 
 1. Made the sign in page to work using if-else conditions. Pass data to signed in page partials via the index controller.
 
+## R. Moved ransack Search into Tools
+
+1. Discovered that ransack search display search results for every user and resulted in duplicated outputs. Solved the issue by adding a constraint to search only within the current user datasets. 
+
 # Appendix:
 
 ## A. References

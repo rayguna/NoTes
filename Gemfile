@@ -5,6 +5,11 @@ ruby "3.2.1"
 
 #for python
 # gem 'pycall'
+ 
+gem 'text'
+gem 'pg_search'
+
+
 
 #for aws s3
 gem 'aws-sdk-s3', require: false
