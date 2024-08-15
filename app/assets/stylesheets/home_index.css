@@ -39,7 +39,7 @@ body {
 }
 
 .display-4 {
-  font-size: 2.5rem; /* Balanced font size */
+  font-size: 3.75rem; /* Increased from 2.5rem to 3.75rem (1.5x bigger) */
   color: black;
 }
 
@@ -78,12 +78,12 @@ body {
 .cursive {
   font-family: 'Pacifico', cursive;
   font-size: 2.5rem;
-  color: #343a40;
+  color: #800080; /* Purple color */
   position: relative;
   display: inline-block;
-  white-space: nowrap; /* Prevents text wrapping */
-  overflow: hidden; /* Hides the overflowing text */
-  border-right: 2px solid #343a40; /* Simulate the pen */
+  white-space: nowrap;
+  overflow: hidden;
+  border-right: 2px solid #800080; /* Purple caret */
   animation: typing 4s steps(40, end), blink-caret 0.75s step-end infinite;
 }
 
@@ -94,11 +94,11 @@ body {
   left: 0;
   width: 100%;
   height: 100%;
-  color: #343a40;
+  color: #800080; /* Purple color */
   white-space: nowrap;
   overflow: hidden;
-  border-right: 2px solid #343a40;
-  visibility: hidden; /* Hides the pseudo-element */
+  border-right: 2px solid #800080; /* Purple caret */
+  visibility: hidden;
 }
 
 @keyframes typing {
@@ -108,5 +108,10 @@ body {
 
 @keyframes blink-caret {
   from, to { border-color: transparent; }
-  50% { border-color: #343a40; }
+  50% { border-color: #800080; /* Purple caret color */ }
+}
+
+.welcome {
+  font-size: 2.5rem; /* Adjust the font size of "Welcome to" */
+  color: #800080; /* Purple color */
 }
