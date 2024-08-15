@@ -77,51 +77,13 @@ body {
 
 .cursive {
   font-family: 'Pacifico', cursive;
+
   color: #800080;
   position: relative;
   display: inline-block;
   white-space: normal; /* Allow text to wrap */
-  overflow: hidden;
-  border-right: 2px solid #800080;
-  animation: typing 4s steps(40, end), blink-caret 0.75s step-end infinite;
-  font-size: 5vw; /* Make the font size responsive */
-  max-width: 100%; /* Ensure it does not overflow the container */
-  box-sizing: border-box;
-  padding: 5px; /* Adjust padding to fit within the container */
-}
-
-.cursive::before {
-  content: attr(data-text);
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  color: #800080;
-  white-space: nowrap;
-  overflow: hidden;
-  border-right: 2px solid #800080;
-  visibility: hidden;
-}
-
-@keyframes typing {
-  from { width: 0; }
-  to { width: 100%; }
-}
-
-@keyframes blink-caret {
-  from, to { border-color: transparent; }
-  50% { border-color: #800080; }
-}
 
 .welcome {
   font-size: 2.5rem;
   color: #800080;
-}
-
-/* Adjust font size further for very small screens */
-@media (max-width: 600px) {
-  .cursive {
-    font-size: 6vw; /* Slightly larger on small screens */
-  }
 }

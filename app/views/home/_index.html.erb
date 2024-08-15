@@ -19,8 +19,8 @@
       ● Use <span class="highlight-box tools">Tools</span> to turn ideas into opportunities<br>
       ● Create <span class="highlight-box teases">Teases</span> to inspire
     </p>
-    <p class="cursive mt-4" data-text="Discover noTes, your go-to app for turning ideas into reality.">
-      Discover noTes, your go-to app for turning ideas into reality.
+    <p class="cursive mt-4" data-text="Discover noTes, turn your ideas into reality.">
+      Discover noTes, turn your ideas into reality.
     </p>
   </div>
 </section>
@@ -39,21 +39,21 @@
       <%= image_tag("troves.jpg", class: "d-block w-100", alt: "Troves") %>
       <div class="carousel-caption d-none d-md-block">
         <h5>Explore Troves</h5>
-        <p>Uncover valuable insights and hidden gems.</p>
+        <p>Gather your ideas.</p>
       </div>
     </div>
     <div class="carousel-item">
       <%= image_tag("tools.jpg", class: "d-block w-100", alt: "Tools") %>
       <div class="carousel-caption d-none d-md-block">
         <h5>Use Powerful Tools</h5>
-        <p>Enhance your productivity with our tools.</p>
+        <p>Boost your productivity and discover new insights.</p>
       </div>
     </div>
     <div class="carousel-item">
       <%= image_tag("teases.jpg", class: "d-block w-100", alt: "Teases") %>
       <div class="carousel-caption d-none d-md-block">
         <h5>Engage with Teases</h5>
-        <p>Stay ahead with thought-provoking content.</p>
+        <p>Create custom quizzes to stay sharp.</p>
       </div>
     </div>
   </div>
@@ -77,8 +77,11 @@
           <%= image_tag('many_troves.jpg', class: "card-img-top", alt: "Troves") %>
           <div class="card-body">
             <h5 class="card-title">Troves</h5>
-            <p class="card-text">Explore a vast collection of curated content and insights.</p>
-            <a href="#troves" class="btn btn-primary">Learn More</a>
+            <p class="card-text">Explore your collections.</p>
+            <!-- Learn More Button with Modal Trigger -->
+            <!--<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#trovesModal">
+              Learn More
+            </button>-->
           </div>
         </div>
       </div>
@@ -87,8 +90,11 @@
           <%= image_tag('many_tools.jpg', class: "card-img-top", alt: "Tools") %>
           <div class="card-body">
             <h5 class="card-title">Tools</h5>
-            <p class="card-text">Access powerful tools designed to improve your workflow and efficiency.</p>
-            <a href="#tools" class="btn btn-primary">Learn More</a>
+            <p class="card-text">Use tools to improve your efficiency.</p>
+            <!-- Learn More Button with Modal Trigger -->
+            <!--<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#toolsModal">
+              Learn More
+            </button>-->
           </div>
         </div>
       </div>
@@ -97,14 +103,53 @@
           <%= image_tag('many_teases.jpg', class: "card-img-top", alt: "Teases") %>
           <div class="card-body">
             <h5 class="card-title">Teases</h5>
-            <p class="card-text">Stay engaged with thought-provoking and entertaining content.</p>
-            <a href="#teases" class="btn btn-primary">Learn More</a>
+            <p class="card-text">Stay engaged with your own entertaining content.</p>
+            <!-- Learn More Button with Modal Trigger -->
+            <!--<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#teasesModal">
+              Learn More
+            </button>-->
           </div>
         </div>
       </div>
     </div>
   </div>
 </section>
+
+<!-- Tools Modal -->
+<div class="modal fade" id="toolsModal" tabindex="-1" aria-labelledby="toolsModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="toolsModalLabel">Tools</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        Access powerful tools designed to improve your workflow and efficiency. Enhance your productivity with noTes.
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Teases Modal -->
+<div class="modal fade" id="teasesModal" tabindex="-1" aria-labelledby="teasesModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="teasesModalLabel">Teases</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        Stay engaged with thought-provoking and entertaining content. Use Teases to inspire and challenge your mind.
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 <!-- Footer -->
 <footer class="footer">
