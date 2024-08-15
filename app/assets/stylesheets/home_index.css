@@ -39,7 +39,7 @@ body {
 }
 
 .display-4 {
-  font-size: 3.75rem; /* Increased from 2.5rem to 3.75rem (1.5x bigger) */
+  font-size: 3.75rem;
   color: black;
 }
 
@@ -61,57 +61,32 @@ body {
 }
 
 .troves {
-  background-color: #ffeb3b; /* Yellow like a highlighter */
+  background-color: #ffeb3b;
   color: #343a40;
 }
 
 .tools {
-  background-color: #4caf50; /* Green for Tools */
+  background-color: #4caf50;
   color: #fff;
 }
 
 .teases {
-  background-color: #f44336; /* Red for Teases */
+  background-color: #f44336;
   color: #fff;
 }
 
 .cursive {
   font-family: 'Pacifico', cursive;
   font-size: 2.5rem;
-  color: #800080; /* Purple color */
+  color: #800080;
   position: relative;
   display: inline-block;
-  white-space: nowrap;
-  overflow: hidden;
-  border-right: 2px solid #800080; /* Purple caret */
-  animation: typing 4s steps(40, end), blink-caret 0.75s step-end infinite;
-}
-
-.cursive::before {
-  content: attr(data-text);
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  color: #800080; /* Purple color */
-  white-space: nowrap;
-  overflow: hidden;
-  border-right: 2px solid #800080; /* Purple caret */
-  visibility: hidden;
-}
-
-@keyframes typing {
-  from { width: 0; }
-  to { width: 100%; }
-}
-
-@keyframes blink-caret {
-  from, to { border-color: transparent; }
-  50% { border-color: #800080; /* Purple caret color */ }
+  white-space: normal; /* Allow text to wrap */
+  overflow: visible; /* No overflow handling needed */
+  border-right: none; /* Remove cursor effect */
 }
 
 .welcome {
-  font-size: 2.5rem; /* Adjust the font size of "Welcome to" */
-  color: #800080; /* Purple color */
+  font-size: 2.5rem;
+  color: #800080;
 }
