@@ -78,7 +78,10 @@
           <div class="card-body">
             <h5 class="card-title">Troves</h5>
             <p class="card-text">Explore a vast collection of curated content and insights.</p>
-            <a href="#troves" class="btn btn-primary">Learn More</a>
+            <!-- Learn More Button with Modal Trigger -->
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#trovesModal">
+              Learn More
+            </button>
           </div>
         </div>
       </div>
@@ -88,7 +91,10 @@
           <div class="card-body">
             <h5 class="card-title">Tools</h5>
             <p class="card-text">Access powerful tools designed to improve your workflow and efficiency.</p>
-            <a href="#tools" class="btn btn-primary">Learn More</a>
+            <!-- Learn More Button with Modal Trigger -->
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#toolsModal">
+              Learn More
+            </button>
           </div>
         </div>
       </div>
@@ -98,13 +104,52 @@
           <div class="card-body">
             <h5 class="card-title">Teases</h5>
             <p class="card-text">Stay engaged with thought-provoking and entertaining content.</p>
-            <a href="#teases" class="btn btn-primary">Learn More</a>
+            <!-- Learn More Button with Modal Trigger -->
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#teasesModal">
+              Learn More
+            </button>
           </div>
         </div>
       </div>
     </div>
   </div>
 </section>
+
+<!-- Tools Modal -->
+<div class="modal fade" id="toolsModal" tabindex="-1" aria-labelledby="toolsModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="toolsModalLabel">Tools</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        Access powerful tools designed to improve your workflow and efficiency. Enhance your productivity with noTes.
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Teases Modal -->
+<div class="modal fade" id="teasesModal" tabindex="-1" aria-labelledby="teasesModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="teasesModalLabel">Teases</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        Stay engaged with thought-provoking and entertaining content. Use Teases to inspire and challenge your mind.
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 <!-- Footer -->
 <footer class="footer">
