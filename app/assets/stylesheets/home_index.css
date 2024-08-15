@@ -1,0 +1,112 @@
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f8f9fa;
+}
+
+.hero {
+  background: linear-gradient(145deg, #e0e4e5, #f5f5f5);
+  color: #343a40;
+  padding: 80px 20px;
+  text-align: center;
+  border-radius: 20px;
+  box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.1), -10px -10px 20px rgba(255, 255, 255, 0.7);
+}
+
+.section-title {
+  margin-bottom: 40px;
+  font-size: 32px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.card img {
+  height: 200px;
+  object-fit: cover;
+}
+
+.navbar-brand {
+  font-weight: bold;
+  font-size: 24px;
+}
+
+.footer {
+  background-color: #343a40;
+  color: #fff;
+  padding: 20px 0;
+  text-align: center;
+}
+
+.display-4 {
+  font-size: 2.5rem; /* Balanced font size */
+  color: black;
+}
+
+.display-4 .gold {
+  color: gold;
+}
+
+.features {
+  font-size: 1.25rem;
+  line-height: 1.6;
+}
+
+.highlight-box {
+  padding: 5px 10px;
+  border-radius: 12px;
+  font-weight: bold;
+  color: #fff;
+  margin: 0 5px;
+}
+
+.troves {
+  background-color: #ffeb3b; /* Yellow like a highlighter */
+  color: #343a40;
+}
+
+.tools {
+  background-color: #4caf50; /* Green for Tools */
+  color: #fff;
+}
+
+.teases {
+  background-color: #f44336; /* Red for Teases */
+  color: #fff;
+}
+
+.cursive {
+  font-family: 'Pacifico', cursive;
+  font-size: 2.5rem;
+  color: #343a40;
+  position: relative;
+  display: inline-block;
+  white-space: nowrap; /* Prevents text wrapping */
+  overflow: hidden; /* Hides the overflowing text */
+  border-right: 2px solid #343a40; /* Simulate the pen */
+  animation: typing 4s steps(40, end), blink-caret 0.75s step-end infinite;
+}
+
+.cursive::before {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  color: #343a40;
+  white-space: nowrap;
+  overflow: hidden;
+  border-right: 2px solid #343a40;
+  visibility: hidden; /* Hides the pseudo-element */
+}
+
+@keyframes typing {
+  from { width: 0; }
+  to { width: 100%; }
+}
+
+@keyframes blink-caret {
+  from, to { border-color: transparent; }
+  50% { border-color: #343a40; }
+}
