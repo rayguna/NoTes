@@ -77,14 +77,11 @@ body {
 
 .cursive {
   font-family: 'Pacifico', cursive;
-  font-size: 2.5rem;
+
   color: #800080;
   position: relative;
   display: inline-block;
   white-space: normal; /* Allow text to wrap */
-  overflow: visible; /* No overflow handling needed */
-  border-right: none; /* Remove cursor effect */
-}
 
 .welcome {
   font-size: 2.5rem;
