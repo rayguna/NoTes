@@ -1,50 +1,50 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NoTes</title>
-    <%= csrf_meta_tags %>
-    <%= csp_meta_tag %>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NoTes</title>
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
 
-    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
 
-    <!-- Bootstrap 4.0 CSS -->
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Bootstrap 4.0 CSS -->
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
 
-    <!-- Bootstrap Toggle CSS -->
-    <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+  <!-- Bootstrap Toggle CSS -->
+  <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
 
-    <!-- Custom CSS for 3D Toggle Button -->
-    <link rel="stylesheet" href="<%= asset_path('topics_show.css') %>">
-   
-  </head>
-  <body>
-    <p class="text-success"><%= notice %></p>
+  <!-- Custom CSS for 3D Toggle Button -->
+  <link rel="stylesheet" href="<%= asset_path('topics_show.css') %>">
+</head>
+<body>
+  <div class="container">
+    <p class="text-success text-center"><%= notice %></p>
 
     <!-- Render the topic -->
-    <div class="mb-4">
+    <div class="mb-4 text-center">
       <h1><%= @topic.name %></h1>
     </div>
 
     <div class="row">
       <!-- Left Column: Back to Topics Button -->
-      <div class="col-md-3">
-        <%= link_to "Back to topics", topics_path(topic_type: params[:topic_type], display_as: params[:display_as]) %>
+      <div class="col-12 col-md-3 mb-3 mb-md-0 text-center text-md-left">
+        <%= link_to "Back to topics", topics_path(topic_type: params[:topic_type], display_as: params[:display_as]), class: "btn btn-secondary btn-block" %>
       </div>
 
       <!-- Center Column: Pagination -->
-      <div class="col-md-6 d-flex justify-content-center">
+      <div class="col-12 col-md-6 mb-3 mb-md-0 d-flex justify-content-center">
         <nav aria-label="Page navigation example">
-          <ul class="pagination justify-content-center">
+          <ul class="pagination mb-0">
             <%= paginate @notes, theme: 'bootstrap-4' %>
           </ul>
         </nav>
       </div>
 
       <!-- Right Column: Cards or Table Toggle -->
-      <div class="col-md-3 d-flex justify-content-end align-items-center">
+      <div class="col-12 col-md-3 text-center text-md-right">
         <%= form_with url: url_for(params.permit(:topic_type, :page, :sort).merge(display_as: @view_mode == 'cards' ? 'table' : 'cards')), method: :get, local: true, class: "toggle-form" do %>
           <input type="checkbox" id="viewToggle" name="display_as" value="cards" <%= 'checked' if @view_mode == 'cards' %> onchange="this.form.submit()" data-toggle="toggle" data-on="Cards" data-off="Table" data-onstyle="primary" data-offstyle="secondary">
         <% end %>
@@ -61,13 +61,14 @@
         <%= render "shared/display_note_table", notes: @sort_notes %>
       <% end %>
     </div>
+  </div>
 
-    <!-- Bootstrap 4.0 JS -->
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+  <!-- Bootstrap 4.0 JS -->
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 
-    <!-- Bootstrap Toggle JS -->
-    <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
-  </body>
+  <!-- Bootstrap Toggle JS -->
+  <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+</body>
 </html>

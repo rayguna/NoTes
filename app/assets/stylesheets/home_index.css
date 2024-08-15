@@ -1,0 +1,127 @@
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f8f9fa;
+}
+
+.hero {
+  background: linear-gradient(145deg, #e0e4e5, #f5f5f5);
+  color: #343a40;
+  padding: 80px 20px;
+  text-align: center;
+  border-radius: 20px;
+  box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.1), -10px -10px 20px rgba(255, 255, 255, 0.7);
+}
+
+.section-title {
+  margin-bottom: 40px;
+  font-size: 32px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.card img {
+  height: 200px;
+  object-fit: cover;
+}
+
+.navbar-brand {
+  font-weight: bold;
+  font-size: 24px;
+}
+
+.footer {
+  background-color: #343a40;
+  color: #fff;
+  padding: 20px 0;
+  text-align: center;
+}
+
+.display-4 {
+  font-size: 3.75rem;
+  color: black;
+}
+
+.display-4 .gold {
+  color: gold;
+}
+
+.features {
+  font-size: 1.25rem;
+  line-height: 1.6;
+}
+
+.highlight-box {
+  padding: 5px 10px;
+  border-radius: 12px;
+  font-weight: bold;
+  color: #fff;
+  margin: 0 5px;
+}
+
+.troves {
+  background-color: #ffeb3b;
+  color: #343a40;
+}
+
+.tools {
+  background-color: #4caf50;
+  color: #fff;
+}
+
+.teases {
+  background-color: #f44336;
+  color: #fff;
+}
+
+.cursive {
+  font-family: 'Pacifico', cursive;
+  color: #800080;
+  position: relative;
+  display: inline-block;
+  white-space: normal; /* Allow text to wrap */
+  overflow: hidden;
+  border-right: 2px solid #800080;
+  animation: typing 4s steps(40, end), blink-caret 0.75s step-end infinite;
+  font-size: 5vw; /* Make the font size responsive */
+  max-width: 100%; /* Ensure it does not overflow the container */
+  box-sizing: border-box;
+  padding: 5px; /* Adjust padding to fit within the container */
+}
+
+.cursive::before {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  color: #800080;
+  white-space: nowrap;
+  overflow: hidden;
+  border-right: 2px solid #800080;
+  visibility: hidden;
+}
+
+@keyframes typing {
+  from { width: 0; }
+  to { width: 100%; }
+}
+
+@keyframes blink-caret {
+  from, to { border-color: transparent; }
+  50% { border-color: #800080; }
+}
+
+.welcome {
+  font-size: 2.5rem;
+  color: #800080;
+}
+
+/* Adjust font size further for very small screens */
+@media (max-width: 600px) {
+  .cursive {
+    font-size: 6vw; /* Slightly larger on small screens */
+  }
+}
