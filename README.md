@@ -51,5 +51,5 @@ Distributed under the MIT License. See <a href="https://github.com/rayguna/NoTes
 
 ## Contact
 
-Ray Gunawidjaja - [e-mail 📧](mailto:ray.gunaw@gmail.com)
-Project Link: [https://github.com/rayguna/NoTes](https://github.com/rayguna/NoTes)
+Ray Gunawidjaja - [e-mail 📧](mailto:ray.gunaw@gmail.com)<br>
+Project Link: [Project noTes](https://github.com/users/rayguna/projects/5)
