@@ -486,6 +486,10 @@ Type in the termnal: q.result. You will see the list of notes that meet the crit
 1. Got foreign_key violation error when deploying rake sample_data.
 2. The issue was found to be due to the sequence of tables deletion. Make sure to delete the dependent tables first before finally deleting the parent tables. The error emerge due to dependency violations.
 
+## T. ERD diagram
+
+1. Create the ERD diagram on codespaces terminal by adding `gem "rails-erd"`. Then, type in the terminal `sudo apt-get install graphviz`. Next, type `bundle install`. Finally, type: `rails erd` to generate the erd.png in the same folder as the Gemfile. 
+
 # Appendix:
 
 ## A. References

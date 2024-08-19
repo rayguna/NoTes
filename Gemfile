@@ -5,6 +5,7 @@ ruby "3.2.1"
 
 #for python
 # gem 'pycall'
+gem "rails-erd"
  
 gem 'text'
 gem 'pg_search'
