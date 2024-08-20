@@ -5,35 +5,41 @@ class SearchController < ApplicationController
     @search_results = { notes: [], topics: [] }
 
     search_query = params[:all_fields].to_s
+    topic_name_cont = params[:topic_name_cont]
+    content_cont = params[:content_cont]
 
-    # Fetch all topics owned by the current user
-    user_topics = current_user.topics
+    accessible_topics = fetch_accessible_topics
+    @search_results[:topics] = search_topics(search_query, topic_name_cont, accessible_topics)
+    @search_results[:notes] = search_notes(search_query, content_cont, accessible_topics) if search_query.present?
+  end
 
-    # Fetch all topics shared with the current user
+  private
+
+  def fetch_accessible_topics
+    user_topic_ids = current_user.topics.pluck(:id)
     shared_topic_ids = SharedTopic.where(shared_user_id: current_user.id).pluck(:topic_id)
-    shared_topics = Topic.where(id: shared_topic_ids)
+    Topic.where(id: (user_topic_ids + shared_topic_ids).uniq)
+  end
 
-    # Combine user topics and shared topics manually
-    accessible_topic_ids = (user_topics.pluck(:id) + shared_topic_ids).uniq
-    accessible_topics = Topic.where(id: accessible_topic_ids)
-
-    if search_query.present?
-      # Search for topics using pg_search
-      @search_results[:topics] = Topic.search_by_name(search_query)
-
-      # Search for notes within accessible topics
-      @search_results[:notes] = Note.joins(:topic).where(topic: accessible_topics)
-                                   .where('notes.title ILIKE :query OR notes.content ILIKE :query', query: "%#{search_query}%")
+  def search_topics(query, topic_name_cont, accessible_topics)
+    if query.present?
+      Topic.search_by_name(query).where(id: accessible_topics.pluck(:id))
+    elsif topic_name_cont.present?
+      Topic.search_by_name(topic_name_cont)
     else
-      # Handle case when there is no search query
-      if params[:topic_name_cont].present?
-        @search_results[:topics] = Topic.search_by_name(params[:topic_name_cont])
-      end
+      accessible_topics
+    end
+  end
 
-      if params[:content_cont].present?
-        @search_results[:notes] = Note.joins(:topic).where(topic: accessible_topics)
-                                      .where('notes.content ILIKE ?', "%#{params[:content_cont]}%")
-      end
+  def search_notes(query, content_cont, accessible_topics)
+    notes_scope = Note.joins(:topic).where(topic: accessible_topics)
+    
+    if query.present?
+      notes_scope.where('notes.title ILIKE :query OR notes.content ILIKE :query', query: "%#{query}%")
+    elsif content_cont.present?
+      notes_scope.where('notes.content ILIKE ?', "%#{content_cont}%")
+    else
+      notes_scope
     end
   end
 end
