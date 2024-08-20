@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   devise_for :users
 
   resources :users do
-    get 'friends', on: :collection
+    get "friends", on: :collection
   end
 
   resources :favorites
@@ -18,7 +18,6 @@ Rails.application.routes.draw do
     resources :notes, only: [:index, :show, :new, :create, :edit, :update, :destroy]
   end
 
-
   resources :follow_requests do
     member do
       patch :accept
@@ -27,11 +26,10 @@ Rails.application.routes.draw do
       get :approved_requests
     end
   end
-  
 
-  get 'tools', to: 'pages#tools'
-  get 'navigate', to: 'pages#navigate', as: :navigate
-  
+  get "tools", to: "pages#tools"
+  get "navigate", to: "pages#navigate", as: :navigate
+
   root "home#index"
 
   resources :topics do
@@ -44,14 +42,20 @@ Rails.application.routes.draw do
     member do
       post :share
     end
-  end  
-  
-  get 'search', to: 'search#index'
+  end
 
-  get 'tools', to: 'pages#tools'
+  get "search", to: "search#index"
+
+  get "tools", to: "pages#tools"
 
   resources :favorites, only: [] do
-    post 'toggle', on: :collection
-  end  
+    post "toggle", on: :collection
+  end
 
+  # config/routes.rb
+  resources :notes do
+    collection do
+      post :word_count
+    end
+  end
 end
