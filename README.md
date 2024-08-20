@@ -1,7 +1,7 @@
 # noT<span style="color: yellow;">e</span>s
 
 ## Description
-I have trouble remembering things, so I take notes. However, I often forget where I have kept the information I have written down. Therefore, I created a digital notebook called noTes. The letter "e" in <b>noT<span style="color: yellow;">e</span>s</b> is silent, so it is pronounced "noTs," which stands for a number of things: "Troves," "Tools," and "Teases." Each of the "Ts" serves a special function in the app, as follows:
+I have trouble remembering things, so I take notes. However, I often forget where I have kept the information I have written down. Therefore, I created a digital notebook called noTes. The letter "e" in <b>noT<span style="color: yellow;">e</span>s</b> is silent, so it is pronounced "noTs," which stands for a number of Ts (or things): "Troves," "Tools," and "Teases." Each of the "Ts" serves a special function in the app, as follows:
 - <u>Troves</u>: A collection of your own topics that contains notes.
 - <u>Tools</u>: A search tool for navigating through your notes.
 - <u>Teases</u>: A collection of collapsible cards created by you to quiz your knowledge.
