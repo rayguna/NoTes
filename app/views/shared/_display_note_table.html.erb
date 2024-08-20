@@ -27,9 +27,6 @@
           <td><%= note.created_at.strftime("%B %d, %Y") %></td>
           <td><%= note.updated_at.strftime("%B %d, %Y") %></td>
           <td>
-            <%= link_to url_for([note, { display_as: params[:display_as] }]), class: "btn" do %>
-              <i class="fa-solid fa-eye"></i>
-            <% end %>
             <%= link_to edit_note_path(note, topic_type: params[:topic_type]), method: :get, class: "btn" do %>
               <i class="fa-solid fa-pen-to-square"></i>
             <% end %>
