@@ -8,7 +8,7 @@ body {
 .hero {
   background: linear-gradient(145deg, #e0e4e5, #f5f5f5);
   color: #343a40;
-  padding: 80px 20px;
+  padding: 20px 20px;
   text-align: center;
   border-radius: 20px;
   box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.1), -10px -10px 20px rgba(255, 255, 255, 0.7);
@@ -82,11 +82,12 @@ body {
 
 .cursive {
   font-family: 'Pacifico', cursive;
-
   color: #800080;
   position: relative;
   display: inline-block;
   white-space: normal; /* Allow text to wrap */
+  font-size: 30px; /* Adjust the font size as needed */
+}
 
 .welcome {
   font-size: 2.5rem;
