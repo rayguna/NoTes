@@ -19,7 +19,11 @@
     <tbody>
       <% notes.each do |note| %>
         <tr>
-          <td><%= note.title %></td>
+          <td>
+            <%= link_to url_for([note, { display_as: params[:display_as] }]), class: "btn", style: "color: blue; text-decoration: none;" do %>
+              <%= note.title %>
+            <% end %>
+          </td>
           <td><%= note.created_at.strftime("%B %d, %Y") %></td>
           <td><%= note.updated_at.strftime("%B %d, %Y") %></td>
           <td>

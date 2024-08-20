@@ -21,7 +21,11 @@
       <% table_name.each do |row| %>
         <tr>
           <% if data_type == "topic" %>
-            <td><%= row.name %></td>
+            <td>
+              <%= link_to url_for([row, { topic_type: params[:topic_type], display_as: params[:display_as] }]), class: "btn", style: "color: blue; text-decoration: none;" do %>
+                <%= row.name %>
+              <% end %>
+            </td>
             <td><%= row.created_at.strftime("%B %d, %Y") %></td>
             <td><%= row.updated_at.strftime("%B %d, %Y") %></td>
             <td><%= row.author_email %></td>
