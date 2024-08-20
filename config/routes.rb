@@ -50,5 +50,8 @@ Rails.application.routes.draw do
 
   get 'tools', to: 'pages#tools'
 
+  resources :favorites, only: [] do
+    post 'toggle', on: :collection
+  end  
 
 end
