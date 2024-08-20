@@ -1,108 +1,152 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <!-- FontAwesome CSS -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <style>
-      /* Hide the checkbox */
-      .toggle-star {
-        display: none;
-      }
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <!-- FontAwesome CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    /* Hide the checkbox */
+    .toggle-star {
+      display: none;
+    }
 
-      /* Default star color */
-      .icon-star {
-        color: purple; /* Color for the star when off */
-        cursor: pointer;
-        font-size: 24px;
-        transition: color 0.3s;
-      }
+    /* Default star color */
+    .icon-star {
+      color: purple; /* Color for the star when off */
+      cursor: pointer;
+      font-size: 24px;
+      transition: color 0.3s;
+    }
 
-      /* Color change when checked */
-      .toggle-star:checked + .icon-label .icon-star {
-        color: purple; /* Color for the star when on */
-      }
-    </style>
-  </head>
-  <body>
-    <div class="table-responsive">
-      <table class="table">
-        <thead class="thead-dark">
+    /* Color change when checked */
+    .toggle-star:checked + .icon-label .icon-star {
+      color: purple; /* Color for the star when on */
+    }
+
+    /* Cursor for sortable headers */
+    th.sortable {
+      cursor: pointer;
+    }
+
+    /* Styles for the sort icons */
+    .sort-icon {
+      margin-left: 5px;
+    }
+  </style>
+</head>
+<body>
+  <div class="table-responsive">
+    <table class="table">
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col" class="sortable" data-column="name" style="color: white;">Name <i class="fas fa-sort sort-icon"></i></th>
+          <th scope="col" class="sortable" data-column="created_at" style="color: white;">Created At <i class="fas fa-sort sort-icon"></i></th>
+          <th scope="col" class="sortable" data-column="updated_at" style="color: white;">Modified At <i class="fas fa-sort sort-icon"></i></th>
+          <th scope="col" class="sortable" data-column="author_email" style="color: white;">Author Email <i class="fas fa-sort sort-icon"></i></th>
+          <th scope="col" style="color: white;">Action</th>
+        </tr>
+      </thead>
+      <tbody id="table-body">
+        <% table_name.each do |row| %>
           <tr>
-            <th scope="col" style="color: white;">Name</th>
-            <th scope="col" style="color: white;">Created At</th>
-            <th scope="col" style="color: white;">Modified At</th>
-            <th scope="col" style="color: white;">Author Email</th>
-            <th scope="col" style="color: white;">Action</th>
+            <% if data_type == "topic" %>
+              <td>
+                <%= link_to url_for([row, { topic_type: params[:topic_type], display_as: params[:display_as] }]), class: "btn", style: "color: blue; text-decoration: none;" do %>
+                  <%= row.name %>
+                <% end %>
+              </td>
+              <td><%= row.created_at.strftime("%B %d, %Y") %></td>
+              <td><%= row.updated_at.strftime("%B %d, %Y") %></td>
+              <td><%= row.author_email %></td>
+              <td>
+                <%= link_to edit_topic_path(row), class: "btn" do %>
+                  <i class="fa-solid fa-pen-to-square"></i>
+                <% end %>
+                <%= link_to row, method: :delete, data: { turbo_confirm: "Are you sure?" }, class: "btn" do %>
+                  <i class="fa-solid fa-trash"></i>
+                <% end %>
+                <%= link_to approved_requests_follow_requests_path(topic: row), class: "btn" do %>
+                  <i class="fa-solid fa-share-nodes"></i>
+                <% end %>
+                <!-- Checkbox and label for star toggle -->
+                <% favorited = current_user.favorites.exists?(favoritable: row) %>
+                <%= check_box_tag "star-toggle-#{row.id}", nil, favorited, class: "toggle-star", data: { favoritable_id: row.id, favoritable_type: row.class.name, favorited: favorited } %>
+                <label for="star-toggle-<%= row.id %>" class="icon-label">
+                  <i class="<%= favorited ? 'fa-solid' : 'fa-regular' %> fa-star icon-star" id="star-icon-<%= row.id %>"></i>
+                </label>
+              </td>
+            <% else %>
+              <td><%= row.title %></td>
+              <td><%= row.created_at.strftime("%B %d, %Y") %></td>
+              <td><%= row.updated_at.strftime("%B %d, %Y") %></td>
+              <td>
+                <%= link_to url_for([row, { topic_type: params[:topic_type], display_as: params[:display_as] }]), class: "btn" do %>
+                  <i class="fa-solid fa-eye"></i>
+                <% end %>
+                <%= link_to edit_topic_path(row), class: "btn" do %>
+                  <i class="fa-solid fa-pen-to-square"></i>
+                <% end %>
+                <%= link_to row, method: :delete, data: { turbo_confirm: "Are you sure?" }, class: "btn" do %>
+                  <i class="fa-solid fa-trash"></i>
+                <% end %>
+              </td>
+            <% end %>
           </tr>
-        </thead>
-        <tbody>
-          <% table_name.each do |row| %>
-            <tr>
-              <% if data_type == "topic" %>
-                <td>
-                  <%= link_to url_for([row, { topic_type: params[:topic_type], display_as: params[:display_as] }]), class: "btn", style: "color: blue; text-decoration: none;" do %>
-                    <%= row.name %>
-                  <% end %>
-                </td>
-                <td><%= row.created_at.strftime("%B %d, %Y") %></td>
-                <td><%= row.updated_at.strftime("%B %d, %Y") %></td>
-                <td><%= row.author_email %></td>
-                <td>
-                  <%= link_to edit_topic_path(row), class: "btn" do %>
-                    <i class="fa-solid fa-pen-to-square"></i>
-                  <% end %>
-                  <%= link_to row, method: :delete, data: { turbo_confirm: "Are you sure?" }, class: "btn" do %>
-                    <i class="fa-solid fa-trash"></i>
-                  <% end %>
-                  <%= link_to approved_requests_follow_requests_path(topic: row), class: "btn" do %>
-                    <i class="fa-solid fa-share-nodes"></i>
-                  <% end %>
-                  <!-- Checkbox and label for star toggle -->
-                  <% favorited = current_user.favorites.exists?(favoritable: row) %>
-                  <%= check_box_tag "star-toggle-#{row.id}", nil, favorited, class: "toggle-star", data: { favoritable_id: row.id, favoritable_type: row.class.name, favorited: favorited } %>
-                  <label for="star-toggle-<%= row.id %>" class="icon-label">
-                    <i class="<%= favorited ? 'fa-solid' : 'fa-regular' %> fa-star icon-star" id="star-icon-<%= row.id %>"></i>
-                  </label>
-                </td>
-              <% else %>
-                <td><%= row.title %></td>
-                <td><%= row.created_at.strftime("%B %d, %Y") %></td>
-                <td><%= row.updated_at.strftime("%B %d, %Y") %></td>
-                <td>
-                  <%= link_to url_for([row, { topic_type: params[:topic_type], display_as: params[:display_as] }]), class: "btn" do %>
-                    <i class="fa-solid fa-eye"></i>
-                  <% end %>
-                  <%= link_to edit_topic_path(row), class: "btn" do %>
-                    <i class="fa-solid fa-pen-to-square"></i>
-                  <% end %>
-                  <%= link_to row, method: :delete, data: { turbo_confirm: "Are you sure?" }, class: "btn" do %>
-                    <i class="fa-solid fa-trash"></i>
-                  <% end %>
-                </td>
-              <% end %>
-            </tr>
-          <% end %>
-        </tbody>
-      </table>
-    </div>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
 
-    <script>
-      document.querySelectorAll('.toggle-star').forEach(checkbox => {
-        checkbox.addEventListener('change', function() {
-          const favoritableId = this.dataset.favoritableId;
-          const favoritableType = this.dataset.favoritableType;
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const headers = document.querySelectorAll('th.sortable');
+      let sortOrder = 'asc';
 
-          $.ajax({
-            type: 'POST',
-            url: '/favorites/toggle',
-            data: { favoritable_id: favoritableId, favoritable_type: favoritableType },
-            dataType: 'script'
+      headers.forEach(header => {
+        header.addEventListener('click', () => {
+          const column = header.getAttribute('data-column');
+          const tableBody = document.getElementById('table-body');
+          const rows = Array.from(tableBody.querySelectorAll('tr'));
+
+          rows.sort((a, b) => {
+            const aText = a.querySelector(`td:nth-child(${[...header.parentNode.children].indexOf(header) + 1})`).textContent.trim();
+            const bText = b.querySelector(`td:nth-child(${[...header.parentNode.children].indexOf(header) + 1})`).textContent.trim();
+            
+            if (sortOrder === 'asc') {
+              return aText.localeCompare(bText);
+            } else {
+              return bText.localeCompare(aText);
+            }
           });
+
+          sortOrder = sortOrder === 'asc' ? 'desc' : 'asc';
+
+          // Toggle sort icon
+          header.querySelector('.sort-icon').classList.toggle('fa-sort-up', sortOrder === 'asc');
+          header.querySelector('.sort-icon').classList.toggle('fa-sort-down', sortOrder === 'desc');
+
+          // Clear the table and re-append sorted rows
+          tableBody.innerHTML = '';
+          rows.forEach(row => tableBody.appendChild(row));
         });
       });
-    </script>
-  </body>
+    });
+
+    document.querySelectorAll('.toggle-star').forEach(checkbox => {
+      checkbox.addEventListener('change', function() {
+        const favoritableId = this.dataset.favoritableId;
+        const favoritableType = this.dataset.favoritableType;
+
+        $.ajax({
+          type: 'POST',
+          url: '/favorites/toggle',
+          data: { favoritable_id: favoritableId, favoritable_type: favoritableType },
+          dataType: 'script'
+        });
+      });
+    });
+  </script>
+</body>
 </html>
