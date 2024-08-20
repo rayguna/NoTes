@@ -4,56 +4,45 @@ class TopicsController < ApplicationController
 
   # GET /topics or /topics.json
   def index
-    @topic_type = params[:topic_type] || 'note' # Default topic type if not provided
-    @view_mode = params[:display_as] || 'table' # Default to 'table' view if not provided
-  
-    # Display user table only
-    # @topics = Topic.where(user_id: current_user.id, topic_type: @topic_type)
-    #                .page(params[:page])
-    #                .per(6)
-    
-    # Display user and shared_user table       
+    @topic_type = params[:topic_type] || "note" # Default topic type if not provided
+    @view_mode = params[:display_as] || "table" # Default to 'table' view if not provided
+
+    #Display user table only
+    @topics = Topic.where(user_id: current_user.id, topic_type: @topic_type)
+                   .page(params[:page])
+                   .per(6)
+
+    # Display user and shared_user table
     @topics = Topic.joins("LEFT JOIN shared_topics ON topics.id = shared_topics.topic_id AND shared_topics.shared_user_id = #{current_user.id}")
-    .joins("LEFT JOIN users AS topic_owners ON topics.user_id = topic_owners.id")
-    .joins("LEFT JOIN users AS shared_users ON shared_topics.user_id = shared_users.id")
-    .select('topics.*, 
+      .joins("LEFT JOIN users AS topic_owners ON topics.user_id = topic_owners.id")
+      .joins("LEFT JOIN users AS shared_users ON shared_topics.user_id = shared_users.id")
+      .select("topics.*, 
              CASE 
                WHEN shared_topics.id IS NOT NULL THEN topic_owners.email 
                ELSE topic_owners.email 
              END AS author_email, 
-             LOWER(topics.name) AS lower_name')
-    .where("topics.user_id = :user_id OR shared_topics.shared_user_id = :user_id", user_id: current_user.id)
-    .where(topic_type: @topic_type)
-    .distinct
-    .order(Arel.sql("#{params[:sort] || 'lower_name'} #{params[:direction] || 'asc'}"))
-    .page(params[:page])
-    .per(6)
+             LOWER(topics.name) AS lower_name")
+      .where("topics.user_id = :user_id OR shared_topics.shared_user_id = :user_id", user_id: current_user.id)
+      .where(topic_type: @topic_type)
+      .distinct
+      .order(Arel.sql("#{params[:sort] || "lower_name"} #{params[:direction] || "asc"}"))
+      .page(params[:page])
+      .per(6)
 
-    
     @q = Note.where(user_id: current_user.id).ransack(params[:q])
     @notes = @q.result(distinct: true)
-  
-    # # Sort table
-    # sort_column = VALID_SORT_COLUMNS.include?(params[:sort]) ? params[:sort] : 'name'
-    # sort_direction = params[:direction] == 'desc' ? 'desc' : 'asc'
-
-    # if sort_column == 'name'
-    #   @sort_topics = @topics.order(Arel.sql("LOWER(#{sort_column}) #{sort_direction}"))
-    # else
-    #   @sort_topics = @topics.order("#{sort_column} #{sort_direction}")
-    # end
 
     # Add breadcrumbs
     add_breadcrumb "Home", root_path
     add_breadcrumb "Topics", topics_path(topic_type: @topic_type)
   end
-  
+
   def share
     shared_user_ids = (params[:shared_user_ids] || []).map(&:to_i)
-  
+
     user_ids_to_add = shared_user_ids - SharedTopic.where(topic_id: @topic.id).pluck(:shared_user_id)
     user_ids_to_remove = SharedTopic.where(topic_id: @topic.id, user_id: current_user.id).pluck(:shared_user_id) - shared_user_ids
-  
+
     ActiveRecord::Base.transaction do
       user_ids_to_add.each do |user_id|
         begin
@@ -64,19 +53,18 @@ class TopicsController < ApplicationController
           Rails.logger.info "Skipping invalid entry: #{e.message}"
         end
       end
-  
+
       user_ids_to_remove.each do |user_id|
         SharedTopic.where(topic_id: @topic.id, user_id: current_user.id, shared_user_id: user_id).destroy_all
       end
     end
-  
+
     redirect_to @topic, notice: "Topic sharing updated successfully."
-  end  
-  
+  end
 
   # GET /topics/1 or /topics/1.json
   def show
-    @view_mode = params[:display_as] || 'table' # Default to 'table' view if not provided
+    @view_mode = params[:display_as] || "table" # Default to 'table' view if not provided
 
     @q = @topic.notes.ransack(params[:q])
     per_page = params[:per_page] || 6
@@ -87,7 +75,7 @@ class TopicsController < ApplicationController
     allowed_sorts = %w[name created_at updated_at] # List of allowed columns
     sort_column = allowed_sorts.include?(params[:sort]) ? params[:sort] : "title"
     sort_direction = %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
-  
+
     @sort_notes = @notes.order("#{sort_column} #{sort_direction}")
 
     # Add breadcrumbs
@@ -98,7 +86,7 @@ class TopicsController < ApplicationController
 
   # GET /topics/new
   def new
-    @topic_type = params[:topic_type] || 'note'
+    @topic_type = params[:topic_type] || "note"
     @topic = Topic.new(topic_type: @topic_type)
 
     # Add breadcrumbs
@@ -144,7 +132,7 @@ class TopicsController < ApplicationController
       end
     end
   end
-  
+
   # DELETE /topics/1 or /topics/1.json
   def destroy
     @topic.destroy!
