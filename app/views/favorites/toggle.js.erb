@@ -1,0 +1,5 @@
+<% if @favorite_status %>
+  $("#star-icon-<%= params[:favoritable_id] %>").removeClass("fa-regular").addClass("fa-solid");
+<% else %>
+  $("#star-icon-<%= params[:favoritable_id] %>").removeClass("fa-solid").addClass("fa-regular");
+<% end %>

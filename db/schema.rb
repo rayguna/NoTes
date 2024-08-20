@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_08_14_174509) do
+ActiveRecord::Schema[7.1].define(version: 2024_08_20_134935) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
   enable_extension "plpgsql"
@@ -45,19 +45,20 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_14_174509) do
 
   create_table "favorites", force: :cascade do |t|
     t.bigint "user_id", null: false
-    t.bigint "note_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["note_id"], name: "index_favorites_on_note_id"
+    t.bigint "topic_id"
+    t.string "favoritable_type"
+    t.bigint "favoritable_id"
     t.index ["user_id"], name: "index_favorites_on_user_id"
   end
 
   create_table "follow_requests", force: :cascade do |t|
     t.bigint "recipient_id", null: false
     t.bigint "sender_id", null: false
-    t.string "status"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "status"
     t.index ["recipient_id"], name: "index_follow_requests_on_recipient_id"
     t.index ["sender_id"], name: "index_follow_requests_on_sender_id"
   end
@@ -82,13 +83,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_14_174509) do
     t.index ["topic_id", "shared_user_id"], name: "index_shared_topics_on_topic_id_and_shared_user_id", unique: true
     t.index ["topic_id"], name: "index_shared_topics_on_topic_id"
     t.index ["user_id"], name: "index_shared_topics_on_user_id"
-  end
-
-  create_table "tools", force: :cascade do |t|
-    t.string "search_query"
-    t.json "results"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
   end
 
   create_table "topics", force: :cascade do |t|
@@ -118,7 +112,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_14_174509) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
-  add_foreign_key "favorites", "notes"
   add_foreign_key "favorites", "users"
   add_foreign_key "follow_requests", "users", column: "recipient_id"
   add_foreign_key "follow_requests", "users", column: "sender_id"

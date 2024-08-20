@@ -24,11 +24,12 @@ class Topic < ApplicationRecord
   has_many :notes, dependent: :destroy
   belongs_to :user  
 
+  has_many :favorites, as: :favoritable, dependent: :destroy
+  has_many :notes
+
   validates :name, uniqueness: { scope: :user_id, message: "has already been taken for this user" }
   validates :name, presence: { message: "can't be blank. Please provide a topic name." }
   validates :user_id, presence: true
-
-  has_many :notes
 
   include PgSearch::Model
 
