@@ -490,6 +490,16 @@ Type in the termnal: q.result. You will see the list of notes that meet the crit
 
 1. Create the ERD diagram on codespaces terminal by adding `gem "rails-erd"`. Then, type in the terminal `sudo apt-get install graphviz`. Next, type `bundle install`. Finally, type: `rails erd` to generate the erd.png in the same folder as the Gemfile. 
 
+## U. Encryption
+
+1. To enable encryption. Add the following line to config/production.rb:
+
+```
+#encryption
+config.active_record.encryption.support_unencrypted_data = true
+```
+To the models file, add, e.g., `encrypts :name`.
+
 # Appendix:
 
 ## A. References
