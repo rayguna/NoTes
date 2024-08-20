@@ -21,7 +21,7 @@
 #  fk_rails_...  (user_id => users.id)
 #
 class Note < ApplicationRecord
-  #encrypts :title, :content
+  encrypts :title, :content
 
   has_one_attached :note_image
 
