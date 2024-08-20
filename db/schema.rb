@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_08_20_134935) do
+ActiveRecord::Schema[7.1].define(version: 2024_08_20_184139) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
   enable_extension "plpgsql"
@@ -50,6 +50,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_20_134935) do
     t.bigint "topic_id"
     t.string "favoritable_type"
     t.bigint "favoritable_id"
+    t.integer "note_id"
     t.index ["user_id"], name: "index_favorites_on_user_id"
   end
 
