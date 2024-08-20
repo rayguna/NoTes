@@ -33,15 +33,15 @@ class TopicsController < ApplicationController
     @q = Note.where(user_id: current_user.id).ransack(params[:q])
     @notes = @q.result(distinct: true)
   
-    # Sort table
-    sort_column = VALID_SORT_COLUMNS.include?(params[:sort]) ? params[:sort] : 'name'
-    sort_direction = params[:direction] == 'desc' ? 'desc' : 'asc'
+    # # Sort table
+    # sort_column = VALID_SORT_COLUMNS.include?(params[:sort]) ? params[:sort] : 'name'
+    # sort_direction = params[:direction] == 'desc' ? 'desc' : 'asc'
 
-    if sort_column == 'name'
-      @sort_topics = @topics.order(Arel.sql("LOWER(#{sort_column}) #{sort_direction}"))
-    else
-      @sort_topics = @topics.order("#{sort_column} #{sort_direction}")
-    end
+    # if sort_column == 'name'
+    #   @sort_topics = @topics.order(Arel.sql("LOWER(#{sort_column}) #{sort_direction}"))
+    # else
+    #   @sort_topics = @topics.order("#{sort_column} #{sort_direction}")
+    # end
 
     # Add breadcrumbs
     add_breadcrumb "Home", root_path

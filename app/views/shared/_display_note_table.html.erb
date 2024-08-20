@@ -4,15 +4,14 @@
   <table class="table">
     <thead class="thead-dark">
       <tr>
-        <!-- Adding inline styles for white font color and sort links with icons -->
         <th scope="col" style="color: white;">
-          <%= link_to "Title".html_safe + (params[:sort] == 'title' && params[:direction] == 'asc' ? ' ▼' : ''), { sort: 'title', direction: (params[:sort] == 'title' && params[:direction] == 'asc' ? 'desc' : 'asc') }, data: { turbo_frame: "_top" } %>
+          Title
         </th>
         <th scope="col" style="color: white;">
-          <%= link_to "Created At".html_safe + (params[:sort] == 'created_at' && params[:direction] == 'asc' ? ' ▼' : ''), { sort: 'created_at', direction: (params[:sort] == 'created_at' && params[:direction] == 'asc' ? 'desc' : 'asc') }, data: { turbo_frame: "_top" } %>
+          Created At
         </th>
         <th scope="col" style="color: white;">
-          <%= link_to "Modified At".html_safe + (params[:sort] == 'updated_at' && params[:direction] == 'asc' ? ' ▼' : ''), { sort: 'updated_at', direction: (params[:sort] == 'updated_at' && params[:direction] == 'asc' ? 'desc' : 'asc') }, data: { turbo_frame: "_top" } %>
+          Modified At
         </th>
         <th scope="col" style="color: white;">Action</th>
       </tr>
@@ -20,13 +19,14 @@
     <tbody>
       <% notes.each do |note| %>
         <tr>
-          <td><%= note.title %></td>
+          <td>
+            <%= link_to url_for([note, { display_as: params[:display_as] }]), class: "btn", style: "color: blue; text-decoration: none;" do %>
+              <%= note.title %>
+            <% end %>
+          </td>
           <td><%= note.created_at.strftime("%B %d, %Y") %></td>
           <td><%= note.updated_at.strftime("%B %d, %Y") %></td>
           <td>
-            <%= link_to url_for([note, { display_as: params[:display_as] }]), class: "btn" do %>
-              <i class="fa-solid fa-eye"></i>
-            <% end %>
             <%= link_to edit_note_path(note, topic_type: params[:topic_type]), method: :get, class: "btn" do %>
               <i class="fa-solid fa-pen-to-square"></i>
             <% end %>
