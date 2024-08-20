@@ -131,6 +131,12 @@ class NotesController < ApplicationController
     render json: { preview: render_markdown(params[:content]) }
   end
 
+  def word_count
+    content = params[:content] || ""
+    word_count = content.split(/\s+/).size
+    render json: { word_count: word_count }
+  end
+
   private
 
   # Use callbacks to share common setup or constraints between actions.
