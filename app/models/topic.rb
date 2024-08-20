@@ -25,7 +25,6 @@ class Topic < ApplicationRecord
   belongs_to :user  
 
   has_many :favorites, as: :favoritable, dependent: :destroy
-  has_many :notes
 
   validates :name, uniqueness: { scope: :user_id, message: "has already been taken for this user" }
   validates :name, presence: { message: "can't be blank. Please provide a topic name." }
@@ -36,23 +35,18 @@ class Topic < ApplicationRecord
   pg_search_scope :search_by_name,
     against: :name,
     using: {
-      tsearch: { prefix: true, any_word: true },  # Prefix allows for partial matching
-      trigram: { threshold: 0.3 }                 # Fuzzy matching threshold
+      tsearch: { prefix: true, any_word: true },
+      trigram: { threshold: 0.3 }
     }
 
-  has_many :notes
-  belongs_to :user
-
   def decrypt(attribute)
-    # Assuming you're using Active Record Encryption
-    self.public_send(attribute) # This assumes automatic decryption by Active Record Encryption
+    self.public_send(attribute)
   end
 
   def share_with(user)
     self.shared_users << user unless self.shared_users.include?(user)
   end
 
-  # For searching purposes
   def self.ransackable_attributes(auth_object = nil)
     ["created_at", "id", "id_value", "name", "updated_at", "user_id", "topic_type"]
   end
