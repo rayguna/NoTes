@@ -53,12 +53,17 @@ body {
 }
 
 .highlight-box {
-  padding: 5px 10px;
-  border-radius: 12px;
-  font-weight: bold;
-  color: #fff;
-  margin: 0 5px;
+  display: inline-block;
+  padding: 2px 8px;
+  max-width: 100px; /* Adjust this value as needed */
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  background-color: yellow; /* Replace with your desired highlight color */
+  border-radius: 12px; /* Keeps the highlight rounded */
+  vertical-align: middle; /* Aligns the highlighted text with the rest */
 }
+
 
 .troves {
   background-color: #ffeb3b;

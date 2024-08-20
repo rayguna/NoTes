@@ -1,155 +1,154 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>noTes - Number of Things</title>
-  <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/css/bootstrap.min.css" rel="stylesheet">
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="<%= asset_path('home_index.css') %>">
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>noTes - Number of Things</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="<%= asset_path('home_index.css') %>">
+  </head>
+  <body>
 
-<!-- Hero Section -->
-<section class="hero">
-  <div class="container">
-    <h1><span class="display-4">Welcome to noT<span class="gold">e</span>s</span></h1>
-    <p class="features-list">
-      ● Collect your <span class="highlight-box troves">Troves</span> of ideas<br>
-      ● Use <span class="highlight-box tools">Tools</span> to turn ideas into opportunities<br>
-      ● Create <span class="highlight-box teases">Teases</span> to inspire
-    </p>
-    <p class="cursive mt-4" data-text="Discover noTes, turn your ideas into reality.">
-      Discover noTes, turn your ideas into reality.
-    </p>
-  </div>
-</section>
-
-
-
-<!-- Carousel -->
-<div id="mainCarousel" class="carousel slide mt-5" data-bs-ride="carousel">
-  <div class="carousel-indicators">
-    <button type="button" data-bs-target="#mainCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-    <button type="button" data-bs-target="#mainCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
-    <button type="button" data-bs-target="#mainCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
-  </div>
-  <div class="carousel-inner">
-    <div class="carousel-item active">
-      <%= image_tag("troves.jpg", class: "d-block w-100", alt: "Troves") %>
-      <div class="carousel-caption d-none d-md-block">
-        <h5>Explore Troves</h5>
-        <p>Gather your ideas.</p>
+    <!-- Hero Section -->
+    <section class="hero">
+      <div class="container">
+        <h1><span class="display-4">Welcome to noT<span class="gold">e</span>s</span></h1>
+        The "e" in noT<span class="gold">e</span>s is silent. It reads as "noTs," which stands for "number of Ts" or "number of Things." This digital note platform is designed for habitual note-takers to boost their productivity by providing an accessible note-taking environment, with the following "Ts":
+        <p class="features-list">
+          ● Collect your <span class="highlight-box troves">Troves</span> of knowledge and ideas<br>
+          ● Navigate with <span class="highlight-box tools">Tools</span><br>
+          ● Enhance learning with <span class="highlight-box teases">Teases</span>
+        </p>
+        <p class="cursive mt-4" data-text="Discover noTes, turn your ideas into reality.">
+          Discover noTes, turn your ideas into reality.
+        </p>
       </div>
-    </div>
-    <div class="carousel-item">
-      <%= image_tag("tools.jpg", class: "d-block w-100", alt: "Tools") %>
-      <div class="carousel-caption d-none d-md-block">
-        <h5>Use Powerful Tools</h5>
-        <p>Boost your productivity and discover new insights.</p>
-      </div>
-    </div>
-    <div class="carousel-item">
-      <%= image_tag("teases.jpg", class: "d-block w-100", alt: "Teases") %>
-      <div class="carousel-caption d-none d-md-block">
-        <h5>Engage with Teases</h5>
-        <p>Create custom quizzes to stay sharp.</p>
-      </div>
-    </div>
-  </div>
-  <button class="carousel-control-prev" type="button" data-bs-target="#mainCarousel" data-bs-slide="prev">
-    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">Previous</span>
-  </button>
-  <button class="carousel-control-next" type="button" data-bs-target="#mainCarousel" data-bs-slide="next">
-    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">Next</span>
-  </button>
-</div>
+    </section>
 
-<!-- Features Section -->
-<section id="features" class="my-5">
-  <div class="container">
-    <h2 class="section-title">Features</h2>
-    <div class="row">
-      <div class="col-md-4 mb-4">
-        <div class="card">
-          <%= image_tag('many_troves.jpg', class: "card-img-top", alt: "Troves") %>
-          <div class="card-body">
-            <h5 class="card-title">Troves</h5>
-            <p class="card-text">Explore your collections.</p>
+    <!-- Carousel -->
+    <div id="mainCarousel" class="carousel slide mt-5" data-bs-ride="carousel">
+      <div class="carousel-indicators">
+        <button type="button" data-bs-target="#mainCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+        <button type="button" data-bs-target="#mainCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+        <button type="button" data-bs-target="#mainCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+      </div>
+      <div class="carousel-inner">
+        <div class="carousel-item active">
+          <%= image_tag("troves.jpg", class: "d-block w-100", alt: "Troves") %>
+          <div class="carousel-caption d-none d-md-block">
+            <h5>Explore Troves</h5>
+            <p>Gather your ideas.</p>
+          </div>
+        </div>
+        <div class="carousel-item">
+          <%= image_tag("tools.jpg", class: "d-block w-100", alt: "Tools") %>
+          <div class="carousel-caption d-none d-md-block">
+            <h5>Use Powerful Tools</h5>
+            <p>Boost your productivity and discover new insights.</p>
+          </div>
+        </div>
+        <div class="carousel-item">
+          <%= image_tag("teases.jpg", class: "d-block w-100", alt: "Teases") %>
+          <div class="carousel-caption d-none d-md-block">
+            <h5>Engage with Teases</h5>
+            <p>Create custom quizzes to stay sharp.</p>
           </div>
         </div>
       </div>
-      <div class="col-md-4 mb-4">
-        <div class="card">
-          <%= image_tag('many_tools.jpg', class: "card-img-top", alt: "Tools") %>
-          <div class="card-body">
-            <h5 class="card-title">Tools</h5>
-            <p class="card-text">Use tools to improve your efficiency.</p>
+      <button class="carousel-control-prev" type="button" data-bs-target="#mainCarousel" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#mainCarousel" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+      </button>
+    </div>
+
+    <!-- Features Section -->
+    <section id="features" class="my-5">
+      <div class="container">
+        <h2 class="section-title">Features</h2>
+        <div class="row">
+          <div class="col-md-4 mb-4">
+            <div class="card">
+              <%= image_tag('many_troves.jpg', class: "card-img-top", alt: "Troves") %>
+              <div class="card-body">
+                <h5 class="card-title">Troves</h5>
+                <p class="card-text">Organize your collections.</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4 mb-4">
+            <div class="card">
+              <%= image_tag('many_tools.jpg', class: "card-img-top", alt: "Tools") %>
+              <div class="card-body">
+                <h5 class="card-title">Tools</h5>
+                <p class="card-text">Use tools to improve your efficiency.</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4 mb-4">
+            <div class="card">
+              <%= image_tag('many_teases.jpg', class: "card-img-top", alt: "Teases") %>
+              <div class="card-body">
+                <h5 class="card-title">Teases</h5>
+                <p class="card-text">Stay engaged with your own entertaining content.</p>
+              </div>
+            </div>
           </div>
         </div>
       </div>
-      <div class="col-md-4 mb-4">
-        <div class="card">
-          <%= image_tag('many_teases.jpg', class: "card-img-top", alt: "Teases") %>
-          <div class="card-body">
-            <h5 class="card-title">Teases</h5>
-            <p class="card-text">Stay engaged with your own entertaining content.</p>
+    </section>
+
+    <!-- Tools Modal -->
+    <div class="modal fade" id="toolsModal" tabindex="-1" aria-labelledby="toolsModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="toolsModalLabel">Tools</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            Access powerful tools designed to improve your workflow and efficiency. Enhance your productivity with noTes.
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
           </div>
         </div>
       </div>
     </div>
-  </div>
-</section>
 
-<!-- Tools Modal -->
-<div class="modal fade" id="toolsModal" tabindex="-1" aria-labelledby="toolsModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="toolsModalLabel">Tools</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        Access powerful tools designed to improve your workflow and efficiency. Enhance your productivity with noTes.
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+    <!-- Teases Modal -->
+    <div class="modal fade" id="teasesModal" tabindex="-1" aria-labelledby="teasesModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="teasesModalLabel">Teases</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            Stay engaged with thought-provoking and entertaining content. Use Teases to inspire and challenge your mind.
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
-</div>
 
-<!-- Teases Modal -->
-<div class="modal fade" id="teasesModal" tabindex="-1" aria-labelledby="teasesModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="teasesModalLabel">Teases</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="container">
+        <p>&copy; 2024 noTes - Number of Things</p>
       </div>
-      <div class="modal-body">
-        Stay engaged with thought-provoking and entertaining content. Use Teases to inspire and challenge your mind.
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-      </div>
-    </div>
-  </div>
-</div>
+    </footer>
 
-<!-- Footer -->
-<footer class="footer">
-  <div class="container">
-    <p>&copy; 2024 noTes - Number of Things</p>
-  </div>
-</footer>
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/js/bootstrap.min.js"></script>
 
-<!-- Bootstrap JS and dependencies -->
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/js/bootstrap.min.js"></script>
-
-</body>
+  </body>
 </html>
