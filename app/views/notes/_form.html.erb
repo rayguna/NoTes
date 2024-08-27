@@ -1,3 +1,4 @@
+<!-- Comment: Can we modulate this? -->
 <head>
   <link rel="stylesheet" href="<%= asset_path('notes_form.css') %>">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -52,6 +53,7 @@
     <%= form.text_area :content, value: params[:content] || @note.content, class: 'form-control', id: 'note-content' %>
   </div>
 
+  <!-- Comment: Lets try to rely on the current_user in the controller not on the hidden input field. -->
   <%= form.hidden_field :user_id, value: current_user.id %>
   <%= form.hidden_field :topic_id, value: @note.topic_id %>
 

@@ -5,6 +5,8 @@ import re
 from wordcloud import WordCloud
 import matplotlib.pyplot as plt
 
+# Did you have to do this using python? 
+
 # Set your OpenAI API key
 openai.api_key = os.getenv('MY_GPT2_KEY')  # Ensure this environment variable is set correctly
 

@@ -49,6 +49,8 @@ Contributions are welcome! Please follow these guidelines:
 ## License
 Distributed under the MIT License. See <a href="https://github.com/rayguna/NoTes/blob/main/LICENSE">`LICENSE`</a> for more information.
 
+<!--Comment Add your ERD HERE -->
+
 ## Contact
 
 Ray Gunawidjaja - [e-mail 📧](mailto:ray.gunaw@gmail.com)<br />

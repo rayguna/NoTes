@@ -13,6 +13,7 @@ class TopicsController < ApplicationController
                    .per(6)
 
     # Display user and shared_user table
+    # Comment: This query is not optimized and can be improved and moved to a model or a service
     @topics = Topic.joins("LEFT JOIN shared_topics ON topics.id = shared_topics.topic_id AND shared_topics.shared_user_id = #{current_user.id}")
       .joins("LEFT JOIN users AS topic_owners ON topics.user_id = topic_owners.id")
       .joins("LEFT JOIN users AS shared_users ON shared_topics.user_id = shared_users.id")

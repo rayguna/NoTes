@@ -14,6 +14,7 @@ class ApplicationController < ActionController::Base
     devise_parameter_sanitizer.permit(:account_update, keys: [:username])
   end
 
+  ## Comment: Good job setting this in your application controller incase it's needed somewhere else
   def render_markdown(text)
     renderer = Redcarpet::Render::HTML.new
     markdown = Redcarpet::Markdown.new(renderer, extensions = {})
