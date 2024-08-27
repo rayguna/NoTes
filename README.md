@@ -53,5 +53,3 @@ Distributed under the MIT License. See <a href="https://github.com/rayguna/NoTes
 
 Ray Gunawidjaja - [e-mail 📧](mailto:ray.gunaw@gmail.com)<br />
 Project Link: [Project noTes](https://github.com/users/rayguna/projects/5)
-
-# Test for Branch Protection
