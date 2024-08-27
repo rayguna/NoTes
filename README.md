@@ -2,9 +2,9 @@
 
 ## Description
 I have trouble remembering things, so I take notes. However, I often forget where I have kept the information I have written down. Therefore, I created a digital notebook called noTes. The letter "e" in <b>noT<span style="color: yellow;">e</span>s</b> is silent, so it is pronounced "noTs," which stands for a number of Ts (or things): "Troves," "Tools," and "Teases." Each of the "Ts" serves a special function in the app, as follows:
-- <u>Troves</u>: A collection of your own topics that contains notes.
-- <u>Tools</u>: A search tool for navigating through your notes.
-- <u>Teases</u>: A collection of collapsible cards created by you to quiz your knowledge.
+- <li>Troves</li>: A collection of your own topics that contains notes.
+- <li>Tools</li>: A search tool for navigating through your notes.
+- <li>Teases</li>: A collection of collapsible cards created by you to quiz your knowledge.
 
 <b>noT<span style="color: yellow;">e</span>s</b> is intended for habitual note-takers who need access to their notes anytime and anywhere and want to keep their data organized and easy to find.
 
@@ -51,5 +51,7 @@ Distributed under the MIT License. See <a href="https://github.com/rayguna/NoTes
 
 ## Contact
 
-Ray Gunawidjaja - [e-mail 📧](mailto:ray.gunaw@gmail.com)<br>
+Ray Gunawidjaja - [e-mail 📧](mailto:ray.gunaw@gmail.com)<br />
 Project Link: [Project noTes](https://github.com/users/rayguna/projects/5)
+
+# Test for Branch Protection
