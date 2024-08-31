@@ -13,11 +13,11 @@
     <table class="table">
       <thead class="thead-dark">
         <tr>
-          <th scope="col" class="sortable" data-column="name" style="color: white;">Name <i class="fas fa-sort sort-icon"></i></th>
-          <th scope="col" class="sortable" data-column="created_at" style="color: white;">Created At <i class="fas fa-sort sort-icon"></i></th>
-          <th scope="col" class="sortable" data-column="updated_at" style="color: white;">Modified At <i class="fas fa-sort sort-icon"></i></th>
-          <th scope="col" class="sortable" data-column="author_email" style="color: white;">Author Email <i class="fas fa-sort sort-icon"></i></th>
-          <th scope="col" style="color: white;">Action</th>
+          <% ["Name", "Created At", "Modified At", "Author Email", "Action"].each_with_index do |header, index| %>
+            <th scope="col" class="sortable" data-column="<%= %w[name created_at updated_at author_email][index] %>">
+              <%= header %> <i class="fas fa-sort sort-icon"></i>
+            </th>
+          <% end %>
         </tr>
       </thead>
       <tbody id="table-body">
@@ -25,9 +25,7 @@
           <tr>
             <% if data_type == "topic" %>
               <td>
-                <%= link_to url_for([row, { topic_type: params[:topic_type], display_as: params[:display_as] }]), class: "btn", style: "color: blue; text-decoration: none;" do %>
-                  <%= row.name %>
-                <% end %>
+                <%= link_to row.name, url_for([row, { topic_type: params[:topic_type], display_as: params[:display_as] }]), class: "btn link-no-decor" %>
               </td>
               <td><%= row.created_at.strftime("%B %d, %Y") %></td>
               <td><%= row.updated_at.strftime("%B %d, %Y") %></td>
@@ -86,11 +84,7 @@
             const aText = a.querySelector(`td:nth-child(${[...header.parentNode.children].indexOf(header) + 1})`).textContent.trim();
             const bText = b.querySelector(`td:nth-child(${[...header.parentNode.children].indexOf(header) + 1})`).textContent.trim();
             
-            if (sortOrder === 'asc') {
-              return aText.localeCompare(bText);
-            } else {
-              return bText.localeCompare(aText);
-            }
+            return sortOrder === 'asc' ? aText.localeCompare(bText) : bText.localeCompare(aText);
           });
 
           sortOrder = sortOrder === 'asc' ? 'desc' : 'asc';
