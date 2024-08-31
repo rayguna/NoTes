@@ -1,5 +1,4 @@
 class TopicsController < ApplicationController
-  VALID_SORT_COLUMNS = %w[name created_at updated_at].freeze
   before_action :set_topic, only: %i[show edit update destroy share]
 
   # GET /topics or /topics.json
@@ -7,27 +6,8 @@ class TopicsController < ApplicationController
     @topic_type = params[:topic_type] || "note" # Default topic type if not provided
     @view_mode = params[:display_as] || "table" # Default to 'table' view if not provided
 
-    #Display user table only
-    @topics = Topic.where(user_id: current_user.id, topic_type: @topic_type)
-                   .page(params[:page])
-                   .per(6)
-
-    # Display user and shared_user table
-    @topics = Topic.joins("LEFT JOIN shared_topics ON topics.id = shared_topics.topic_id AND shared_topics.shared_user_id = #{current_user.id}")
-      .joins("LEFT JOIN users AS topic_owners ON topics.user_id = topic_owners.id")
-      .joins("LEFT JOIN users AS shared_users ON shared_topics.user_id = shared_users.id")
-      .select("topics.*, 
-             CASE 
-               WHEN shared_topics.id IS NOT NULL THEN topic_owners.email 
-               ELSE topic_owners.email 
-             END AS author_email, 
-             LOWER(topics.name) AS lower_name")
-      .where("topics.user_id = :user_id OR shared_topics.shared_user_id = :user_id", user_id: current_user.id)
-      .where(topic_type: @topic_type)
-      .distinct
-      .order(Arel.sql("#{params[:sort] || "lower_name"} #{params[:direction] || "asc"}"))
-      .page(params[:page])
-      .per(6)
+    # Use the TopicFetcher service to get the topics
+    @topics = TopicFetcher.new(current_user, params).fetch
 
     @q = Note.where(user_id: current_user.id).ransack(params[:q])
     @notes = @q.result(distinct: true)
