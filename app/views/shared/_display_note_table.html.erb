@@ -4,25 +4,18 @@
   <table class="table">
     <thead class="thead-dark">
       <tr>
-        <th scope="col" class="sortable" data-column="title" style="color: white;">
-          Title <i class="fas fa-sort sort-icon"></i>
-        </th>
-        <th scope="col" class="sortable" data-column="created_at" style="color: white;">
-          Created At <i class="fas fa-sort sort-icon"></i>
-        </th>
-        <th scope="col" class="sortable" data-column="updated_at" style="color: white;">
-          Modified At <i class="fas fa-sort sort-icon"></i>
-        </th>
-        <th scope="col" style="color: white;">Action</th>
+        <% ["Title", "Created At", "Modified At", "Action"].each_with_index do |header, index| %>
+          <th scope="col" class="sortable" data-column="<%= %w[title created_at updated_at][index] %>" style="color: white;">
+            <%= header %> <% if index < 3 %><i class="fas fa-sort sort-icon"></i><% end %>
+          </th>
+        <% end %>
       </tr>
     </thead>
     <tbody id="table-body">
       <% notes.each do |note| %>
         <tr>
           <td>
-            <%= link_to url_for([note, { display_as: params[:display_as] }]), class: "btn", style: "color: blue; text-decoration: none;" do %>
-              <%= note.title %>
-            <% end %>
+            <%= link_to note.title, url_for([note, { display_as: params[:display_as] }]), class: "btn link-no-decor" %>
           </td>
           <td><%= note.created_at.strftime("%B %d, %Y") %></td>
           <td><%= note.updated_at.strftime("%B %d, %Y") %></td>
@@ -54,12 +47,7 @@
         rows.sort((a, b) => {
           const aText = a.querySelector(`td:nth-child(${[...header.parentNode.children].indexOf(header) + 1})`).textContent.trim();
           const bText = b.querySelector(`td:nth-child(${[...header.parentNode.children].indexOf(header) + 1})`).textContent.trim();
-
-          if (sortOrder === 'asc') {
-            return aText.localeCompare(bText);
-          } else {
-            return bText.localeCompare(aText);
-          }
+          return sortOrder === 'asc' ? aText.localeCompare(bText) : bText.localeCompare(aText);
         });
 
         sortOrder = sortOrder === 'asc' ? 'desc' : 'asc';
